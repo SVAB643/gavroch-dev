@@ -1,65 +1,1130 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useInView,
+  AnimatePresence,
+} from "framer-motion";
+import { ArrowUpRight, Mail, MapPin } from "lucide-react";
+
+/* ─── DATA ─── */
+
+const services = [
+  {
+    num: "01",
+    title: "Design",
+    desc: "Interfaces that convert. UX research, UI design, design systems — we craft experiences your users will love.",
+  },
+  {
+    num: "02",
+    title: "Full-Stack Dev",
+    desc: "React, Next.js, Node, databases — we own the entire stack. Clean, performant, scalable code. Zero tech debt.",
+  },
+  {
+    num: "03",
+    title: "AI Integration",
+    desc: "We integrate AI where it matters. Chatbots, automation, RAG, agents — we transform your workflows with the best models on the market.",
+  },
+  {
+    num: "04",
+    title: "Ship & Scale",
+    desc: "CI/CD, cloud, monitoring, edge computing. Your product goes live in record time, ready to handle growth.",
+  },
+];
+
+const processSteps = [
+  {
+    step: "01",
+    title: "Discover",
+    desc: "We capture your vision, analyze your market, and identify the quick wins and game changers.",
+  },
+  {
+    step: "02",
+    title: "Prototype",
+    desc: "In days, not months. Interactive prototypes, user testing, ultra-fast iterations.",
+  },
+  {
+    step: "03",
+    title: "Build",
+    desc: "Short sprints, weekly demos, continuous feedback. We code with AI to move 10x faster.",
+  },
+  {
+    step: "04",
+    title: "Launch",
+    desc: "Deploy, monitor, optimize. Your product is live and we stick around to help it grow.",
+  },
+];
+
+const projects = [
+  {
+    title: "AI-Powered SaaS",
+    category: "Full-Stack + AI",
+    year: "2025",
+    desc: "SaaS platform with built-in AI agents to automate business workflows.",
+  },
+  {
+    title: "Next-Gen E-commerce",
+    category: "Headless Commerce",
+    year: "2025",
+    desc: "Headless e-commerce with AI recommendations and AB-tested checkout.",
+  },
+  {
+    title: "Social App",
+    category: "React Native",
+    year: "2025",
+    desc: "Mobile app with algorithmic feed and real-time AI moderation.",
+  },
+  {
+    title: "Fintech Dashboard",
+    category: "Data + AI",
+    year: "2024",
+    desc: "Analytics dashboard with ML predictions and interactive visualizations.",
+  },
+];
+
+const values = [
+  {
+    title: "AI-Native",
+    desc: "AI isn't an add-on, it's in our DNA. We code with it, think with it, ship with it. Result: 10x faster, 10x smarter.",
+  },
+  {
+    title: "Gen Z Mindset",
+    desc: "We're the generation that grew up with code. No pointless processes, no endless meetings. Just ship it.",
+  },
+  {
+    title: "Obsessed w/ Quality",
+    desc: "Fast doesn't mean sloppy. Every pixel, every line of code, every interaction is designed for performance.",
+  },
+];
+
+function techIconUrl(name: string, color: string) {
+  const localIcons: Record<string, Record<string, string>> = {
+    "OpenAI": { ffffff: "/img/openai.svg", "888888": "/img/openai-gray.svg" },
+    "AWS": { ffffff: "/img/aws.svg", "888888": "/img/aws-gray.svg" },
+  };
+  if (localIcons[name]) return localIcons[name][color] || localIcons[name].ffffff;
+  const slugs: Record<string, string> = {
+    "Next.js": "nextdotjs",
+    "React": "react",
+    "TypeScript": "typescript",
+    "Node.js": "nodedotjs",
+    "Claude": "anthropic",
+    "Claude API": "anthropic",
+    "LangChain": "langchain",
+    "Tailwind CSS": "tailwindcss",
+    "Figma": "figma",
+    "Vercel": "vercel",
+    "Supabase": "supabase",
+  };
+  return `https://cdn.simpleicons.org/${slugs[name]}/${color}`;
+}
+
+const techs = [
+  "Next.js",
+  "React",
+  "TypeScript",
+  "Node.js",
+  "OpenAI",
+  "Claude API",
+  "LangChain",
+  "Tailwind CSS",
+  "Figma",
+  "Vercel",
+  "AWS",
+  "Supabase",
+];
+
+const navLinks = [
+  { label: "Services", href: "#services" },
+  { label: "Projects", href: "#projects" },
+  { label: "About", href: "#about" },
+  { label: "Contact", href: "#contact" },
+];
+
+/* ─── ANIM VARIANTS ─── */
+
+const ease = [0.16, 1, 0.3, 1] as const;
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (d: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.9, delay: d, ease },
+  }),
+};
+
+const slideUp = {
+  hidden: { y: "100%" },
+  visible: (d: number) => ({
+    y: 0,
+    transition: { duration: 1.2, delay: d, ease },
+  }),
+};
+
+/* ─── PAGE ─── */
 
 export default function Home() {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [hovering, setHovering] = useState(false);
+
+  // Scroll progress
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 80,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  const heroRef = useRef<HTMLElement>(null);
+
+  // Hero scroll-driven orange overlay
+  const { scrollYProgress: heroProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const orangeOpacity = useTransform(heroProgress, [0, 0.7, 1], [0, 0.3, 1]);
+
+  // Section refs for inView
+  const servicesRef = useRef(null);
+  const statsRef = useRef(null);
+  const processRef = useRef(null);
+  const projetsRef = useRef(null);
+  const aboutRef = useRef(null);
+  const contactRef = useRef(null);
+
+  const servicesInView = useInView(servicesRef, { once: true, margin: "-100px" });
+  const statsInView = useInView(statsRef, { once: true, margin: "-100px" });
+  const processInView = useInView(processRef, { once: true, margin: "-100px" });
+  const projetsInView = useInView(projetsRef, { once: true, margin: "-100px" });
+  const aboutInView = useInView(aboutRef, { once: true, margin: "-100px" });
+  const contactInView = useInView(contactRef, { once: true, margin: "-100px" });
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Custom cursor
+  useEffect(() => {
+    const move = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
+    window.addEventListener("mousemove", move);
+
+    const addListeners = () => {
+      document
+        .querySelectorAll("[data-hover], a, button")
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () => setHovering(true));
+          el.addEventListener("mouseleave", () => setHovering(false));
+        });
+    };
+    addListeners();
+    const observer = new MutationObserver(addListeners);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      window.removeEventListener("mousemove", move);
+      observer.disconnect();
+    };
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <>
+      {/* Custom cursor */}
+      <motion.div
+        className="fixed top-0 left-0 w-4 h-4 rounded-full bg-white pointer-events-none z-[999] mix-blend-difference hidden md:block"
+        animate={{ x: pos.x - 8, y: pos.y - 8, scale: hovering ? 4 : 1 }}
+        transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
+      />
+
+      {/* Scroll progress */}
+      <motion.div
+        style={{ scaleX }}
+        className="fixed bottom-0 left-0 right-0 h-[2px] bg-fg origin-left z-[100]"
+      />
+
+      {/* ═══════════════════ NAVBAR ═══════════════════ */}
+      <motion.header
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          scrolled ? "bg-bg/80 backdrop-blur-xl" : ""
+        }`}
+        style={{ color: scrolled ? undefined : "#1a1a1a" }}
+      >
+        <div className="wrapper flex items-center justify-between" style={{ height: 80 }}>
+          <a href="#" className="relative z-50" data-hover>
+            <span className="text-[18px] font-semibold tracking-[0.08em]">
+              GAVROCH
+              <span className="font-mono font-normal tracking-[0.06em]" style={{ color: scrolled ? undefined : "rgba(0,0,0,0.45)" }}>
+                .DEV
+              </span>
+            </span>
+          </a>
+
+          <nav className="hidden md:flex items-center gap-10">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                data-hover
+                className={`nav-link text-[12px] uppercase tracking-[0.15em] transition-colors duration-300 ${
+                  scrolled ? "text-muted hover:text-fg" : "hover:text-black"
+                }`}
+                style={scrolled ? undefined : { color: "rgba(0,0,0,0.5)" }}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden relative z-50 flex flex-col gap-1.5"
+            data-hover
+            aria-label="Menu"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+            <motion.span
+              animate={menuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
+              className="block w-5 h-[1px] bg-current origin-center"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <motion.span
+              animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
+              className="block w-5 h-[1px] bg-current"
+            />
+            <motion.span
+              animate={menuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
+              className="block w-5 h-[1px] bg-current origin-center"
+            />
+          </button>
         </div>
-      </main>
-    </div>
+      </motion.header>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="fixed inset-0 z-40 bg-bg flex flex-col items-start justify-center gap-8"
+            style={{ paddingLeft: 48, paddingRight: 48 }}
+          >
+            {navLinks.map((link, i) => (
+              <motion.a
+                key={link.label}
+                href={link.href}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + i * 0.08 }}
+                onClick={() => setMenuOpen(false)}
+                className="text-[clamp(2rem,7vw,3.5rem)] font-medium tracking-[-0.02em] leading-tight text-fg/80 hover:text-fg transition-colors"
+              >
+                {link.label}
+              </motion.a>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ═══════════════════ HERO ═══════════════════ */}
+      <section
+        ref={heroRef}
+        className="relative flex flex-col justify-end overflow-hidden"
+        style={{ minHeight: "100vh", paddingBottom: 96, paddingTop: 128, background: "linear-gradient(to bottom, #F5F0E8 0%, #FFD000 25%, #FF8C00 50%, #CC2200 80%, #991100 100%)", color: "#1a1a1a" }}
+      >
+        {/* Animated color waves */}
+        <motion.div
+          className="absolute z-0 pointer-events-none"
+          animate={{ y: [0, -200, 100, -160, 60, 0], x: [0, 70, -60, 50, -40, 0], rotate: [0, 4, -3, 5, -4, 0] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          style={{ top: "20%", left: "-30%", right: "-30%", height: "50%", background: "#FFD000", borderRadius: "40%", filter: "blur(120px)", opacity: 0.7 }}
+        />
+        <motion.div
+          className="absolute z-0 pointer-events-none"
+          animate={{ y: [0, 180, -150, 120, -90, 0], x: [0, -90, 70, -60, 50, 0], rotate: [0, -5, 4, -6, 3, 0] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+          style={{ top: "35%", left: "-40%", right: "-40%", height: "45%", background: "#FF6600", borderRadius: "45%", filter: "blur(120px)", opacity: 0.7 }}
+        />
+        <motion.div
+          className="absolute z-0 pointer-events-none"
+          animate={{ y: [0, -130, 160, -110, 80, 0], x: [0, 60, -80, 40, -70, 0], rotate: [0, 6, -4, 5, -3, 0] }}
+          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+          style={{ bottom: "-30%", left: "-25%", right: "-25%", height: "60%", background: "#CC2200", borderRadius: "50%", filter: "blur(100px)", opacity: 0.6 }}
+        />
+        <motion.div
+          className="absolute z-0 pointer-events-none"
+          animate={{ y: [0, 140, -100, 80, -60, 0], x: [0, -50, 80, -40, 60, 0], rotate: [0, -3, 5, -4, 2, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          style={{ top: "5%", left: "-20%", right: "-20%", height: "40%", background: "#F5F0E8", borderRadius: "40%", filter: "blur(110px)", opacity: 0.5 }}
+        />
+
+        {/* Static grain overlay */}
+        <div
+          className="absolute inset-0 z-[1] pointer-events-none"
+          style={{ opacity: 0.8 }}
+        >
+          <svg width="100%" height="100%">
+            <filter id="heroGrain">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="5" stitchTiles="stitch" />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#heroGrain)" />
+          </svg>
+        </div>
+
+        {/* Scroll-driven orange overlay */}
+        <motion.div
+          className="absolute inset-0 z-[1] pointer-events-none"
+          style={{
+            opacity: orangeOpacity,
+            background: "radial-gradient(ellipse at 50% 80%, rgba(255,120,0,0.95) 0%, rgba(255,160,30,0.8) 40%, rgba(255,100,0,0.6) 70%, rgba(255,80,0,0.4) 100%)",
+          }}
+        />
+
+        <div className="wrapper relative z-10 flex flex-col justify-between" style={{ minHeight: "calc(100vh - 224px)" }}>
+          {/* Top — tagline */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="text-[11px] uppercase tracking-[0.25em]"
+            style={{ color: "rgba(0,0,0,0.35)" }}
+          >
+            AI-Native Full-Stack Studio &mdash; Paris
+          </motion.p>
+
+          {/* Center — main heading */}
+          <div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {["We listen.", "We build.", "We ship."].map((line, i) => (
+                <div key={line} className="overflow-hidden">
+                  <motion.h1
+                    initial={{ y: "100%" }}
+                    animate={{ y: 0 }}
+                    transition={{
+                      duration: 1.2,
+                      delay: 1 + i * 0.15,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    className="text-[clamp(3rem,10vw,8rem)] font-medium uppercase"
+                    style={{ lineHeight: 0.9, letterSpacing: "-0.04em", color: "#1a1a1a" }}
+                  >
+                    {line}
+                  </motion.h1>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom — subline left, CTA right */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1.8 }}
+            className="flex flex-col md:flex-row md:items-end justify-between"
+            style={{ gap: 32 }}
+          >
+            <div>
+              <p className="text-[clamp(1.15rem,2.2vw,1.45rem)] font-medium" style={{ lineHeight: 1.5, color: "#1a1a1a", maxWidth: 480 }}>
+                The Gen&nbsp;Z spirit to unlock your full&nbsp;potential.
+              </p>
+              <p className="text-[clamp(0.85rem,1.5vw,1rem)] uppercase tracking-[0.15em]" style={{ marginTop: 12, color: "rgba(0,0,0,0.35)" }}>
+                Design &middot; Code &middot; AI &middot; Deploy
+              </p>
+            </div>
+            <motion.a
+              href="#services"
+              data-hover
+              className="text-[12px] uppercase tracking-[0.2em] font-medium flex items-center gap-4 group shrink-0"
+              style={{ color: "#1a1a1a" }}
+              whileHover={{ x: 4 }}
+            >
+              Discover
+              <span className="inline-block h-[1px] bg-black group-hover:w-16 transition-all duration-500" style={{ width: 40 }} />
+            </motion.a>
+          </motion.div>
+        </div>
+
+        <motion.div
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ duration: 1.5, delay: 2.2 }}
+          className="absolute bottom-0 left-1/2 origin-top hidden md:block z-10"
+          style={{ background: "rgba(0,0,0,0.15)", width: 1, height: 56 }}
+        />
+      </section>
+
+      {/* ═══════════════════ STUDIO SECTION ═══════════════════ */}
+      <section
+        className="relative overflow-hidden"
+        style={{ paddingTop: 160, paddingBottom: 160, background: "#050505", color: "#fafafa" }}
+      >
+        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.3 }}>
+          <svg width="100%" height="100%"><filter id="grainStudio"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainStudio)" /></svg>
+        </div>
+        <div className="wrapper">
+          {/* Large statement */}
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between" style={{ gap: 64 }}>
+            <div style={{ flex: "1 1 0" }}>
+              <motion.p
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                custom={0}
+                className="text-[11px] uppercase tracking-[0.3em] font-mono"
+                style={{ marginBottom: 40, color: "rgba(255,255,255,0.3)" }}
+              >
+                What we do
+              </motion.p>
+              <motion.h2
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                custom={0.1}
+                className="text-[clamp(2.5rem,7vw,6rem)] font-medium"
+                style={{ lineHeight: 1, letterSpacing: "-0.04em", color: "#fff" }}
+              >
+                Full-Stack
+                <br />
+                <span style={{ color: "rgba(255,255,255,0.3)" }}>Web Development</span>
+                <br />
+                Studio
+              </motion.h2>
+            </div>
+
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              custom={0.3}
+              style={{ flex: "0 1 380px" }}
+            >
+              <p className="text-[15px]" style={{ lineHeight: 1.8, color: "rgba(255,255,255,0.5)" }}>
+                We design, code, and deploy digital products built to perform.
+                Our AI-native approach lets us move faster without ever sacrificing quality.
+              </p>
+              <motion.a
+                href="#services"
+                data-hover
+                className="inline-flex items-center gap-3 text-[12px] uppercase tracking-[0.2em] font-medium group"
+                style={{ marginTop: 32, color: "#fff" }}
+                whileHover={{ x: 4 }}
+              >
+                Our services
+                <span className="inline-block h-[1px] bg-white group-hover:w-16 transition-all duration-500" style={{ width: 40 }} />
+              </motion.a>
+            </motion.div>
+          </div>
+
+          {/* Horizontal divider */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={0.4}
+            style={{ marginTop: 80, marginBottom: 80, height: 1, background: "rgba(255,255,255,0.08)" }}
+          />
+
+          {/* Tech stack grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4" style={{ gap: 1, background: "rgba(255,255,255,0.06)", borderRadius: 20, overflow: "hidden" }}>
+            {[
+              { label: "Next.js", cat: "Framework" },
+              { label: "React", cat: "UI" },
+              { label: "TypeScript", cat: "Language" },
+              { label: "Node.js", cat: "Runtime" },
+              { label: "OpenAI", cat: "AI" },
+              { label: "Claude", cat: "AI" },
+              { label: "Figma", cat: "Design" },
+              { label: "Vercel", cat: "Deploy" },
+            ].map((tech, i) => (
+              <motion.div
+                key={tech.label}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                custom={i * 0.05}
+                className="flex flex-col items-center justify-center text-center"
+                style={{ padding: "48px 20px", background: "#050505" }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={techIconUrl(tech.label, "ffffff")} alt="" width={36} height={36} style={{ marginBottom: 16, opacity: 0.8 }} />
+                <span className="text-[17px] font-semibold" style={{ color: "#fff" }}>{tech.label}</span>
+                <span className="text-[11px] uppercase tracking-[0.15em] font-mono" style={{ marginTop: 10, color: "rgba(255,255,255,0.3)" }}>{tech.cat}</span>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Tags */}
+          <div
+            className="flex flex-wrap justify-center"
+            style={{ marginTop: 64, gap: 12 }}
+          >
+            {[
+              "AI-Native",
+              "Full-Stack",
+              "Gen Z Energy",
+              "Ship Fast",
+              "Design-Driven",
+              "Pixel Perfect",
+            ].map((tag, i) => (
+              <motion.span
+                key={tag}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                custom={i * 0.05}
+                className="text-[11px] uppercase tracking-[0.15em] font-mono"
+                style={{
+                  padding: "10px 22px",
+                  borderRadius: 100,
+                  border: "1px solid rgba(255,140,0,0.35)",
+                  color: "rgba(255,140,0,0.7)",
+                }}
+              >
+                {tag}
+              </motion.span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════ MARQUEE ═══════════════════ */}
+      <div
+        className="border-t border-b border-border overflow-hidden"
+        style={{ paddingTop: 20, paddingBottom: 20 }}
+      >
+        <motion.div
+          animate={{ x: [0, "-50%"] }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="flex whitespace-nowrap"
+          style={{ gap: 48 }}
+        >
+          {[0, 1].map((r) => (
+            <div key={r} className="flex" style={{ gap: 48 }}>
+              {techs.map((tech) => (
+                <span
+                  key={`${r}-${tech}`}
+                  className="flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-muted/40 font-mono"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={techIconUrl(tech, "888888")} alt="" width={12} height={12} style={{ opacity: 0.5 }} />
+                  {tech}
+                </span>
+              ))}
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* ═══════════════════ SERVICES ═══════════════════ */}
+      <section id="services" className="relative overflow-hidden" ref={servicesRef} style={{ paddingTop: 140, paddingBottom: 140 }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
+          <svg width="100%" height="100%"><filter id="grainServices"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainServices)" /></svg>
+        </div>
+        <div className="wrapper">
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate={servicesInView ? "visible" : "hidden"}
+            custom={0}
+            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono"
+            style={{ marginBottom: 64 }}
+          >
+            Services
+          </motion.p>
+
+          <div style={{ marginBottom: 80 }}>
+            <div className="overflow-hidden">
+              <motion.h2
+                variants={slideUp}
+                initial="hidden"
+                animate={servicesInView ? "visible" : "hidden"}
+                custom={0.1}
+                className="text-[clamp(2rem,5vw,4.5rem)] font-medium max-w-4xl"
+                style={{ lineHeight: 1.05, letterSpacing: "-0.03em" }}
+              >
+                Built different.{" "}
+                <span style={{ color: "#E8943A" }}>Powered by AI.</span>
+              </motion.h2>
+            </div>
+          </div>
+
+          <div
+            className="grid grid-cols-1 md:grid-cols-2"
+            style={{ gap: 0 }}
+          >
+            {services.map((s, i) => (
+              <motion.div
+                key={s.num}
+                variants={fadeUp}
+                initial="hidden"
+                animate={servicesInView ? "visible" : "hidden"}
+                custom={0.15 + i * 0.1}
+                className="group border-t border-border"
+                style={{ paddingTop: 40, paddingBottom: 40, paddingRight: i % 2 === 0 ? 64 : 0 }}
+              >
+                <span
+                  className="text-[11px] font-mono text-muted/40 tracking-wider block"
+                  style={{ marginBottom: 20 }}
+                >
+                  {s.num}
+                </span>
+                <h3
+                  className="text-[clamp(1.5rem,3vw,2.25rem)] font-medium group-hover:translate-x-2 transition-transform duration-500"
+                  style={{ letterSpacing: "-0.02em", marginBottom: 16 }}
+                >
+                  {s.title}
+                </h3>
+                <p className="text-[14px] text-muted max-w-md" style={{ lineHeight: 1.8 }}>
+                  {s.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════ STATS BANNER ═══════════════════ */}
+      <section className="section-dark relative overflow-hidden" ref={statsRef} style={{ paddingTop: 120, paddingBottom: 120 }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
+          <svg width="100%" height="100%"><filter id="grainStats"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainStats)" /></svg>
+        </div>
+        <div className="wrapper">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            animate={statsInView ? "visible" : "hidden"}
+            custom={0}
+            className="flex flex-col md:flex-row md:items-center justify-between"
+            style={{ gap: 48 }}
+          >
+            <h2
+              className="text-[clamp(2rem,5vw,4rem)] font-medium max-w-2xl"
+              style={{ lineHeight: 1.1, letterSpacing: "-0.03em" }}
+            >
+              We don&apos;t just talk,
+              <br />
+              we ship.
+            </h2>
+            <div className="flex" style={{ gap: 64 }}>
+              {[
+                { num: "50+", label: "Projects shipped" },
+                { num: "10x", label: "Faster with AI" },
+                { num: "100%", label: "Client retention" },
+              ].map((stat, i) => (
+                <motion.div
+                  key={stat.label}
+                  variants={fadeUp}
+                  initial="hidden"
+                  animate={statsInView ? "visible" : "hidden"}
+                  custom={0.15 + i * 0.1}
+                >
+                  <p
+                    className="text-[clamp(1.75rem,4vw,3rem)] font-medium"
+                    style={{ letterSpacing: "-0.03em", marginBottom: 4, color: "#F5C46A" }}
+                  >
+                    {stat.num}
+                  </p>
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-fg-light/40 font-mono">
+                    {stat.label}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══════════════════ PROCESS ═══════════════════ */}
+      <section className="relative overflow-hidden" ref={processRef} style={{ paddingTop: 140, paddingBottom: 140 }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
+          <svg width="100%" height="100%"><filter id="grainProcess"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainProcess)" /></svg>
+        </div>
+        <div className="wrapper">
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate={processInView ? "visible" : "hidden"}
+            custom={0}
+            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono"
+            style={{ marginBottom: 64 }}
+          >
+            Our process
+          </motion.p>
+
+          <div style={{ marginBottom: 80 }}>
+            <div className="overflow-hidden">
+              <motion.h2
+                variants={slideUp}
+                initial="hidden"
+                animate={processInView ? "visible" : "hidden"}
+                custom={0.1}
+                className="text-[clamp(2rem,5vw,4.5rem)] font-medium max-w-4xl"
+                style={{ lineHeight: 1.05, letterSpacing: "-0.03em" }}
+              >
+                From zero to live{" "}
+                <span className="text-muted">in record time.</span>
+              </motion.h2>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4" style={{ gap: 0 }}>
+            {processSteps.map((p, i) => (
+              <motion.div
+                key={p.step}
+                variants={fadeUp}
+                initial="hidden"
+                animate={processInView ? "visible" : "hidden"}
+                custom={0.15 + i * 0.12}
+                className="border-t border-border"
+                style={{ paddingTop: 32, paddingBottom: 48, paddingRight: 40 }}
+              >
+                <span
+                  className="text-[11px] font-mono tracking-wider block"
+                  style={{ marginBottom: 32, color: "#E8943A" }}
+                >
+                  {p.step}
+                </span>
+                <h3
+                  className="text-[1.25rem] font-medium"
+                  style={{ letterSpacing: "-0.01em", marginBottom: 12 }}
+                >
+                  {p.title}
+                </h3>
+                <p className="text-[13px] text-muted" style={{ lineHeight: 1.8 }}>
+                  {p.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════ PROJETS ═══════════════════ */}
+      <section id="projects" className="section-dark relative overflow-hidden" ref={projetsRef} style={{ paddingTop: 140, paddingBottom: 140 }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
+          <svg width="100%" height="100%"><filter id="grainProjets"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainProjets)" /></svg>
+        </div>
+        <div className="wrapper">
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate={projetsInView ? "visible" : "hidden"}
+            custom={0}
+            className="text-[11px] uppercase tracking-[0.25em] font-mono"
+            style={{ marginBottom: 64, color: "rgba(255,255,255,0.4)" }}
+          >
+            Projects
+          </motion.p>
+
+          <div style={{ marginBottom: 80 }}>
+            <div className="overflow-hidden">
+              <motion.h2
+                variants={slideUp}
+                initial="hidden"
+                animate={projetsInView ? "visible" : "hidden"}
+                custom={0.1}
+                className="text-[clamp(2rem,5vw,4.5rem)] font-medium max-w-4xl"
+                style={{ lineHeight: 1.05, letterSpacing: "-0.03em" }}
+              >
+                What we&apos;ve built{" "}
+                <span style={{ color: "rgba(255,255,255,0.3)" }}>recently.</span>
+              </motion.h2>
+            </div>
+          </div>
+
+          {projects.map((p, i) => (
+            <motion.div
+              key={p.title}
+              variants={fadeUp}
+              initial="hidden"
+              animate={projetsInView ? "visible" : "hidden"}
+              custom={0.15 + i * 0.08}
+              className="group border-t border-border-dark flex flex-col md:flex-row md:items-center justify-between"
+              style={{ paddingTop: 40, paddingBottom: 40, gap: 16 }}
+              data-hover
+            >
+              <div className="flex items-center flex-1" style={{ gap: 40 }}>
+                <span className="text-[11px] font-mono tracking-wider hidden md:block" style={{ color: "rgba(255,255,255,0.15)", minWidth: 40 }}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3
+                  className="text-[clamp(1.25rem,2.5vw,2rem)] font-medium group-hover:translate-x-3 transition-transform duration-500"
+                  style={{ letterSpacing: "-0.02em" }}
+                >
+                  {p.title}
+                </h3>
+              </div>
+              <div className="flex items-center" style={{ gap: 40 }}>
+                <span className="text-[12px] tracking-wider hidden md:block" style={{ color: "rgba(255,255,255,0.35)" }}>
+                  {p.category}
+                </span>
+                <span className="text-[12px] font-mono tracking-wider" style={{ color: "rgba(255,255,255,0.15)" }}>
+                  {p.year}
+                </span>
+                <p className="text-[13px] max-w-xs hidden lg:block" style={{ lineHeight: 1.6, color: "rgba(255,255,255,0.45)" }}>
+                  {p.desc}
+                </p>
+                <ArrowUpRight
+                  size={16}
+                  className="group-hover:rotate-45 transition-all duration-500"
+                  style={{ color: "rgba(255,140,0,0.6)" }}
+                />
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ═══════════════════ À PROPOS ═══════════════════ */}
+      <section id="about" className="relative overflow-hidden" ref={aboutRef} style={{ paddingTop: 140, paddingBottom: 140 }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
+          <svg width="100%" height="100%"><filter id="grainAbout"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainAbout)" /></svg>
+        </div>
+        <div className="wrapper">
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate={aboutInView ? "visible" : "hidden"}
+            custom={0}
+            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono"
+            style={{ marginBottom: 64 }}
+          >
+            About
+          </motion.p>
+
+          <div className="grid grid-cols-1 md:grid-cols-12" style={{ gap: 64 }}>
+            {/* Left column */}
+            <div className="md:col-span-5">
+              <div className="overflow-hidden">
+                <motion.h2
+                  variants={slideUp}
+                  initial="hidden"
+                  animate={aboutInView ? "visible" : "hidden"}
+                  custom={0.1}
+                  className="text-[clamp(2rem,5vw,4.5rem)] font-medium"
+                  style={{ lineHeight: 1.05, letterSpacing: "-0.03em" }}
+                >
+                  A new kind{" "}
+                  <span className="text-muted">of studio.</span>
+                </motion.h2>
+              </div>
+
+              <motion.p
+                variants={fadeUp}
+                initial="hidden"
+                animate={aboutInView ? "visible" : "hidden"}
+                custom={0.25}
+                className="text-[14px] text-muted max-w-md"
+                style={{ lineHeight: 1.9, marginTop: 32 }}
+              >
+                We&apos;re a tight crew of developers and designers based in Paris.
+                Born in the AI era, we build digital products that move fast, look sharp,
+                and actually work. No legacy thinking, no corporate BS.
+              </motion.p>
+
+              <motion.p
+                variants={fadeUp}
+                initial="hidden"
+                animate={aboutInView ? "visible" : "hidden"}
+                custom={0.35}
+                className="text-[14px] text-muted max-w-md"
+                style={{ lineHeight: 1.9, marginTop: 16 }}
+              >
+                We leverage AI to code faster, design smarter, and ship things
+                that would take traditional agencies months. That&apos;s our unfair advantage.
+              </motion.p>
+            </div>
+
+            {/* Right column - values */}
+            <div className="md:col-span-6 md:col-start-7">
+              {values.map((v, i) => (
+                <motion.div
+                  key={v.title}
+                  variants={fadeUp}
+                  initial="hidden"
+                  animate={aboutInView ? "visible" : "hidden"}
+                  custom={0.2 + i * 0.12}
+                  className="border-t border-border"
+                  style={{ paddingTop: 40, paddingBottom: 40 }}
+                >
+                  <div className="flex flex-col md:flex-row md:items-start" style={{ gap: 32 }}>
+                    <h3
+                      className="text-[1.25rem] font-medium"
+                      style={{ letterSpacing: "-0.01em", minWidth: 160 }}
+                    >
+                      {v.title}
+                    </h3>
+                    <p className="text-[14px] text-muted" style={{ lineHeight: 1.8 }}>
+                      {v.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════ CONTACT ═══════════════════ */}
+      <section id="contact" className="section-dark relative overflow-hidden" ref={contactRef} style={{ paddingTop: 140, paddingBottom: 140 }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
+          <svg width="100%" height="100%"><filter id="grainContact"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainContact)" /></svg>
+        </div>
+        <div className="wrapper">
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate={contactInView ? "visible" : "hidden"}
+            custom={0}
+            className="text-[11px] uppercase tracking-[0.25em] font-mono"
+            style={{ marginBottom: 64, color: "rgba(255,255,255,0.4)" }}
+          >
+            Contact
+          </motion.p>
+
+          <div className="grid grid-cols-1 md:grid-cols-12" style={{ gap: 64 }}>
+            {/* Left */}
+            <div className="md:col-span-7">
+              <div className="overflow-hidden">
+                <motion.h2
+                  variants={slideUp}
+                  initial="hidden"
+                  animate={contactInView ? "visible" : "hidden"}
+                  custom={0.1}
+                  className="text-[clamp(2.5rem,6vw,5.5rem)] font-medium"
+                  style={{ lineHeight: 1, letterSpacing: "-0.04em" }}
+                >
+                  Ready to build&nbsp;?
+                </motion.h2>
+              </div>
+              <div className="overflow-hidden" style={{ marginTop: 8 }}>
+                <motion.h2
+                  variants={slideUp}
+                  initial="hidden"
+                  animate={contactInView ? "visible" : "hidden"}
+                  custom={0.2}
+                  className="text-[clamp(2.5rem,6vw,5.5rem)] font-medium"
+                  style={{ lineHeight: 1, letterSpacing: "-0.04em", color: "#E8943A" }}
+                >
+                  Let&apos;s talk.
+                </motion.h2>
+              </div>
+
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                animate={contactInView ? "visible" : "hidden"}
+                custom={0.35}
+                style={{ marginTop: 64 }}
+              >
+                <motion.a
+                  href="mailto:hello@gavroch.dev"
+                  data-hover
+                  className="inline-flex items-center text-[12px] uppercase tracking-[0.2em] font-medium group"
+                  style={{ gap: 16 }}
+                  whileHover={{ x: 4 }}
+                >
+                  Hit us up
+                  <span
+                    className="inline-block h-[1px] bg-fg-light group-hover:w-16 transition-all duration-500"
+                    style={{ width: 40 }}
+                  />
+                </motion.a>
+              </motion.div>
+            </div>
+
+            {/* Right */}
+            <div className="md:col-span-4 md:col-start-9 flex flex-col justify-end" style={{ gap: 40 }}>
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                animate={contactInView ? "visible" : "hidden"}
+                custom={0.25}
+                style={{ display: "flex", flexDirection: "column", gap: 24 }}
+              >
+                <a
+                  href="mailto:hello@gavroch.dev"
+                  data-hover
+                  className="flex items-center text-[13px] hover:text-fg-light transition-colors duration-300 group"
+                  style={{ gap: 16, color: "rgba(255,255,255,0.45)" }}
+                >
+                  <Mail size={14} style={{ color: "rgba(255,255,255,0.2)" }} />
+                  hello@gavroch.dev
+                </a>
+                <div
+                  className="flex items-center text-[13px]"
+                  style={{ gap: 16, color: "rgba(255,255,255,0.45)" }}
+                >
+                  <MapPin size={14} style={{ color: "rgba(255,255,255,0.2)" }} />
+                  Paris, France
+                </div>
+              </motion.div>
+
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                animate={contactInView ? "visible" : "hidden"}
+                custom={0.35}
+                className="border-t border-border-dark"
+                style={{ paddingTop: 24 }}
+              >
+                <p
+                  className="text-[11px] uppercase tracking-[0.2em] font-mono"
+                  style={{ marginBottom: 16, color: "rgba(255,255,255,0.15)" }}
+                >
+                  Socials
+                </p>
+                <div className="flex" style={{ gap: 24 }}>
+                  {["LinkedIn", "GitHub", "Twitter"].map((social) => (
+                    <a
+                      key={social}
+                      href="#"
+                      data-hover
+                      className="text-[12px] hover:text-fg-light transition-colors duration-300 tracking-wider"
+                      style={{ color: "rgba(255,255,255,0.25)" }}
+                    >
+                      {social}
+                    </a>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════ FOOTER ═══════════════════ */}
+      <footer className="border-t border-border" style={{ paddingTop: 32, paddingBottom: 32 }}>
+        <div className="wrapper flex flex-col md:flex-row items-center justify-between" style={{ gap: 16 }}>
+          <span className="text-[11px] text-muted/30 font-mono tracking-wider">
+            &copy; {new Date().getFullYear()} GAVROCH.DEV
+          </span>
+          <div className="flex" style={{ gap: 32 }}>
+            {["Mentions légales", "Confidentialité"].map((link) => (
+              <a
+                key={link}
+                href="#"
+                className="text-[11px] text-muted/20 hover:text-muted/50 font-mono tracking-wider transition-colors duration-300"
+              >
+                {link}
+              </a>
+            ))}
+          </div>
+        </div>
+      </footer>
+    </>
   );
 }
