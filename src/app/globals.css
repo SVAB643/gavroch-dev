@@ -32,6 +32,12 @@ a, button {
   cursor: none;
 }
 
+@media (pointer: coarse) {
+  html, body, a, button {
+    cursor: auto;
+  }
+}
+
 ::selection {
   background: var(--color-fg);
   color: var(--color-bg);

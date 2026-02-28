@@ -257,9 +257,9 @@ export default function Home() {
         }`}
         style={{ color: scrolled ? undefined : "#1a1a1a" }}
       >
-        <div className="wrapper flex items-center justify-between" style={{ height: 80 }}>
+        <div className="wrapper flex items-center justify-between h-[60px] md:h-[80px]">
           <a href="#" className="relative z-50" data-hover>
-            <span className="text-[18px] font-semibold tracking-[0.08em]">
+            <span className="text-[16px] md:text-[18px] font-semibold tracking-[0.08em]">
               GAVROCH
               <span className="font-mono font-normal tracking-[0.06em]" style={{ color: scrolled ? undefined : "rgba(0,0,0,0.45)" }}>
                 .DEV
@@ -336,8 +336,8 @@ export default function Home() {
       {/* ═══════════════════ HERO ═══════════════════ */}
       <section
         ref={heroRef}
-        className="relative flex flex-col justify-end overflow-hidden"
-        style={{ minHeight: "100vh", paddingBottom: 96, paddingTop: 128, background: "linear-gradient(to bottom, #F5F0E8 0%, #FFD000 25%, #FF8C00 50%, #CC2200 80%, #991100 100%)", color: "#1a1a1a" }}
+        className="relative flex flex-col justify-end overflow-hidden pt-[100px] pb-[60px] md:pt-[128px] md:pb-[96px]"
+        style={{ minHeight: "100vh", background: "linear-gradient(to bottom, #F5F0E8 0%, #FFD000 25%, #FF8C00 50%, #CC2200 80%, #991100 100%)", color: "#1a1a1a" }}
       >
         {/* Animated color waves */}
         <motion.div
@@ -387,7 +387,7 @@ export default function Home() {
           }}
         />
 
-        <div className="wrapper relative z-10 flex flex-col justify-between" style={{ minHeight: "calc(100vh - 224px)" }}>
+        <div className="wrapper relative z-10 flex flex-col justify-between" style={{ minHeight: "calc(100vh - 160px)" }}>
           {/* Top — tagline */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -462,15 +462,15 @@ export default function Home() {
 
       {/* ═══════════════════ STUDIO SECTION ═══════════════════ */}
       <section
-        className="relative overflow-hidden"
-        style={{ paddingTop: 160, paddingBottom: 160, background: "#050505", color: "#fafafa" }}
+        className="relative overflow-hidden py-[80px] md:py-[160px]"
+        style={{ background: "#050505", color: "#fafafa" }}
       >
         <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.3 }}>
           <svg width="100%" height="100%"><filter id="grainStudio"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainStudio)" /></svg>
         </div>
         <div className="wrapper">
           {/* Large statement */}
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between" style={{ gap: 64 }}>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-10 md:gap-16">
             <div style={{ flex: "1 1 0" }}>
               <motion.p
                 variants={fadeUp}
@@ -479,7 +479,7 @@ export default function Home() {
                 viewport={{ once: true, margin: "-100px" }}
                 custom={0}
                 className="text-[11px] uppercase tracking-[0.3em] font-mono"
-                style={{ marginBottom: 40, color: "rgba(255,255,255,0.3)" }}
+                style={{ marginBottom: 32, color: "rgba(255,255,255,0.3)" }}
               >
                 What we do
               </motion.p>
@@ -532,7 +532,8 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true }}
             custom={0.4}
-            style={{ marginTop: 80, marginBottom: 80, height: 1, background: "rgba(255,255,255,0.08)" }}
+            className="mt-[40px] mb-[40px] md:mt-[80px] md:mb-[80px]"
+            style={{ height: 1, background: "rgba(255,255,255,0.08)" }}
           />
 
           {/* Tech stack grid */}
@@ -554,12 +555,12 @@ export default function Home() {
                 whileInView="visible"
                 viewport={{ once: true }}
                 custom={i * 0.05}
-                className="flex flex-col items-center justify-center text-center"
-                style={{ padding: "48px 20px", background: "#050505" }}
+                className="flex flex-col items-center justify-center text-center px-3 py-6 md:px-5 md:py-12"
+                style={{ background: "#050505" }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={techIconUrl(tech.label, "ffffff")} alt="" width={36} height={36} style={{ marginBottom: 16, opacity: 0.8 }} />
-                <span className="text-[17px] font-semibold" style={{ color: "#fff" }}>{tech.label}</span>
+                <img src={techIconUrl(tech.label, "ffffff")} alt="" className="w-6 h-6 md:w-9 md:h-9 mb-3 md:mb-4" style={{ opacity: 0.8 }} />
+                <span className="text-[13px] md:text-[17px] font-semibold" style={{ color: "#fff" }}>{tech.label}</span>
                 <span className="text-[11px] uppercase tracking-[0.15em] font-mono" style={{ marginTop: 10, color: "rgba(255,255,255,0.3)" }}>{tech.cat}</span>
               </motion.div>
             ))}
@@ -567,8 +568,8 @@ export default function Home() {
 
           {/* Tags */}
           <div
-            className="flex flex-wrap justify-center"
-            style={{ marginTop: 64, gap: 12 }}
+            className="flex flex-wrap justify-center mt-10 md:mt-16"
+            style={{ gap: 12 }}
           >
             {[
               "AI-Native",
@@ -629,7 +630,7 @@ export default function Home() {
       </div>
 
       {/* ═══════════════════ SERVICES ═══════════════════ */}
-      <section id="services" className="relative overflow-hidden" ref={servicesRef} style={{ paddingTop: 140, paddingBottom: 140 }}>
+      <section id="services" className="relative overflow-hidden py-[80px] md:py-[140px]" ref={servicesRef}>
         <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
           <svg width="100%" height="100%"><filter id="grainServices"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainServices)" /></svg>
         </div>
@@ -639,13 +640,12 @@ export default function Home() {
             initial="hidden"
             animate={servicesInView ? "visible" : "hidden"}
             custom={0}
-            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono"
-            style={{ marginBottom: 64 }}
+            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono mb-10 md:mb-16"
           >
             Services
           </motion.p>
 
-          <div style={{ marginBottom: 80 }}>
+          <div className="mb-12 md:mb-20">
             <div className="overflow-hidden">
               <motion.h2
                 variants={slideUp}
@@ -672,8 +672,8 @@ export default function Home() {
                 initial="hidden"
                 animate={servicesInView ? "visible" : "hidden"}
                 custom={0.15 + i * 0.1}
-                className="group border-t border-border"
-                style={{ paddingTop: 40, paddingBottom: 40, paddingRight: i % 2 === 0 ? 64 : 0 }}
+                className="group border-t border-border py-8 md:py-10"
+                style={{ paddingRight: i % 2 === 0 ? 40 : 0 }}
               >
                 <span
                   className="text-[11px] font-mono text-muted/40 tracking-wider block"
@@ -697,7 +697,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ STATS BANNER ═══════════════════ */}
-      <section className="section-dark relative overflow-hidden" ref={statsRef} style={{ paddingTop: 120, paddingBottom: 120 }}>
+      <section className="section-dark relative overflow-hidden py-[64px] md:py-[120px]" ref={statsRef}>
         <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
           <svg width="100%" height="100%"><filter id="grainStats"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainStats)" /></svg>
         </div>
@@ -707,8 +707,7 @@ export default function Home() {
             initial="hidden"
             animate={statsInView ? "visible" : "hidden"}
             custom={0}
-            className="flex flex-col md:flex-row md:items-center justify-between"
-            style={{ gap: 48 }}
+            className="flex flex-col md:flex-row md:items-center justify-between gap-10 md:gap-12"
           >
             <h2
               className="text-[clamp(2rem,5vw,4rem)] font-medium max-w-2xl"
@@ -718,7 +717,7 @@ export default function Home() {
               <br />
               we ship.
             </h2>
-            <div className="flex" style={{ gap: 64 }}>
+            <div className="flex flex-wrap gap-8 md:gap-16">
               {[
                 { num: "50+", label: "Projects shipped" },
                 { num: "10x", label: "Faster with AI" },
@@ -748,7 +747,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ PROCESS ═══════════════════ */}
-      <section className="relative overflow-hidden" ref={processRef} style={{ paddingTop: 140, paddingBottom: 140 }}>
+      <section className="relative overflow-hidden py-[80px] md:py-[140px]" ref={processRef}>
         <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
           <svg width="100%" height="100%"><filter id="grainProcess"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainProcess)" /></svg>
         </div>
@@ -758,13 +757,12 @@ export default function Home() {
             initial="hidden"
             animate={processInView ? "visible" : "hidden"}
             custom={0}
-            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono"
-            style={{ marginBottom: 64 }}
+            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono mb-10 md:mb-16"
           >
             Our process
           </motion.p>
 
-          <div style={{ marginBottom: 80 }}>
+          <div className="mb-12 md:mb-20">
             <div className="overflow-hidden">
               <motion.h2
                 variants={slideUp}
@@ -780,7 +778,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4" style={{ gap: 0 }}>
+          <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 0 }}>
             {processSteps.map((p, i) => (
               <motion.div
                 key={p.step}
@@ -788,8 +786,7 @@ export default function Home() {
                 initial="hidden"
                 animate={processInView ? "visible" : "hidden"}
                 custom={0.15 + i * 0.12}
-                className="border-t border-border"
-                style={{ paddingTop: 32, paddingBottom: 48, paddingRight: 40 }}
+                className="border-t border-border pt-6 pb-8 pr-4 md:pt-8 md:pb-12 md:pr-10"
               >
                 <span
                   className="text-[11px] font-mono tracking-wider block"
@@ -813,7 +810,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ PROJETS ═══════════════════ */}
-      <section id="projects" className="section-dark relative overflow-hidden" ref={projetsRef} style={{ paddingTop: 140, paddingBottom: 140 }}>
+      <section id="projects" className="section-dark relative overflow-hidden py-[80px] md:py-[140px]" ref={projetsRef}>
         <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
           <svg width="100%" height="100%"><filter id="grainProjets"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainProjets)" /></svg>
         </div>
@@ -823,13 +820,13 @@ export default function Home() {
             initial="hidden"
             animate={projetsInView ? "visible" : "hidden"}
             custom={0}
-            className="text-[11px] uppercase tracking-[0.25em] font-mono"
-            style={{ marginBottom: 64, color: "rgba(255,255,255,0.4)" }}
+            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-10 md:mb-16"
+            style={{ color: "rgba(255,255,255,0.4)" }}
           >
             Projects
           </motion.p>
 
-          <div style={{ marginBottom: 80 }}>
+          <div className="mb-12 md:mb-20">
             <div className="overflow-hidden">
               <motion.h2
                 variants={slideUp}
@@ -852,8 +849,7 @@ export default function Home() {
               initial="hidden"
               animate={projetsInView ? "visible" : "hidden"}
               custom={0.15 + i * 0.08}
-              className="group border-t border-border-dark flex flex-col md:flex-row md:items-center justify-between"
-              style={{ paddingTop: 40, paddingBottom: 40, gap: 16 }}
+              className="group border-t border-border-dark flex flex-col md:flex-row md:items-center justify-between py-6 md:py-10 gap-3 md:gap-4"
               data-hover
             >
               <div className="flex items-center flex-1" style={{ gap: 40 }}>
@@ -889,7 +885,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ À PROPOS ═══════════════════ */}
-      <section id="about" className="relative overflow-hidden" ref={aboutRef} style={{ paddingTop: 140, paddingBottom: 140 }}>
+      <section id="about" className="relative overflow-hidden py-[80px] md:py-[140px]" ref={aboutRef}>
         <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
           <svg width="100%" height="100%"><filter id="grainAbout"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainAbout)" /></svg>
         </div>
@@ -899,13 +895,12 @@ export default function Home() {
             initial="hidden"
             animate={aboutInView ? "visible" : "hidden"}
             custom={0}
-            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono"
-            style={{ marginBottom: 64 }}
+            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono mb-10 md:mb-16"
           >
             About
           </motion.p>
 
-          <div className="grid grid-cols-1 md:grid-cols-12" style={{ gap: 64 }}>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
             {/* Left column */}
             <div className="md:col-span-5">
               <div className="overflow-hidden">
@@ -979,7 +974,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ CONTACT ═══════════════════ */}
-      <section id="contact" className="section-dark relative overflow-hidden" ref={contactRef} style={{ paddingTop: 140, paddingBottom: 140 }}>
+      <section id="contact" className="section-dark relative overflow-hidden py-[80px] md:py-[140px]" ref={contactRef}>
         <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
           <svg width="100%" height="100%"><filter id="grainContact"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainContact)" /></svg>
         </div>
@@ -989,13 +984,13 @@ export default function Home() {
             initial="hidden"
             animate={contactInView ? "visible" : "hidden"}
             custom={0}
-            className="text-[11px] uppercase tracking-[0.25em] font-mono"
-            style={{ marginBottom: 64, color: "rgba(255,255,255,0.4)" }}
+            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-10 md:mb-16"
+            style={{ color: "rgba(255,255,255,0.4)" }}
           >
             Contact
           </motion.p>
 
-          <div className="grid grid-cols-1 md:grid-cols-12" style={{ gap: 64 }}>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
             {/* Left */}
             <div className="md:col-span-7">
               <div className="overflow-hidden">
@@ -1028,7 +1023,7 @@ export default function Home() {
                 initial="hidden"
                 animate={contactInView ? "visible" : "hidden"}
                 custom={0.35}
-                style={{ marginTop: 64 }}
+                className="mt-10 md:mt-16"
               >
                 <motion.a
                   href="mailto:hello@gavroch.dev"
@@ -1047,7 +1042,7 @@ export default function Home() {
             </div>
 
             {/* Right */}
-            <div className="md:col-span-4 md:col-start-9 flex flex-col justify-end" style={{ gap: 40 }}>
+            <div className="md:col-span-4 md:col-start-9 flex flex-col justify-end gap-8 md:gap-10">
               <motion.div
                 variants={fadeUp}
                 initial="hidden"
@@ -1113,7 +1108,7 @@ export default function Home() {
             &copy; {new Date().getFullYear()} GAVROCH.DEV
           </span>
           <div className="flex" style={{ gap: 32 }}>
-            {["Mentions légales", "Confidentialité"].map((link) => (
+            {["Legal", "Privacy"].map((link) => (
               <a
                 key={link}
                 href="#"
