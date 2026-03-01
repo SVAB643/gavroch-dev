@@ -1149,16 +1149,20 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {[
               {
-                name: "Adrien S.",
+                name: "Adrien Svabek",
                 initials: "AS",
+                photo: "/img/adrien.jpg",
                 role: "Co-founder & Developer",
                 desc: "Full-stack engineer obsessed with clean code and AI integration. Builds products that scale from day one.",
+                linkedin: "https://www.linkedin.com/in/adrien-svabek-1451101aa/",
               },
               {
-                name: "Lucas M.",
-                initials: "LM",
+                name: "Alexandre Cohen",
+                initials: "AC",
+                photo: "/img/alexandre.jpg",
                 role: "Co-founder & Designer",
                 desc: "UI/UX designer with a sharp eye for detail. Turns complex ideas into interfaces people actually enjoy using.",
+                linkedin: "#",
               },
             ].map((member, i) => (
               <motion.div
@@ -1167,26 +1171,42 @@ export default function Home() {
                 initial="hidden"
                 animate={teamInView ? "visible" : "hidden"}
                 custom={0.15 + i * 0.12}
-                className="flex flex-col sm:flex-row items-start gap-6 p-8 md:p-10 rounded-2xl"
+                className="flex flex-col items-center text-center p-8 md:p-12 rounded-2xl"
                 style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}
               >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={member.photo}
+                  alt={member.name}
+                  className="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover"
+                  style={{ border: "2px solid rgba(255,140,0,0.2)", marginBottom: 24 }}
+                  onError={(e) => { e.currentTarget.style.display = "none"; e.currentTarget.nextElementSibling?.classList.remove("hidden"); }}
+                />
                 <div
-                  className="shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center text-[18px] md:text-[20px] font-medium"
-                  style={{ background: "rgba(255,140,0,0.12)", color: "#E8943A", border: "1px solid rgba(255,140,0,0.2)" }}
+                  className="hidden w-28 h-28 md:w-36 md:h-36 rounded-full items-center justify-center text-[28px] md:text-[32px] font-medium shrink-0"
+                  style={{ background: "rgba(255,140,0,0.12)", color: "#E8943A", border: "2px solid rgba(255,140,0,0.2)", marginBottom: 24 }}
                 >
                   {member.initials}
                 </div>
-                <div>
-                  <h3 className="text-[1.25rem] font-medium" style={{ marginBottom: 4 }}>
-                    {member.name}
-                  </h3>
-                  <p className="text-[12px] uppercase tracking-[0.15em] font-mono" style={{ color: "#E8943A", marginBottom: 16 }}>
-                    {member.role}
-                  </p>
-                  <p className="text-[14px]" style={{ lineHeight: 1.8, color: "rgba(255,255,255,0.5)" }}>
-                    {member.desc}
-                  </p>
-                </div>
+                <h3 className="text-[1.35rem] md:text-[1.5rem] font-medium" style={{ marginBottom: 4 }}>
+                  {member.name}
+                </h3>
+                <p className="text-[12px] uppercase tracking-[0.15em] font-mono" style={{ color: "#E8943A", marginBottom: 20 }}>
+                  {member.role}
+                </p>
+                <p className="text-[14px] max-w-sm" style={{ lineHeight: 1.8, color: "rgba(255,255,255,0.5)", marginBottom: 24 }}>
+                  {member.desc}
+                </p>
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-hover
+                  className="text-[12px] uppercase tracking-[0.15em] font-mono hover:text-fg-light transition-colors duration-300"
+                  style={{ color: "rgba(255,255,255,0.3)" }}
+                >
+                  LinkedIn &rarr;
+                </a>
               </motion.div>
             ))}
           </div>
