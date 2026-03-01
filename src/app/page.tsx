@@ -196,6 +196,7 @@ export default function Home() {
   const pricingRef = useRef(null);
   const projetsRef = useRef(null);
   const aboutRef = useRef(null);
+  const teamRef = useRef(null);
   const contactRef = useRef(null);
 
   const servicesInView = useInView(servicesRef, { once: true, margin: "-100px" });
@@ -204,6 +205,7 @@ export default function Home() {
   const pricingInView = useInView(pricingRef, { once: true, margin: "-100px" });
   const projetsInView = useInView(projetsRef, { once: true, margin: "-100px" });
   const aboutInView = useInView(aboutRef, { once: true, margin: "-100px" });
+  const teamInView = useInView(teamRef, { once: true, margin: "-100px" });
   const contactInView = useInView(contactRef, { once: true, margin: "-100px" });
 
   useEffect(() => {
@@ -1107,6 +1109,86 @@ export default function Home() {
                 </motion.div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════ TEAM ═══════════════════ */}
+      <section className="section-dark relative overflow-hidden py-[80px] md:py-[140px]" ref={teamRef}>
+        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
+          <svg width="100%" height="100%"><filter id="grainTeam"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainTeam)" /></svg>
+        </div>
+        <div className="wrapper">
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate={teamInView ? "visible" : "hidden"}
+            custom={0}
+            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-10 md:mb-16"
+            style={{ color: "rgba(255,255,255,0.4)" }}
+          >
+            The team
+          </motion.p>
+
+          <div className="mb-12 md:mb-20">
+            <div className="overflow-hidden">
+              <motion.h2
+                variants={slideUp}
+                initial="hidden"
+                animate={teamInView ? "visible" : "hidden"}
+                custom={0.1}
+                className="text-[clamp(2rem,5vw,4.5rem)] font-medium max-w-4xl"
+                style={{ lineHeight: 1.05, letterSpacing: "-0.03em" }}
+              >
+                Two founders.{" "}
+                <span style={{ color: "rgba(255,255,255,0.3)" }}>One vision.</span>
+              </motion.h2>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            {[
+              {
+                name: "Adrien S.",
+                initials: "AS",
+                role: "Co-founder & Developer",
+                desc: "Full-stack engineer obsessed with clean code and AI integration. Builds products that scale from day one.",
+              },
+              {
+                name: "Lucas M.",
+                initials: "LM",
+                role: "Co-founder & Designer",
+                desc: "UI/UX designer with a sharp eye for detail. Turns complex ideas into interfaces people actually enjoy using.",
+              },
+            ].map((member, i) => (
+              <motion.div
+                key={member.name}
+                variants={fadeUp}
+                initial="hidden"
+                animate={teamInView ? "visible" : "hidden"}
+                custom={0.15 + i * 0.12}
+                className="flex flex-col sm:flex-row items-start gap-6 p-8 md:p-10 rounded-2xl"
+                style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}
+              >
+                <div
+                  className="shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center text-[18px] md:text-[20px] font-medium"
+                  style={{ background: "rgba(255,140,0,0.12)", color: "#E8943A", border: "1px solid rgba(255,140,0,0.2)" }}
+                >
+                  {member.initials}
+                </div>
+                <div>
+                  <h3 className="text-[1.25rem] font-medium" style={{ marginBottom: 4 }}>
+                    {member.name}
+                  </h3>
+                  <p className="text-[12px] uppercase tracking-[0.15em] font-mono" style={{ color: "#E8943A", marginBottom: 16 }}>
+                    {member.role}
+                  </p>
+                  <p className="text-[14px]" style={{ lineHeight: 1.8, color: "rgba(255,255,255,0.5)" }}>
+                    {member.desc}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
