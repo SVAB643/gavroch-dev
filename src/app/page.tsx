@@ -65,24 +65,28 @@ const projects = [
     category: "Full-Stack + AI",
     year: "2025",
     desc: "SaaS platform with built-in AI agents to automate business workflows.",
+    image: "https://picsum.photos/seed/saas/800/500",
   },
   {
     title: "Next-Gen E-commerce",
     category: "Headless Commerce",
     year: "2025",
     desc: "Headless e-commerce with AI recommendations and AB-tested checkout.",
+    image: "https://picsum.photos/seed/ecom/800/500",
   },
   {
     title: "Social App",
     category: "React Native",
     year: "2025",
     desc: "Mobile app with algorithmic feed and real-time AI moderation.",
+    image: "https://picsum.photos/seed/social/800/500",
   },
   {
     title: "Fintech Dashboard",
     category: "Data + AI",
     year: "2024",
     desc: "Analytics dashboard with ML predictions and interactive visualizations.",
+    image: "https://picsum.photos/seed/fintech/800/500",
   },
 ];
 
@@ -950,20 +954,16 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ PROJETS ═══════════════════ */}
-      <section id="projects" className="section-dark relative overflow-hidden py-[56px] md:py-[140px]" ref={projetsRef}>
-        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
-          <svg width="100%" height="100%"><filter id="grainProjets"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainProjets)" /></svg>
-        </div>
+      <section id="projects" className="relative overflow-hidden py-[56px] md:py-[140px]" ref={projetsRef}>
         <div className="wrapper">
           <motion.p
             variants={fadeUp}
             initial="hidden"
             animate={projetsInView ? "visible" : "hidden"}
             custom={0}
-            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-6 md:mb-16"
-            style={{ color: "rgba(255,255,255,0.4)" }}
+            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono mb-6 md:mb-16"
           >
-            Projects
+            Our Work
           </motion.p>
 
           <div className="mb-8 md:mb-20">
@@ -977,50 +977,56 @@ export default function Home() {
                 style={{ lineHeight: 1.05, letterSpacing: "-0.03em" }}
               >
                 What we&apos;ve built{" "}
-                <span style={{ color: "rgba(255,255,255,0.3)" }}>recently.</span>
+                <span className="text-muted">recently.</span>
               </motion.h2>
             </div>
           </div>
 
-          {projects.map((p, i) => (
-            <motion.div
-              key={p.title}
-              variants={fadeUp}
-              initial="hidden"
-              animate={projetsInView ? "visible" : "hidden"}
-              custom={0.15 + i * 0.08}
-              className="group border-t border-border-dark flex flex-col md:flex-row md:items-center justify-between py-6 md:py-10 gap-3 md:gap-4"
-              data-hover
-            >
-              <div className="flex items-center flex-1" style={{ gap: 40 }}>
-                <span className="text-[11px] font-mono tracking-wider hidden md:block" style={{ color: "rgba(255,255,255,0.15)", minWidth: 40 }}>
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3
-                  className="text-[clamp(1.25rem,2.5vw,2rem)] font-medium group-hover:translate-x-3 transition-transform duration-500"
-                  style={{ letterSpacing: "-0.02em" }}
-                >
-                  {p.title}
-                </h3>
-              </div>
-              <div className="flex items-center" style={{ gap: 40 }}>
-                <span className="text-[12px] tracking-wider hidden md:block" style={{ color: "rgba(255,255,255,0.35)" }}>
-                  {p.category}
-                </span>
-                <span className="text-[12px] font-mono tracking-wider" style={{ color: "rgba(255,255,255,0.15)" }}>
-                  {p.year}
-                </span>
-                <p className="text-[13px] max-w-xs hidden lg:block" style={{ lineHeight: 1.6, color: "rgba(255,255,255,0.45)" }}>
-                  {p.desc}
-                </p>
-                <ArrowUpRight
-                  size={16}
-                  className="group-hover:rotate-45 transition-all duration-500"
-                  style={{ color: "rgba(255,140,0,0.6)" }}
-                />
-              </div>
-            </motion.div>
-          ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+            {projects.map((p, i) => (
+              <motion.div
+                key={p.title}
+                variants={fadeUp}
+                initial="hidden"
+                animate={projetsInView ? "visible" : "hidden"}
+                custom={0.15 + i * 0.1}
+                className="group"
+                data-hover
+              >
+                <div className="relative overflow-hidden rounded-2xl mb-5" style={{ aspectRatio: "16/10" }}>
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <div
+                    className="absolute inset-0 transition-opacity duration-500 opacity-0 group-hover:opacity-100"
+                    style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)" }}
+                  />
+                </div>
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h3
+                      className="text-[clamp(1.1rem,2vw,1.5rem)] font-medium mb-1.5"
+                      style={{ letterSpacing: "-0.02em" }}
+                    >
+                      {p.title}
+                    </h3>
+                    <p className="text-[13px] text-muted" style={{ lineHeight: 1.6 }}>
+                      {p.desc}
+                    </p>
+                  </div>
+                  <span
+                    className="shrink-0 text-[11px] font-mono tracking-wider mt-1 px-3 py-1 rounded-full"
+                    style={{ background: "rgba(232,148,58,0.1)", color: "#E8943A" }}
+                  >
+                    {p.category}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
