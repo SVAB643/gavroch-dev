@@ -1156,10 +1156,7 @@ export default function Home() {
                 desc: "Full-stack engineer obsessed with clean code and AI integration. Builds products that scale from day one.",
                 linkedin: "https://www.linkedin.com/in/adrien-svabek-1451101aa/",
                 education: "MSc 224 — Dauphine PSL",
-                experience: [
-                  { name: "EY", logo: "/img/logos/ey.svg" },
-                  { name: "Cambon Partners", logo: "/img/logos/cambon.svg" },
-                ],
+                experience: ["EY", "Cambon Partners"],
               },
               {
                 name: "Alexandre Cohen",
@@ -1169,11 +1166,7 @@ export default function Home() {
                 desc: "UI/UX designer with a sharp eye for detail. Turns complex ideas into interfaces people actually enjoy using.",
                 linkedin: "#",
                 education: "MSc 203 — Dauphine PSL",
-                experience: [
-                  { name: "Goldman Sachs", logo: "/img/logos/goldman.svg" },
-                  { name: "HSBC", logo: "/img/logos/hsbc.svg" },
-                  { name: "Société Générale", logo: "/img/logos/socgen.svg" },
-                ],
+                experience: ["Goldman Sachs", "HSBC", "Société Générale"],
               },
             ].map((member, i) => (
               <motion.div
@@ -1210,26 +1203,25 @@ export default function Home() {
                 </p>
 
                 {/* Education */}
-                <div className="flex items-center gap-3" style={{ marginBottom: 16 }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/img/logos/dauphine.svg" alt="Dauphine PSL" style={{ height: 16, opacity: 0.35 }} />
-                  <span className="text-[11px] tracking-[0.1em] font-mono" style={{ color: "rgba(255,255,255,0.3)" }}>
-                    {member.education}
-                  </span>
-                </div>
+                <p className="text-[11px] uppercase tracking-[0.15em] font-mono" style={{ color: "rgba(255,255,255,0.25)", marginBottom: 12 }}>
+                  {member.education}
+                </p>
 
-                {/* Experience logos */}
-                <div className="flex flex-wrap justify-center items-center gap-5" style={{ marginBottom: 24 }}>
+                {/* Experience */}
+                <div className="flex flex-wrap justify-center gap-2" style={{ marginBottom: 24 }}>
                   {member.experience.map((company) => (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      key={company.name}
-                      src={company.logo}
-                      alt={company.name}
-                      title={company.name}
-                      style={{ height: 22, opacity: 0.4 }}
-                      className="hover:opacity-70 transition-opacity duration-300"
-                    />
+                    <span
+                      key={company}
+                      className="text-[11px] tracking-[0.08em] font-mono"
+                      style={{
+                        padding: "6px 14px",
+                        borderRadius: 100,
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        color: "rgba(255,255,255,0.4)",
+                      }}
+                    >
+                      {company}
+                    </span>
                   ))}
                 </div>
 
