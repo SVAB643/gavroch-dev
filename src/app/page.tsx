@@ -1183,7 +1183,7 @@ export default function Home() {
                   alt={member.name}
                   loading="lazy"
                   className="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover"
-                  style={{ border: "2px solid rgba(255,140,0,0.2)", marginBottom: 24 }}
+                  style={{ border: "2px solid rgba(255,140,0,0.2)", marginBottom: 24, filter: member.name === "Alexandre Cohen" ? "grayscale(100%)" : undefined }}
                   onError={(e) => { e.currentTarget.style.display = "none"; e.currentTarget.nextElementSibling?.classList.remove("hidden"); }}
                 />
                 <div
