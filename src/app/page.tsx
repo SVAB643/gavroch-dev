@@ -479,7 +479,7 @@ export default function Home() {
         </div>
         <div className="wrapper">
           {/* Large statement */}
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-16">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-2 md:gap-16">
             <div style={{ flex: "1 1 0" }}>
               <motion.p
                 variants={fadeUp}
@@ -487,7 +487,7 @@ export default function Home() {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-100px" }}
                 custom={0}
-                className="text-[11px] uppercase tracking-[0.3em] font-mono mb-5 md:mb-8"
+                className="text-[11px] uppercase tracking-[0.3em] font-mono mb-2 md:mb-8"
                 style={{ color: "rgba(255,255,255,0.3)" }}
               >
                 What we do
@@ -524,7 +524,7 @@ export default function Home() {
               <motion.a
                 href="#services"
                 data-hover
-                className="inline-flex items-center gap-3 text-[12px] uppercase tracking-[0.2em] font-medium group mt-5 md:mt-8"
+                className="inline-flex items-center gap-3 text-[12px] uppercase tracking-[0.2em] font-medium group mt-2 md:mt-8"
                 style={{ color: "#fff" }}
                 whileHover={{ x: 4 }}
               >
@@ -541,7 +541,7 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true }}
             custom={0.4}
-            className="mt-[20px] mb-[20px] md:mt-[80px] md:mb-[80px]"
+            className="mt-[8px] mb-[8px] md:mt-[80px] md:mb-[80px]"
             style={{ height: 1, background: "rgba(255,255,255,0.08)" }}
           />
 
