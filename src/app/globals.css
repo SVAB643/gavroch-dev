@@ -103,3 +103,13 @@ html {
 .section-dark .text-muted {
   color: rgba(255, 255, 255, 0.4);
 }
+
+/* Hide heavy GPU effects on mobile */
+@media (max-width: 767px) {
+  .hero-blob {
+    display: none !important;
+  }
+  .grain-overlay {
+    display: none !important;
+  }
+}

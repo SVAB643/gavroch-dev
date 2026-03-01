@@ -341,30 +341,30 @@ export default function Home() {
       {/* ═══════════════════ HERO ═══════════════════ */}
       <section
         ref={heroRef}
-        className="relative flex flex-col justify-end overflow-hidden pt-[100px] pb-[60px] md:pt-[128px] md:pb-[96px]"
+        className="relative flex flex-col justify-end overflow-hidden pt-[80px] pb-[48px] md:pt-[128px] md:pb-[96px]"
         style={{ minHeight: "100vh", background: "linear-gradient(to bottom, #F5F0E8 0%, #FFD000 25%, #FF8C00 50%, #CC2200 80%, #991100 100%)", color: "#1a1a1a" }}
       >
-        {/* Animated color waves */}
+        {/* Animated color waves — hidden on mobile for performance */}
         <motion.div
-          className="absolute z-0 pointer-events-none"
+          className="hero-blob absolute z-0 pointer-events-none"
           animate={{ y: [0, -200, 100, -160, 60, 0], x: [0, 70, -60, 50, -40, 0], rotate: [0, 4, -3, 5, -4, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
           style={{ top: "20%", left: "-30%", right: "-30%", height: "50%", background: "#FFD000", borderRadius: "40%", filter: "blur(120px)", opacity: 0.7 }}
         />
         <motion.div
-          className="absolute z-0 pointer-events-none"
+          className="hero-blob absolute z-0 pointer-events-none"
           animate={{ y: [0, 180, -150, 120, -90, 0], x: [0, -90, 70, -60, 50, 0], rotate: [0, -5, 4, -6, 3, 0] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
           style={{ top: "35%", left: "-40%", right: "-40%", height: "45%", background: "#FF6600", borderRadius: "45%", filter: "blur(120px)", opacity: 0.7 }}
         />
         <motion.div
-          className="absolute z-0 pointer-events-none"
+          className="hero-blob absolute z-0 pointer-events-none"
           animate={{ y: [0, -130, 160, -110, 80, 0], x: [0, 60, -80, 40, -70, 0], rotate: [0, 6, -4, 5, -3, 0] }}
           transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
           style={{ bottom: "-30%", left: "-25%", right: "-25%", height: "60%", background: "#CC2200", borderRadius: "50%", filter: "blur(100px)", opacity: 0.6 }}
         />
         <motion.div
-          className="absolute z-0 pointer-events-none"
+          className="hero-blob absolute z-0 pointer-events-none"
           animate={{ y: [0, 140, -100, 80, -60, 0], x: [0, -50, 80, -40, 60, 0], rotate: [0, -3, 5, -4, 2, 0] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           style={{ top: "5%", left: "-20%", right: "-20%", height: "40%", background: "#F5F0E8", borderRadius: "40%", filter: "blur(110px)", opacity: 0.5 }}
@@ -372,7 +372,7 @@ export default function Home() {
 
         {/* Static grain overlay */}
         <div
-          className="absolute inset-0 z-[1] pointer-events-none"
+          className="grain-overlay absolute inset-0 z-[1] pointer-events-none"
           style={{ opacity: 0.8 }}
         >
           <svg width="100%" height="100%">
@@ -467,10 +467,10 @@ export default function Home() {
 
       {/* ═══════════════════ STUDIO SECTION ═══════════════════ */}
       <section
-        className="relative overflow-hidden py-[80px] md:py-[160px]"
+        className="relative overflow-hidden py-[56px] md:py-[160px]"
         style={{ background: "#050505", color: "#fafafa" }}
       >
-        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.3 }}>
+        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.3 }}>
           <svg width="100%" height="100%"><filter id="grainStudio"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainStudio)" /></svg>
         </div>
         <div className="wrapper">
@@ -537,7 +537,7 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true }}
             custom={0.4}
-            className="mt-[40px] mb-[40px] md:mt-[80px] md:mb-[80px]"
+            className="mt-[32px] mb-[32px] md:mt-[80px] md:mb-[80px]"
             style={{ height: 1, background: "rgba(255,255,255,0.08)" }}
           />
 
@@ -564,7 +564,7 @@ export default function Home() {
                 style={{ background: "#050505" }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={techIconUrl(tech.label, "ffffff")} alt="" className="w-6 h-6 md:w-9 md:h-9 mb-3 md:mb-4" style={{ opacity: 0.8 }} />
+                <img src={techIconUrl(tech.label, "ffffff")} alt="" loading="lazy" className="w-6 h-6 md:w-9 md:h-9 mb-3 md:mb-4" style={{ opacity: 0.8 }} />
                 <span className="text-[13px] md:text-[17px] font-semibold" style={{ color: "#fff" }}>{tech.label}</span>
                 <span className="text-[11px] uppercase tracking-[0.15em] font-mono" style={{ marginTop: 10, color: "rgba(255,255,255,0.3)" }}>{tech.cat}</span>
               </motion.div>
@@ -573,7 +573,7 @@ export default function Home() {
 
           {/* Tags */}
           <div
-            className="flex flex-wrap justify-center mt-10 md:mt-16"
+            className="flex flex-wrap justify-center mt-8 md:mt-16"
             style={{ gap: 12 }}
           >
             {[
@@ -625,7 +625,7 @@ export default function Home() {
                   className="flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-muted/40 font-mono"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={techIconUrl(tech, "888888")} alt="" width={12} height={12} style={{ opacity: 0.5 }} />
+                  <img src={techIconUrl(tech, "888888")} alt="" loading="lazy" width={12} height={12} style={{ opacity: 0.5 }} />
                   {tech}
                 </span>
               ))}
@@ -635,8 +635,8 @@ export default function Home() {
       </div>
 
       {/* ═══════════════════ SERVICES ═══════════════════ */}
-      <section id="services" className="relative overflow-hidden py-[80px] md:py-[140px]" ref={servicesRef}>
-        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
+      <section id="services" className="relative overflow-hidden py-[56px] md:py-[140px]" ref={servicesRef}>
+        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
           <svg width="100%" height="100%"><filter id="grainServices"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainServices)" /></svg>
         </div>
         <div className="wrapper">
@@ -645,12 +645,12 @@ export default function Home() {
             initial="hidden"
             animate={servicesInView ? "visible" : "hidden"}
             custom={0}
-            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono mb-10 md:mb-16"
+            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono mb-6 md:mb-16"
           >
             Services
           </motion.p>
 
-          <div className="mb-12 md:mb-20">
+          <div className="mb-8 md:mb-20">
             <div className="overflow-hidden">
               <motion.h2
                 variants={slideUp}
@@ -702,8 +702,8 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ STATS BANNER ═══════════════════ */}
-      <section className="section-dark relative overflow-hidden py-[64px] md:py-[120px]" ref={statsRef}>
-        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
+      <section className="section-dark relative overflow-hidden py-[48px] md:py-[120px]" ref={statsRef}>
+        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
           <svg width="100%" height="100%"><filter id="grainStats"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainStats)" /></svg>
         </div>
         <div className="wrapper">
@@ -752,8 +752,8 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ PROCESS ═══════════════════ */}
-      <section className="relative overflow-hidden py-[80px] md:py-[140px]" ref={processRef}>
-        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
+      <section className="relative overflow-hidden py-[56px] md:py-[140px]" ref={processRef}>
+        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
           <svg width="100%" height="100%"><filter id="grainProcess"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainProcess)" /></svg>
         </div>
         <div className="wrapper">
@@ -762,12 +762,12 @@ export default function Home() {
             initial="hidden"
             animate={processInView ? "visible" : "hidden"}
             custom={0}
-            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono mb-10 md:mb-16"
+            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono mb-6 md:mb-16"
           >
             Our process
           </motion.p>
 
-          <div className="mb-12 md:mb-20">
+          <div className="mb-8 md:mb-20">
             <div className="overflow-hidden">
               <motion.h2
                 variants={slideUp}
@@ -815,8 +815,8 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ PRICING ═══════════════════ */}
-      <section id="pricing" className="section-dark relative overflow-hidden py-[80px] md:py-[140px]" ref={pricingRef}>
-        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
+      <section id="pricing" className="section-dark relative overflow-hidden py-[56px] md:py-[140px]" ref={pricingRef}>
+        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
           <svg width="100%" height="100%"><filter id="grainPricing"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainPricing)" /></svg>
         </div>
         <div className="wrapper">
@@ -825,13 +825,13 @@ export default function Home() {
             initial="hidden"
             animate={pricingInView ? "visible" : "hidden"}
             custom={0}
-            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-10 md:mb-16"
+            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-6 md:mb-16"
             style={{ color: "rgba(255,255,255,0.4)" }}
           >
             Pricing
           </motion.p>
 
-          <div className="mb-12 md:mb-20">
+          <div className="mb-8 md:mb-20">
             <div className="overflow-hidden">
               <motion.h2
                 variants={slideUp}
@@ -950,8 +950,8 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ PROJETS ═══════════════════ */}
-      <section id="projects" className="section-dark relative overflow-hidden py-[80px] md:py-[140px]" ref={projetsRef}>
-        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
+      <section id="projects" className="section-dark relative overflow-hidden py-[56px] md:py-[140px]" ref={projetsRef}>
+        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
           <svg width="100%" height="100%"><filter id="grainProjets"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainProjets)" /></svg>
         </div>
         <div className="wrapper">
@@ -960,13 +960,13 @@ export default function Home() {
             initial="hidden"
             animate={projetsInView ? "visible" : "hidden"}
             custom={0}
-            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-10 md:mb-16"
+            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-6 md:mb-16"
             style={{ color: "rgba(255,255,255,0.4)" }}
           >
             Projects
           </motion.p>
 
-          <div className="mb-12 md:mb-20">
+          <div className="mb-8 md:mb-20">
             <div className="overflow-hidden">
               <motion.h2
                 variants={slideUp}
@@ -1025,8 +1025,8 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ À PROPOS ═══════════════════ */}
-      <section id="about" className="relative overflow-hidden py-[80px] md:py-[140px]" ref={aboutRef}>
-        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
+      <section id="about" className="relative overflow-hidden py-[56px] md:py-[140px]" ref={aboutRef}>
+        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
           <svg width="100%" height="100%"><filter id="grainAbout"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainAbout)" /></svg>
         </div>
         <div className="wrapper">
@@ -1035,7 +1035,7 @@ export default function Home() {
             initial="hidden"
             animate={aboutInView ? "visible" : "hidden"}
             custom={0}
-            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono mb-10 md:mb-16"
+            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono mb-6 md:mb-16"
           >
             About
           </motion.p>
@@ -1062,8 +1062,8 @@ export default function Home() {
                 initial="hidden"
                 animate={aboutInView ? "visible" : "hidden"}
                 custom={0.25}
-                className="text-[14px] text-muted max-w-md"
-                style={{ lineHeight: 1.9, marginTop: 32 }}
+                className="text-[14px] text-muted max-w-md mt-5 md:mt-8"
+                style={{ lineHeight: 1.9 }}
               >
                 We&apos;re a tight crew of developers and designers based in Paris.
                 Born in the AI era, we build digital products that move fast, look sharp,
@@ -1092,8 +1092,7 @@ export default function Home() {
                   initial="hidden"
                   animate={aboutInView ? "visible" : "hidden"}
                   custom={0.2 + i * 0.12}
-                  className="border-t border-border"
-                  style={{ paddingTop: 40, paddingBottom: 40 }}
+                  className="border-t border-border py-6 md:py-10"
                 >
                   <div className="flex flex-col md:flex-row md:items-start" style={{ gap: 32 }}>
                     <h3
@@ -1114,8 +1113,8 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ TEAM ═══════════════════ */}
-      <section className="section-dark relative overflow-hidden py-[80px] md:py-[140px]" ref={teamRef}>
-        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
+      <section className="section-dark relative overflow-hidden py-[56px] md:py-[140px]" ref={teamRef}>
+        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
           <svg width="100%" height="100%"><filter id="grainTeam"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainTeam)" /></svg>
         </div>
         <div className="wrapper">
@@ -1124,13 +1123,13 @@ export default function Home() {
             initial="hidden"
             animate={teamInView ? "visible" : "hidden"}
             custom={0}
-            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-10 md:mb-16"
+            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-6 md:mb-16"
             style={{ color: "rgba(255,255,255,0.4)" }}
           >
             The team
           </motion.p>
 
-          <div className="mb-12 md:mb-20">
+          <div className="mb-8 md:mb-20">
             <div className="overflow-hidden">
               <motion.h2
                 variants={slideUp}
@@ -1182,6 +1181,7 @@ export default function Home() {
                 <img
                   src={member.photo}
                   alt={member.name}
+                  loading="lazy"
                   className="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover"
                   style={{ border: "2px solid rgba(255,140,0,0.2)", marginBottom: 24 }}
                   onError={(e) => { e.currentTarget.style.display = "none"; e.currentTarget.nextElementSibling?.classList.remove("hidden"); }}
@@ -1242,8 +1242,8 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ CONTACT ═══════════════════ */}
-      <section id="contact" className="section-dark relative overflow-hidden py-[80px] md:py-[140px]" ref={contactRef}>
-        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
+      <section id="contact" className="section-dark relative overflow-hidden py-[56px] md:py-[140px]" ref={contactRef}>
+        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
           <svg width="100%" height="100%"><filter id="grainContact"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainContact)" /></svg>
         </div>
         <div className="wrapper">
@@ -1252,7 +1252,7 @@ export default function Home() {
             initial="hidden"
             animate={contactInView ? "visible" : "hidden"}
             custom={0}
-            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-10 md:mb-16"
+            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-6 md:mb-16"
             style={{ color: "rgba(255,255,255,0.4)" }}
           >
             Contact
