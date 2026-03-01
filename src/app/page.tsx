@@ -982,50 +982,53 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
-            {projects.map((p, i) => (
-              <motion.div
-                key={p.title}
-                variants={fadeUp}
-                initial="hidden"
-                animate={projetsInView ? "visible" : "hidden"}
-                custom={0.15 + i * 0.1}
-                className="group"
-                data-hover
-              >
-                <div className="relative overflow-hidden rounded-2xl mb-5" style={{ aspectRatio: "16/10" }}>
-                  <img
-                    src={p.image}
-                    alt={p.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  <div
-                    className="absolute inset-0 transition-opacity duration-500 opacity-0 group-hover:opacity-100"
-                    style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)" }}
-                  />
-                </div>
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h3
-                      className="text-[clamp(1.1rem,2vw,1.5rem)] font-medium mb-1.5"
-                      style={{ letterSpacing: "-0.02em" }}
-                    >
-                      {p.title}
-                    </h3>
-                    <p className="text-[13px] text-muted" style={{ lineHeight: 1.6 }}>
-                      {p.desc}
-                    </p>
+          <div className="overflow-x-auto -mx-[2.5%] md:-mx-[3%] lg:-mx-[4%] px-[2.5%] md:px-[3%] lg:px-[4%]" style={{ scrollbarWidth: "none", WebkitOverflowScrolling: "touch" }}>
+            <div className="flex gap-5 md:gap-8" style={{ width: "max-content" }}>
+              {projects.map((p, i) => (
+                <motion.div
+                  key={p.title}
+                  variants={fadeUp}
+                  initial="hidden"
+                  animate={projetsInView ? "visible" : "hidden"}
+                  custom={0.15 + i * 0.1}
+                  className="group shrink-0"
+                  style={{ width: "75vw", maxWidth: 520 }}
+                  data-hover
+                >
+                  <div className="relative overflow-hidden rounded-2xl mb-5" style={{ aspectRatio: "16/10" }}>
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                    <div
+                      className="absolute inset-0 transition-opacity duration-500 opacity-0 group-hover:opacity-100"
+                      style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)" }}
+                    />
                   </div>
-                  <span
-                    className="shrink-0 text-[11px] font-mono tracking-wider mt-1 px-3 py-1 rounded-full"
-                    style={{ background: "rgba(232,148,58,0.1)", color: "#E8943A" }}
-                  >
-                    {p.category}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <h3
+                        className="text-[clamp(1.1rem,2vw,1.5rem)] font-medium mb-1.5"
+                        style={{ letterSpacing: "-0.02em" }}
+                      >
+                        {p.title}
+                      </h3>
+                      <p className="text-[13px] text-muted" style={{ lineHeight: 1.6 }}>
+                        {p.desc}
+                      </p>
+                    </div>
+                    <span
+                      className="shrink-0 text-[11px] font-mono tracking-wider mt-1 px-3 py-1 rounded-full"
+                      style={{ background: "rgba(232,148,58,0.1)", color: "#E8943A" }}
+                    >
+                      {p.category}
+                    </span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
