@@ -1155,6 +1155,8 @@ export default function Home() {
                 role: "Co-founder & Developer",
                 desc: "Full-stack engineer obsessed with clean code and AI integration. Builds products that scale from day one.",
                 linkedin: "https://www.linkedin.com/in/adrien-svabek-1451101aa/",
+                education: "MSc 224 — Dauphine PSL",
+                experience: ["EY", "Cambon Partners"],
               },
               {
                 name: "Alexandre Cohen",
@@ -1163,6 +1165,8 @@ export default function Home() {
                 role: "Co-founder & Designer",
                 desc: "UI/UX designer with a sharp eye for detail. Turns complex ideas into interfaces people actually enjoy using.",
                 linkedin: "#",
+                education: "MSc 203 — Dauphine PSL",
+                experience: ["Goldman Sachs", "HSBC", "Société Générale"],
               },
             ].map((member, i) => (
               <motion.div
@@ -1194,9 +1198,33 @@ export default function Home() {
                 <p className="text-[12px] uppercase tracking-[0.15em] font-mono" style={{ color: "#E8943A", marginBottom: 20 }}>
                   {member.role}
                 </p>
-                <p className="text-[14px] max-w-sm" style={{ lineHeight: 1.8, color: "rgba(255,255,255,0.5)", marginBottom: 24 }}>
+                <p className="text-[14px] max-w-sm" style={{ lineHeight: 1.8, color: "rgba(255,255,255,0.5)", marginBottom: 20 }}>
                   {member.desc}
                 </p>
+
+                {/* Education */}
+                <p className="text-[11px] uppercase tracking-[0.15em] font-mono" style={{ color: "rgba(255,255,255,0.25)", marginBottom: 12 }}>
+                  {member.education}
+                </p>
+
+                {/* Experience logos */}
+                <div className="flex flex-wrap justify-center gap-2" style={{ marginBottom: 24 }}>
+                  {member.experience.map((company) => (
+                    <span
+                      key={company}
+                      className="text-[11px] tracking-[0.08em] font-mono"
+                      style={{
+                        padding: "6px 14px",
+                        borderRadius: 100,
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        color: "rgba(255,255,255,0.4)",
+                      }}
+                    >
+                      {company}
+                    </span>
+                  ))}
+                </div>
+
                 <a
                   href={member.linkedin}
                   target="_blank"
