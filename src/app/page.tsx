@@ -515,7 +515,7 @@ export default function Home() {
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
               custom={0.3}
-              style={{ flex: "0 1 380px" }}
+              className="md:flex-[0_1_380px]"
             >
               <p className="text-[15px]" style={{ lineHeight: 1.8, color: "rgba(255,255,255,0.5)" }}>
                 We design, code, and deploy digital products built to perform.
