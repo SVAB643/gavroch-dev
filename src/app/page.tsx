@@ -849,7 +849,27 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ BRAND STATEMENT ═══════════════════ */}
-      <section className="section-dark relative overflow-hidden" style={{ paddingTop: "clamp(48px, 10vw, 120px)", paddingBottom: "clamp(48px, 10vw, 120px)" }}>
+      <section
+        className="section-dark relative overflow-hidden"
+        style={{ paddingTop: "clamp(48px, 10vw, 120px)", paddingBottom: "clamp(48px, 10vw, 120px)" }}
+        onMouseMove={(e) => {
+          const textEl = e.currentTarget.querySelector<HTMLElement>(".brand-text-wrap");
+          if (!textEl) return;
+          const rect = textEl.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          textEl.querySelectorAll<HTMLElement>(".brand-glow").forEach((g) => {
+            g.style.setProperty("--mx", `${x}px`);
+            g.style.setProperty("--my", `${y}px`);
+            g.style.opacity = "1";
+          });
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.querySelectorAll<HTMLElement>(".brand-glow").forEach((g) => {
+            g.style.opacity = "0";
+          });
+        }}
+      >
         <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
           <svg width="100%" height="100%"><filter id="grainBrand"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainBrand)" /></svg>
         </div>
@@ -859,23 +879,8 @@ export default function Home() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="relative select-none"
+            className="brand-text-wrap relative select-none"
             data-hover
-            onMouseMove={(e) => {
-              const rect = e.currentTarget.getBoundingClientRect();
-              const x = e.clientX - rect.left;
-              const y = e.clientY - rect.top;
-              e.currentTarget.querySelectorAll<HTMLElement>(".brand-glow").forEach((g) => {
-                g.style.setProperty("--mx", `${x}px`);
-                g.style.setProperty("--my", `${y}px`);
-                g.style.opacity = "1";
-              });
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.querySelectorAll<HTMLElement>(".brand-glow").forEach((g) => {
-                g.style.opacity = "0";
-              });
-            }}
           >
             {/* Base — faint outline */}
             <h2
