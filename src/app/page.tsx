@@ -849,17 +849,17 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ BRAND STATEMENT ═══════════════════ */}
-      <section className="relative overflow-hidden" style={{ background: "#050505", paddingTop: "clamp(48px, 10vw, 120px)", paddingBottom: "clamp(48px, 10vw, 120px)" }}>
-        {/* Ambient glow spots */}
-        <div className="absolute pointer-events-none" style={{ top: "20%", left: "-5%", width: "35%", height: "60%", background: "radial-gradient(ellipse, rgba(255,140,0,0.06) 0%, transparent 70%)", filter: "blur(60px)" }} />
-        <div className="absolute pointer-events-none" style={{ top: "10%", right: "-5%", width: "35%", height: "60%", background: "radial-gradient(ellipse, rgba(255,200,0,0.05) 0%, transparent 70%)", filter: "blur(60px)" }} />
+      <section className="section-dark relative overflow-hidden" style={{ paddingTop: "clamp(48px, 10vw, 120px)", paddingBottom: "clamp(48px, 10vw, 120px)" }}>
+        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
+          <svg width="100%" height="100%"><filter id="grainBrand"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainBrand)" /></svg>
+        </div>
         <div className="wrapper flex items-center justify-center">
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="brand-ghost-text text-center font-medium select-none relative"
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            className="brand-ghost-text text-center font-medium select-none"
             data-hover
             style={{
               fontSize: "clamp(2.5rem, 8vw, 8rem)",
@@ -867,10 +867,6 @@ export default function Home() {
               letterSpacing: "-0.04em",
               color: "transparent",
               WebkitTextStroke: "1px rgba(255,255,255,0.07)",
-              backgroundImage: "linear-gradient(105deg, transparent 0%, transparent 30%, rgba(255,160,0,0.15) 40%, rgba(255,120,0,0.3) 50%, rgba(255,160,0,0.15) 60%, transparent 70%, transparent 100%)",
-              backgroundSize: "200% 100%",
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
             }}
           >
             Become a memorable brand.
