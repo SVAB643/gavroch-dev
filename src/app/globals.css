@@ -148,6 +148,14 @@ html {
   }
 }
 
+/* Brand fill — moving gradient inside letters */
+@keyframes brandGradientMove {
+  0%, 100% { background-position: 0% 50%; }
+  25% { background-position: 100% 0%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 0% 100%; }
+}
+
 /* Brand glow — 5 unique organic orbits */
 @keyframes bOrb1 {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }

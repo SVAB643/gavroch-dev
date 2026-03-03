@@ -890,6 +890,29 @@ export default function Home() {
             >
               Become a memorable brand.
             </h2>
+            {/* Fill layer — animated gradient inside letters, masked to mouse */}
+            <h2
+              className="brand-glow brand-fill absolute inset-0 text-center font-medium pointer-events-none"
+              aria-hidden="true"
+              style={{
+                fontSize: "clamp(2.5rem, 8vw, 8rem)",
+                lineHeight: 1.05,
+                letterSpacing: "-0.04em",
+                background: "linear-gradient(135deg, #F5F0E8, #FFD000, #FF8C00, #CC2200, #FF8C00, #FFD000, #F5F0E8)",
+                backgroundSize: "300% 300%",
+                backgroundClip: "text",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                WebkitTextStroke: "0px transparent",
+                animation: "brandGradientMove 6s ease-in-out infinite",
+                opacity: 0,
+                transition: "opacity 0.6s ease",
+                maskImage: "radial-gradient(ellipse 180px 120px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 75%)",
+                WebkitMaskImage: "radial-gradient(ellipse 180px 120px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 75%)",
+              }}
+            >
+              Become a memorable brand.
+            </h2>
             {/* Glow layers — 5 layers, each with unique color/size/speed/orbit */}
             {[
               { color: "rgba(245,240,232,0.35)", stroke: 1, blur: 4, w: 180, h: 130, dur: "4.2s", anim: "bOrb1", delay: "0s" },
