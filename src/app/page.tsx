@@ -865,16 +865,16 @@ export default function Home() {
               const rect = e.currentTarget.getBoundingClientRect();
               const x = e.clientX - rect.left;
               const y = e.clientY - rect.top;
-              const glows = e.currentTarget.querySelectorAll<HTMLElement>(".brand-glow");
-              glows.forEach((g) => {
+              e.currentTarget.querySelectorAll<HTMLElement>(".brand-glow").forEach((g) => {
                 g.style.setProperty("--mx", `${x}px`);
                 g.style.setProperty("--my", `${y}px`);
                 g.style.opacity = "1";
               });
             }}
             onMouseLeave={(e) => {
-              const glows = e.currentTarget.querySelectorAll<HTMLElement>(".brand-glow");
-              glows.forEach((g) => { g.style.opacity = "0"; });
+              e.currentTarget.querySelectorAll<HTMLElement>(".brand-glow").forEach((g) => {
+                g.style.opacity = "0";
+              });
             }}
           >
             {/* Base — faint outline */}
@@ -885,32 +885,35 @@ export default function Home() {
                 lineHeight: 1.05,
                 letterSpacing: "-0.04em",
                 color: "transparent",
-                WebkitTextStroke: "1px rgba(255,255,255,0.07)",
+                WebkitTextStroke: "1px rgba(255,255,255,0.06)",
               }}
             >
               Become a memorable brand.
             </h2>
-            {/* Glow layers — each color from our gradient, offset orbits */}
+            {/* Glow layers — 5 layers, each with unique color/size/speed/orbit */}
             {[
-              { color: "rgba(255,208,0,0.55)", blur: 8, anim: "brandOrbit1" },
-              { color: "rgba(255,140,0,0.5)", blur: 10, anim: "brandOrbit2" },
-              { color: "rgba(204,34,0,0.4)", blur: 6, anim: "brandOrbit3" },
-            ].map((layer, li) => (
+              { color: "rgba(245,240,232,0.35)", stroke: 1, blur: 4, w: 180, h: 130, dur: "4.2s", anim: "bOrb1", delay: "0s" },
+              { color: "rgba(255,208,0,0.5)", stroke: 1.2, blur: 10, w: 140, h: 90, dur: "3.1s", anim: "bOrb2", delay: "-0.8s" },
+              { color: "rgba(255,140,0,0.55)", stroke: 1.5, blur: 14, w: 200, h: 110, dur: "5.3s", anim: "bOrb3", delay: "-1.6s" },
+              { color: "rgba(255,80,0,0.4)", stroke: 1, blur: 18, w: 160, h: 160, dur: "3.8s", anim: "bOrb4", delay: "-2.4s" },
+              { color: "rgba(204,34,0,0.3)", stroke: 1.3, blur: 22, w: 120, h: 180, dur: "6.1s", anim: "bOrb5", delay: "-0.5s" },
+            ].map((l, i) => (
               <h2
-                key={li}
-                className="brand-glow absolute inset-0 text-center font-medium pointer-events-none transition-opacity duration-500"
+                key={i}
+                className="brand-glow absolute inset-0 text-center font-medium pointer-events-none"
                 aria-hidden="true"
                 style={{
                   fontSize: "clamp(2.5rem, 8vw, 8rem)",
                   lineHeight: 1.05,
                   letterSpacing: "-0.04em",
                   color: "transparent",
-                  WebkitTextStroke: `1.5px ${layer.color}`,
-                  filter: `drop-shadow(0 0 ${layer.blur}px ${layer.color})`,
+                  WebkitTextStroke: `${l.stroke}px ${l.color}`,
+                  filter: `drop-shadow(0 0 ${l.blur}px ${l.color})`,
                   opacity: 0,
-                  maskImage: `radial-gradient(ellipse 150px 100px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 100%)`,
-                  WebkitMaskImage: `radial-gradient(ellipse 150px 100px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 100%)`,
-                  animation: `${layer.anim} 3s ease-in-out infinite`,
+                  transition: "opacity 0.6s ease",
+                  maskImage: `radial-gradient(ellipse ${l.w}px ${l.h}px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 80%)`,
+                  WebkitMaskImage: `radial-gradient(ellipse ${l.w}px ${l.h}px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 80%)`,
+                  animation: `${l.anim} ${l.dur} ease-in-out ${l.delay} infinite`,
                 }}
               >
                 Become a memorable brand.
