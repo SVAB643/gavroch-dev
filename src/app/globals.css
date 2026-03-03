@@ -118,6 +118,36 @@ html {
   transform: translateY(calc(-100% + 300px));
 }
 
+/* Light version for white bg section */
+.project-screenshot-light {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  transition: transform 10s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.group:hover .project-screenshot-light {
+  transform: translateY(calc(-100% + 320px));
+}
+
+/* Hide scrollbar for project carousel */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Snap center scale effect */
+@supports (animation-timeline: scroll()) {
+  .snap-center {
+    transition: transform 0.5s ease;
+  }
+}
+
 /* Hide heavy GPU effects on mobile */
 @media (max-width: 767px) {
   .hero-blob {

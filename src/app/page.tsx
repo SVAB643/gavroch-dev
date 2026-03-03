@@ -1015,131 +1015,104 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ PROJETS ═══════════════════ */}
-      <section id="projects" className="section-dark relative overflow-hidden py-[56px] md:py-[140px]" ref={projetsRef}>
-        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
-          <svg width="100%" height="100%"><filter id="grainProjects"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainProjects)" /></svg>
-        </div>
+      <section id="projects" className="relative overflow-hidden py-[56px] md:py-[140px]" ref={projetsRef} style={{ background: "#fafafa" }}>
         <div className="wrapper">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 md:mb-20">
-            <div>
-              <motion.p
-                variants={fadeUp}
-                initial="hidden"
-                animate={projetsInView ? "visible" : "hidden"}
-                custom={0}
-                className="text-[11px] uppercase tracking-[0.25em] font-mono mb-5 md:mb-8"
-                style={{ color: "rgba(255,255,255,0.35)" }}
-              >
-                Selected work
-              </motion.p>
-              <motion.h2
-                variants={slideUp}
-                initial="hidden"
-                animate={projetsInView ? "visible" : "hidden"}
-                custom={0.1}
-                className="text-[clamp(2rem,5vw,4.5rem)] font-medium"
-                style={{ lineHeight: 1.05, letterSpacing: "-0.03em" }}
-              >
-                What we&apos;ve built{" "}
-                <span style={{ color: "rgba(255,255,255,0.3)" }}>recently.</span>
-              </motion.h2>
-            </div>
-            <motion.a
-              href="#contact"
-              data-hover
-              variants={fadeUp}
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate={projetsInView ? "visible" : "hidden"}
+            custom={0}
+            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-5 md:mb-8"
+            style={{ color: "rgba(0,0,0,0.3)" }}
+          >
+            Selected work
+          </motion.p>
+          <div className="mb-10 md:mb-16">
+            <motion.h2
+              variants={slideUp}
               initial="hidden"
               animate={projetsInView ? "visible" : "hidden"}
-              custom={0.2}
-              className="hidden md:inline-flex items-center gap-3 text-[12px] uppercase tracking-[0.2em] font-medium group mt-6 md:mt-0"
-              style={{ color: "rgba(255,255,255,0.5)" }}
-              whileHover={{ x: 4 }}
+              custom={0.1}
+              className="text-[clamp(2rem,5vw,4.5rem)] font-medium"
+              style={{ lineHeight: 1.05, letterSpacing: "-0.03em", color: "#0a0a0a" }}
             >
-              Start a project
-              <span className="inline-block h-[1px] bg-white/30 group-hover:w-16 transition-all duration-500" style={{ width: 40 }} />
-            </motion.a>
+              What we&apos;ve built{" "}
+              <span style={{ color: "rgba(0,0,0,0.25)" }}>recently.</span>
+            </motion.h2>
           </div>
+        </div>
 
-          {/* Projects grid */}
-          <div className="flex flex-col gap-6 md:gap-8">
-            {projects.map((p, i) => (
-              <motion.a
-                key={p.title}
+        {/* Horizontal scroll carousel */}
+        <div className="relative">
+          <div
+            className="flex items-center gap-5 md:gap-8 px-[5%] overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar"
+            style={{ scrollbarWidth: "none" }}
+          >
+            {[...projects, ...projects, ...projects].map((p, i) => (
+              <a
+                key={`${p.title}-${i}`}
                 href={p.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                variants={fadeUp}
-                initial="hidden"
-                animate={projetsInView ? "visible" : "hidden"}
-                custom={0.15 + i * 0.12}
-                className="group block"
                 data-hover
+                className="group shrink-0 snap-center transition-transform duration-700"
+                style={{ width: "min(75vw, 520px)" }}
               >
                 <div
-                  className="relative overflow-hidden rounded-2xl"
+                  className="relative overflow-hidden rounded-2xl transition-shadow duration-500 group-hover:shadow-2xl"
                   style={{
-                    background: "#111",
-                    border: "1px solid rgba(255,255,255,0.08)",
+                    background: "#fff",
+                    border: "1px solid rgba(0,0,0,0.08)",
+                    boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
                   }}
                 >
-                  {/* Browser top bar */}
-                  <div className="flex items-center gap-2 px-4 md:px-5" style={{ height: 40, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                  {/* Browser chrome */}
+                  <div className="flex items-center gap-2 px-4" style={{ height: 36, borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
                     <div className="flex items-center gap-1.5">
-                      <div className="w-[10px] h-[10px] rounded-full" style={{ background: "#ff5f57" }} />
-                      <div className="w-[10px] h-[10px] rounded-full" style={{ background: "#febc2e" }} />
-                      <div className="w-[10px] h-[10px] rounded-full" style={{ background: "#28c840" }} />
+                      <div className="w-[9px] h-[9px] rounded-full" style={{ background: "#ff5f57" }} />
+                      <div className="w-[9px] h-[9px] rounded-full" style={{ background: "#febc2e" }} />
+                      <div className="w-[9px] h-[9px] rounded-full" style={{ background: "#28c840" }} />
                     </div>
                     <div
-                      className="ml-2 flex-1 max-w-[280px] flex items-center rounded-md px-3"
-                      style={{ height: 24, background: "rgba(255,255,255,0.05)" }}
+                      className="ml-2 flex-1 max-w-[240px] flex items-center rounded-md px-3"
+                      style={{ height: 22, background: "rgba(0,0,0,0.04)" }}
                     >
-                      <span className="text-[10px] text-white/25 font-mono truncate">
+                      <span className="text-[10px] font-mono truncate" style={{ color: "rgba(0,0,0,0.3)" }}>
                         {p.url?.replace("https://", "")}
                       </span>
                     </div>
                   </div>
 
-                  {/* Screenshot area */}
-                  <div className="relative overflow-hidden" style={{ height: 380 }}>
+                  {/* Screenshot */}
+                  <div className="relative overflow-hidden group" style={{ height: 320 }}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={p.image}
                       alt={p.title}
                       loading="lazy"
-                      className="project-screenshot"
+                      className="project-screenshot-light"
                     />
-                    {/* Hover gradient overlay */}
-                    <div
-                      className="absolute inset-0 transition-opacity duration-700 opacity-0 group-hover:opacity-100"
-                      style={{ background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 40%)" }}
-                    />
-                    {/* Hover label */}
-                    <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                      <span className="text-[12px] uppercase tracking-[0.15em] font-medium" style={{ color: "#E8943A" }}>
-                        View project &rarr;
-                      </span>
-                    </div>
                   </div>
                 </div>
 
-                {/* Project info below card */}
-                <div className="flex items-center justify-between mt-5 px-1">
-                  <div>
-                    <h3 className="text-[1.15rem] md:text-[1.3rem] font-medium mb-1" style={{ letterSpacing: "-0.02em" }}>
+                {/* Info below */}
+                <div className="mt-4 px-1">
+                  <div className="flex items-center gap-3">
+                    <h3 className="text-[1rem] md:text-[1.1rem] font-medium" style={{ letterSpacing: "-0.02em", color: "#0a0a0a" }}>
                       {p.title}
                     </h3>
-                    <p className="text-[13px]" style={{ color: "rgba(255,255,255,0.4)" }}>
-                      {p.desc}
-                    </p>
+                    <span
+                      className="text-[9px] font-mono tracking-wider px-2 py-1 rounded-full"
+                      style={{ background: "rgba(232,148,58,0.1)", color: "#D4802A" }}
+                    >
+                      {p.category}
+                    </span>
                   </div>
-                  <span
-                    className="shrink-0 text-[10px] font-mono tracking-wider px-3 py-1.5 rounded-full hidden md:block"
-                    style={{ border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.4)" }}
-                  >
-                    {p.category}
-                  </span>
+                  <p className="text-[12px] mt-1" style={{ color: "rgba(0,0,0,0.4)" }}>
+                    {p.desc}
+                  </p>
                 </div>
-              </motion.a>
+              </a>
             ))}
           </div>
         </div>
