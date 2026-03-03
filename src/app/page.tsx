@@ -627,6 +627,94 @@ export default function Home() {
         </motion.div>
       </div>
 
+      {/* ═══════════════════ À PROPOS ═══════════════════ */}
+      <section id="about" className="relative overflow-hidden py-[56px] md:py-[140px]" ref={aboutRef}>
+        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
+          <svg width="100%" height="100%"><filter id="grainAbout"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainAbout)" /></svg>
+        </div>
+        <div className="wrapper">
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate={aboutInView ? "visible" : "hidden"}
+            custom={0}
+            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono mb-6 md:mb-16"
+          >
+            About
+          </motion.p>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
+            {/* Left column */}
+            <div className="md:col-span-5">
+              <div className="overflow-hidden">
+                <motion.h2
+                  variants={slideUp}
+                  initial="hidden"
+                  animate={aboutInView ? "visible" : "hidden"}
+                  custom={0.1}
+                  className="text-[clamp(2rem,5vw,4.5rem)] font-medium"
+                  style={{ lineHeight: 1.05, letterSpacing: "-0.03em" }}
+                >
+                  A new kind{" "}
+                  <span className="text-muted">of studio.</span>
+                </motion.h2>
+              </div>
+
+              <motion.p
+                variants={fadeUp}
+                initial="hidden"
+                animate={aboutInView ? "visible" : "hidden"}
+                custom={0.25}
+                className="text-[14px] text-muted max-w-md mt-5 md:mt-8"
+                style={{ lineHeight: 1.9 }}
+              >
+                We&apos;re a tight crew of developers and designers based in Paris.
+                Born in the AI era, we build digital products that move fast, look sharp,
+                and actually work. No legacy thinking, no corporate BS.
+              </motion.p>
+
+              <motion.p
+                variants={fadeUp}
+                initial="hidden"
+                animate={aboutInView ? "visible" : "hidden"}
+                custom={0.35}
+                className="text-[14px] text-muted max-w-md"
+                style={{ lineHeight: 1.9, marginTop: 16 }}
+              >
+                We leverage AI to code faster, design smarter, and ship things
+                that would take traditional agencies months. That&apos;s our unfair advantage.
+              </motion.p>
+            </div>
+
+            {/* Right column - values */}
+            <div className="md:col-span-6 md:col-start-7">
+              {values.map((v, i) => (
+                <motion.div
+                  key={v.title}
+                  variants={fadeUp}
+                  initial="hidden"
+                  animate={aboutInView ? "visible" : "hidden"}
+                  custom={0.2 + i * 0.12}
+                  className="border-t border-border py-6 md:py-10"
+                >
+                  <div className="flex flex-col md:flex-row md:items-start" style={{ gap: 32 }}>
+                    <h3
+                      className="text-[1.25rem] font-medium"
+                      style={{ letterSpacing: "-0.01em", minWidth: 160 }}
+                    >
+                      {v.title}
+                    </h3>
+                    <p className="text-[14px] text-muted" style={{ lineHeight: 1.8 }}>
+                      {v.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ═══════════════════ SERVICES ═══════════════════ */}
       <section id="services" className="relative overflow-hidden py-[56px] md:py-[140px]" ref={servicesRef}>
         <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
@@ -689,6 +777,110 @@ export default function Home() {
                   {s.desc}
                 </p>
               </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════ PROJETS ═══════════════════ */}
+      <section id="projects" className="relative overflow-hidden py-[56px] md:py-[140px]" ref={projetsRef} style={{ background: "#fafafa" }}>
+        <div className="wrapper">
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate={projetsInView ? "visible" : "hidden"}
+            custom={0}
+            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-5 md:mb-8"
+            style={{ color: "rgba(0,0,0,0.3)" }}
+          >
+            Selected work
+          </motion.p>
+          <div className="mb-10 md:mb-16">
+            <motion.h2
+              variants={slideUp}
+              initial="hidden"
+              animate={projetsInView ? "visible" : "hidden"}
+              custom={0.1}
+              className="text-[clamp(2rem,5vw,4.5rem)] font-medium"
+              style={{ lineHeight: 1.05, letterSpacing: "-0.03em", color: "#0a0a0a" }}
+            >
+              What we&apos;ve built{" "}
+              <span style={{ color: "rgba(0,0,0,0.25)" }}>recently.</span>
+            </motion.h2>
+          </div>
+        </div>
+
+        {/* Horizontal scroll carousel */}
+        <div className="relative">
+          <div
+            className="flex items-center gap-5 md:gap-8 px-[5%] overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar"
+            style={{ scrollbarWidth: "none" }}
+          >
+            {[...projects, ...projects, ...projects].map((p, i) => (
+              <a
+                key={`${p.title}-${i}`}
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-hover
+                className="group shrink-0 snap-center transition-transform duration-700"
+                style={{ width: "min(75vw, 520px)" }}
+              >
+                <div
+                  className="relative overflow-hidden rounded-2xl transition-shadow duration-500 group-hover:shadow-2xl"
+                  style={{
+                    background: "#fff",
+                    border: "1px solid rgba(0,0,0,0.08)",
+                    boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
+                  }}
+                >
+                  {/* Browser chrome */}
+                  <div className="flex items-center gap-2 px-4" style={{ height: 36, borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-[9px] h-[9px] rounded-full" style={{ background: "#ff5f57" }} />
+                      <div className="w-[9px] h-[9px] rounded-full" style={{ background: "#febc2e" }} />
+                      <div className="w-[9px] h-[9px] rounded-full" style={{ background: "#28c840" }} />
+                    </div>
+                    <div
+                      className="ml-2 flex-1 max-w-[240px] flex items-center rounded-md px-3"
+                      style={{ height: 22, background: "rgba(0,0,0,0.04)" }}
+                    >
+                      <span className="text-[10px] font-mono truncate" style={{ color: "rgba(0,0,0,0.3)" }}>
+                        {p.url?.replace("https://", "")}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Screenshot */}
+                  <div className="relative overflow-hidden group" style={{ height: 320 }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      loading="lazy"
+                      className="project-screenshot-light"
+                    />
+                  </div>
+                </div>
+
+                {/* Info below */}
+                <div className="mt-4 px-1">
+                  <div className="flex items-center gap-3">
+                    <h3 className="text-[1rem] md:text-[1.1rem] font-medium" style={{ letterSpacing: "-0.02em", color: "#0a0a0a" }}>
+                      {p.title}
+                    </h3>
+                    <span
+                      className="text-[9px] font-mono tracking-wider px-2 py-1 rounded-full"
+                      style={{ background: "rgba(232,148,58,0.1)", color: "#D4802A" }}
+                    >
+                      {p.category}
+                    </span>
+                  </div>
+                  <p className="text-[12px] mt-1" style={{ color: "rgba(0,0,0,0.4)" }}>
+                    {p.desc}
+                  </p>
+                </div>
+              </a>
             ))}
           </div>
         </div>
@@ -1010,198 +1202,6 @@ export default function Home() {
                 </div>
               </motion.div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════ PROJETS ═══════════════════ */}
-      <section id="projects" className="relative overflow-hidden py-[56px] md:py-[140px]" ref={projetsRef} style={{ background: "#fafafa" }}>
-        <div className="wrapper">
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            animate={projetsInView ? "visible" : "hidden"}
-            custom={0}
-            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-5 md:mb-8"
-            style={{ color: "rgba(0,0,0,0.3)" }}
-          >
-            Selected work
-          </motion.p>
-          <div className="mb-10 md:mb-16">
-            <motion.h2
-              variants={slideUp}
-              initial="hidden"
-              animate={projetsInView ? "visible" : "hidden"}
-              custom={0.1}
-              className="text-[clamp(2rem,5vw,4.5rem)] font-medium"
-              style={{ lineHeight: 1.05, letterSpacing: "-0.03em", color: "#0a0a0a" }}
-            >
-              What we&apos;ve built{" "}
-              <span style={{ color: "rgba(0,0,0,0.25)" }}>recently.</span>
-            </motion.h2>
-          </div>
-        </div>
-
-        {/* Horizontal scroll carousel */}
-        <div className="relative">
-          <div
-            className="flex items-center gap-5 md:gap-8 px-[5%] overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar"
-            style={{ scrollbarWidth: "none" }}
-          >
-            {[...projects, ...projects, ...projects].map((p, i) => (
-              <a
-                key={`${p.title}-${i}`}
-                href={p.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-hover
-                className="group shrink-0 snap-center transition-transform duration-700"
-                style={{ width: "min(75vw, 520px)" }}
-              >
-                <div
-                  className="relative overflow-hidden rounded-2xl transition-shadow duration-500 group-hover:shadow-2xl"
-                  style={{
-                    background: "#fff",
-                    border: "1px solid rgba(0,0,0,0.08)",
-                    boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
-                  }}
-                >
-                  {/* Browser chrome */}
-                  <div className="flex items-center gap-2 px-4" style={{ height: 36, borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
-                    <div className="flex items-center gap-1.5">
-                      <div className="w-[9px] h-[9px] rounded-full" style={{ background: "#ff5f57" }} />
-                      <div className="w-[9px] h-[9px] rounded-full" style={{ background: "#febc2e" }} />
-                      <div className="w-[9px] h-[9px] rounded-full" style={{ background: "#28c840" }} />
-                    </div>
-                    <div
-                      className="ml-2 flex-1 max-w-[240px] flex items-center rounded-md px-3"
-                      style={{ height: 22, background: "rgba(0,0,0,0.04)" }}
-                    >
-                      <span className="text-[10px] font-mono truncate" style={{ color: "rgba(0,0,0,0.3)" }}>
-                        {p.url?.replace("https://", "")}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Screenshot */}
-                  <div className="relative overflow-hidden group" style={{ height: 320 }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={p.image}
-                      alt={p.title}
-                      loading="lazy"
-                      className="project-screenshot-light"
-                    />
-                  </div>
-                </div>
-
-                {/* Info below */}
-                <div className="mt-4 px-1">
-                  <div className="flex items-center gap-3">
-                    <h3 className="text-[1rem] md:text-[1.1rem] font-medium" style={{ letterSpacing: "-0.02em", color: "#0a0a0a" }}>
-                      {p.title}
-                    </h3>
-                    <span
-                      className="text-[9px] font-mono tracking-wider px-2 py-1 rounded-full"
-                      style={{ background: "rgba(232,148,58,0.1)", color: "#D4802A" }}
-                    >
-                      {p.category}
-                    </span>
-                  </div>
-                  <p className="text-[12px] mt-1" style={{ color: "rgba(0,0,0,0.4)" }}>
-                    {p.desc}
-                  </p>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════ À PROPOS ═══════════════════ */}
-      <section id="about" className="relative overflow-hidden py-[56px] md:py-[140px]" ref={aboutRef}>
-        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
-          <svg width="100%" height="100%"><filter id="grainAbout"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainAbout)" /></svg>
-        </div>
-        <div className="wrapper">
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            animate={aboutInView ? "visible" : "hidden"}
-            custom={0}
-            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono mb-6 md:mb-16"
-          >
-            About
-          </motion.p>
-
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
-            {/* Left column */}
-            <div className="md:col-span-5">
-              <div className="overflow-hidden">
-                <motion.h2
-                  variants={slideUp}
-                  initial="hidden"
-                  animate={aboutInView ? "visible" : "hidden"}
-                  custom={0.1}
-                  className="text-[clamp(2rem,5vw,4.5rem)] font-medium"
-                  style={{ lineHeight: 1.05, letterSpacing: "-0.03em" }}
-                >
-                  A new kind{" "}
-                  <span className="text-muted">of studio.</span>
-                </motion.h2>
-              </div>
-
-              <motion.p
-                variants={fadeUp}
-                initial="hidden"
-                animate={aboutInView ? "visible" : "hidden"}
-                custom={0.25}
-                className="text-[14px] text-muted max-w-md mt-5 md:mt-8"
-                style={{ lineHeight: 1.9 }}
-              >
-                We&apos;re a tight crew of developers and designers based in Paris.
-                Born in the AI era, we build digital products that move fast, look sharp,
-                and actually work. No legacy thinking, no corporate BS.
-              </motion.p>
-
-              <motion.p
-                variants={fadeUp}
-                initial="hidden"
-                animate={aboutInView ? "visible" : "hidden"}
-                custom={0.35}
-                className="text-[14px] text-muted max-w-md"
-                style={{ lineHeight: 1.9, marginTop: 16 }}
-              >
-                We leverage AI to code faster, design smarter, and ship things
-                that would take traditional agencies months. That&apos;s our unfair advantage.
-              </motion.p>
-            </div>
-
-            {/* Right column - values */}
-            <div className="md:col-span-6 md:col-start-7">
-              {values.map((v, i) => (
-                <motion.div
-                  key={v.title}
-                  variants={fadeUp}
-                  initial="hidden"
-                  animate={aboutInView ? "visible" : "hidden"}
-                  custom={0.2 + i * 0.12}
-                  className="border-t border-border py-6 md:py-10"
-                >
-                  <div className="flex flex-col md:flex-row md:items-start" style={{ gap: 32 }}>
-                    <h3
-                      className="text-[1.25rem] font-medium"
-                      style={{ letterSpacing: "-0.01em", minWidth: 160 }}
-                    >
-                      {v.title}
-                    </h3>
-                    <p className="text-[14px] text-muted" style={{ lineHeight: 1.8 }}>
-                      {v.desc}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
