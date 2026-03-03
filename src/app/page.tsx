@@ -970,57 +970,76 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {projects.map((p, i) => (
-              <motion.a
-                key={p.title}
-                href={p.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                variants={fadeUp}
-                initial="hidden"
-                animate={projetsInView ? "visible" : "hidden"}
-                custom={0.15 + i * 0.1}
-                className="group block"
-                data-hover
-              >
-                <div
-                  className="relative overflow-hidden rounded-2xl mb-4"
-                  style={{ height: 300 }}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={p.image}
-                    alt={p.title}
-                    loading="lazy"
-                    className="project-screenshot"
-                  />
-                  <div
-                    className="absolute inset-0 transition-opacity duration-500 opacity-0 group-hover:opacity-100"
-                    style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)" }}
-                  />
-                </div>
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <h3
-                      className="text-[1.1rem] font-medium mb-1"
-                      style={{ letterSpacing: "-0.02em" }}
-                    >
-                      {p.title}
-                    </h3>
-                    <p className="text-[12px] text-muted" style={{ lineHeight: 1.5 }}>
-                      {p.desc}
-                    </p>
-                  </div>
-                  <span
-                    className="shrink-0 text-[10px] font-mono tracking-wider mt-1 px-2.5 py-1 rounded-full"
-                    style={{ background: "rgba(232,148,58,0.1)", color: "#E8943A" }}
+          {/* 3D Carousel */}
+          <div
+            className="flex justify-center items-center py-8 md:py-16"
+            style={{ perspective: 1200 }}
+          >
+            <motion.div
+              animate={{ rotateY: [0, -360] }}
+              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+              className="relative w-[280px] h-[200px] md:w-[500px] md:h-[340px]"
+              style={{ transformStyle: "preserve-3d" }}
+            >
+              {[...projects, ...projects, ...projects].map((p, i) => {
+                const total = projects.length * 3;
+                const angle = (360 / total) * i;
+                const radius = 450;
+                return (
+                  <a
+                    key={`${p.title}-${i}`}
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-hover
+                    className="absolute inset-0 flex flex-col overflow-hidden rounded-xl"
+                    style={{
+                      transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
+                      backfaceVisibility: "hidden",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      background: "#111",
+                    }}
                   >
-                    {p.category}
-                  </span>
-                </div>
-              </motion.a>
-            ))}
+                    {/* Browser chrome */}
+                    <div
+                      className="flex items-center gap-1.5 px-3 shrink-0"
+                      style={{ height: 32, background: "#1a1a1a" }}
+                    >
+                      <div className="w-2 h-2 rounded-full" style={{ background: "#ff5f57" }} />
+                      <div className="w-2 h-2 rounded-full" style={{ background: "#febc2e" }} />
+                      <div className="w-2 h-2 rounded-full" style={{ background: "#28c840" }} />
+                      <span className="ml-2 text-[9px] text-white/25 font-mono truncate">
+                        {p.url?.replace("https://", "")}
+                      </span>
+                    </div>
+                    {/* Screenshot */}
+                    <div className="relative flex-1 overflow-hidden">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={p.image}
+                        alt={p.title}
+                        loading="lazy"
+                        className="w-full h-auto"
+                        style={{ position: "absolute", top: 0, left: 0 }}
+                      />
+                    </div>
+                    {/* Label bar */}
+                    <div
+                      className="flex items-center justify-between px-3 shrink-0"
+                      style={{ height: 36, background: "#1a1a1a", borderTop: "1px solid rgba(255,255,255,0.06)" }}
+                    >
+                      <span className="text-[11px] font-medium text-white/80 truncate">{p.title}</span>
+                      <span
+                        className="text-[9px] font-mono tracking-wider px-2 py-0.5 rounded-full shrink-0"
+                        style={{ background: "rgba(232,148,58,0.15)", color: "#E8943A" }}
+                      >
+                        {p.category}
+                      </span>
+                    </div>
+                  </a>
+                );
+              })}
+            </motion.div>
           </div>
         </div>
       </section>
