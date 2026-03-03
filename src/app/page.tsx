@@ -907,19 +907,19 @@ export default function Home() {
                 animation: "brandGradientMove 6s ease-in-out infinite",
                 opacity: 0,
                 transition: "opacity 0.6s ease",
-                maskImage: "radial-gradient(ellipse 360px 240px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 75%)",
-                WebkitMaskImage: "radial-gradient(ellipse 360px 240px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 75%)",
+                maskImage: "radial-gradient(ellipse 540px 360px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 75%)",
+                WebkitMaskImage: "radial-gradient(ellipse 540px 360px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 75%)",
               }}
             >
               Become a memorable brand.
             </h2>
             {/* Glow layers — 5 layers, each with unique color/size/speed/orbit */}
             {[
-              { color: "rgba(245,240,232,0.35)", stroke: 1, blur: 4, w: 360, h: 260, dur: "4.2s", anim: "bOrb1", delay: "0s" },
-              { color: "rgba(255,208,0,0.5)", stroke: 1.2, blur: 10, w: 280, h: 180, dur: "3.1s", anim: "bOrb2", delay: "-0.8s" },
-              { color: "rgba(255,140,0,0.55)", stroke: 1.5, blur: 14, w: 400, h: 220, dur: "5.3s", anim: "bOrb3", delay: "-1.6s" },
-              { color: "rgba(255,80,0,0.4)", stroke: 1, blur: 18, w: 320, h: 320, dur: "3.8s", anim: "bOrb4", delay: "-2.4s" },
-              { color: "rgba(204,34,0,0.3)", stroke: 1.3, blur: 22, w: 240, h: 360, dur: "6.1s", anim: "bOrb5", delay: "-0.5s" },
+              { color: "rgba(245,240,232,0.35)", stroke: 1, blur: 4, w: 540, h: 390, dur: "4.2s", anim: "bOrb1", delay: "0s" },
+              { color: "rgba(255,208,0,0.5)", stroke: 1.2, blur: 10, w: 420, h: 270, dur: "3.1s", anim: "bOrb2", delay: "-0.8s" },
+              { color: "rgba(255,140,0,0.55)", stroke: 1.5, blur: 14, w: 600, h: 330, dur: "5.3s", anim: "bOrb3", delay: "-1.6s" },
+              { color: "rgba(255,80,0,0.4)", stroke: 1, blur: 18, w: 480, h: 480, dur: "3.8s", anim: "bOrb4", delay: "-2.4s" },
+              { color: "rgba(204,34,0,0.3)", stroke: 1.3, blur: 22, w: 360, h: 540, dur: "6.1s", anim: "bOrb5", delay: "-0.5s" },
             ].map((l, i) => (
               <h2
                 key={i}
