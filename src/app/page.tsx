@@ -1015,15 +1015,15 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ GAVROCHE CINEMATIC ═══════════════════ */}
-      <section className="relative overflow-hidden" style={{ background: "#fafafa" }}>
-        <div className="w-full flex items-center justify-center" style={{ minHeight: "40vh" }}>
+      <section className="relative overflow-hidden" style={{ background: "#000" }}>
+        <div className="w-full flex items-center justify-center">
           <video
             autoPlay
             loop
             muted
             playsInline
             className="w-full h-auto"
-            style={{ mixBlendMode: "screen", maxHeight: "70vh", objectFit: "contain" }}
+            style={{ maxHeight: "70vh", objectFit: "contain" }}
           >
             <source src="/img/Stylish_Gavroche_on_Horseback.mp4" type="video/mp4" />
           </video>
