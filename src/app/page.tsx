@@ -993,8 +993,7 @@ export default function Home() {
                     src={p.image}
                     alt={p.title}
                     loading="lazy"
-                    className="w-full h-auto object-cover object-top transition-[object-position] duration-[3s] ease-in-out group-hover:object-bottom"
-                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
+                    className="project-screenshot"
                   />
                   <div
                     className="absolute inset-0 transition-opacity duration-500 opacity-0 group-hover:opacity-100"

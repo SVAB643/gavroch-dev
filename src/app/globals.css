@@ -104,6 +104,20 @@ html {
   color: rgba(255, 255, 255, 0.4);
 }
 
+/* Project screenshot hover-scroll */
+.project-screenshot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.group:hover .project-screenshot {
+  transform: translateY(calc(-100% + 300px));
+}
+
 /* Hide heavy GPU effects on mobile */
 @media (max-width: 767px) {
   .hero-blob {
