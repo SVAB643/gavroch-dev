@@ -715,6 +715,56 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ═══════════════════ STATS BANNER ═══════════════════ */}
+      <section className="section-dark relative overflow-hidden py-[48px] md:py-[120px]" ref={statsRef}>
+        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
+          <svg width="100%" height="100%"><filter id="grainStats"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainStats)" /></svg>
+        </div>
+        <div className="wrapper">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            animate={statsInView ? "visible" : "hidden"}
+            custom={0}
+            className="flex flex-col md:flex-row md:items-center justify-between gap-10 md:gap-12"
+          >
+            <h2
+              className="text-[clamp(2rem,5vw,4rem)] font-medium max-w-2xl"
+              style={{ lineHeight: 1.1, letterSpacing: "-0.03em" }}
+            >
+              We don&apos;t just talk,
+              <br />
+              we ship.
+            </h2>
+            <div className="flex flex-wrap gap-8 md:gap-16">
+              {[
+                { num: "50+", label: "Projects shipped" },
+                { num: "10x", label: "Faster with AI" },
+                { num: "100%", label: "Client retention" },
+              ].map((stat, i) => (
+                <motion.div
+                  key={stat.label}
+                  variants={fadeUp}
+                  initial="hidden"
+                  animate={statsInView ? "visible" : "hidden"}
+                  custom={0.15 + i * 0.1}
+                >
+                  <p
+                    className="text-[clamp(1.75rem,4vw,3rem)] font-medium"
+                    style={{ letterSpacing: "-0.03em", marginBottom: 4, color: "#F5C46A" }}
+                  >
+                    {stat.num}
+                  </p>
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-fg-light/40 font-mono">
+                    {stat.label}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ═══════════════════ SERVICES ═══════════════════ */}
       <section id="services" className="relative overflow-hidden py-[56px] md:py-[140px]" ref={servicesRef}>
         <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
@@ -886,56 +936,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════ STATS BANNER ═══════════════════ */}
-      <section className="section-dark relative overflow-hidden py-[48px] md:py-[120px]" ref={statsRef}>
-        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
-          <svg width="100%" height="100%"><filter id="grainStats"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainStats)" /></svg>
-        </div>
-        <div className="wrapper">
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate={statsInView ? "visible" : "hidden"}
-            custom={0}
-            className="flex flex-col md:flex-row md:items-center justify-between gap-10 md:gap-12"
-          >
-            <h2
-              className="text-[clamp(2rem,5vw,4rem)] font-medium max-w-2xl"
-              style={{ lineHeight: 1.1, letterSpacing: "-0.03em" }}
-            >
-              We don&apos;t just talk,
-              <br />
-              we ship.
-            </h2>
-            <div className="flex flex-wrap gap-8 md:gap-16">
-              {[
-                { num: "50+", label: "Projects shipped" },
-                { num: "10x", label: "Faster with AI" },
-                { num: "100%", label: "Client retention" },
-              ].map((stat, i) => (
-                <motion.div
-                  key={stat.label}
-                  variants={fadeUp}
-                  initial="hidden"
-                  animate={statsInView ? "visible" : "hidden"}
-                  custom={0.15 + i * 0.1}
-                >
-                  <p
-                    className="text-[clamp(1.75rem,4vw,3rem)] font-medium"
-                    style={{ letterSpacing: "-0.03em", marginBottom: 4, color: "#F5C46A" }}
-                  >
-                    {stat.num}
-                  </p>
-                  <p className="text-[11px] uppercase tracking-[0.2em] text-fg-light/40 font-mono">
-                    {stat.label}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       {/* ═══════════════════ PROCESS ═══════════════════ */}
       <section className="relative overflow-hidden py-[56px] md:py-[140px]" ref={processRef}>
         <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
@@ -1026,66 +1026,67 @@ export default function Home() {
                 className="text-[clamp(2rem,5vw,4.5rem)] font-medium max-w-4xl"
                 style={{ lineHeight: 1.05, letterSpacing: "-0.03em" }}
               >
-                Transparent pricing.{" "}
+                Transparent pricing.
+                <br />
                 <span style={{ color: "rgba(255,255,255,0.3)" }}>No surprises.</span>
               </motion.h2>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+          <div className="group/pricing grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
             {[
               {
                 name: "Starter",
                 price: "400",
-                desc: "Un site web complet et professionnel pour établir votre présence en ligne rapidement.",
+                desc: "A complete, professional website to establish your online presence — fast and reliable.",
                 features: [
-                  "Page web complète",
-                  "Design professionnel avec template adapté",
-                  "Fonctionnel sur mobile",
-                  "1 modification post-livraison incluse",
-                  "Support ponctuel",
-                  "Tag « Site réalisé par Gavroch.Dev » optionnel",
+                  "Full single-page website",
+                  "Professional template-based design",
+                  "Fully responsive on all devices",
+                  "1 post-launch revision included",
+                  "On-demand support",
+                  "Optional \"Built by Gavroch.Dev\" badge",
                 ],
-                maintenance: "30€/mois — hébergement, sécurité, sauvegarde",
-                extra: "100€ par modification supplémentaire",
+                maintenance: "€30/mo — hosting, security & backups",
+                extra: "€100 per additional change",
                 cta: "Get started",
               },
               {
                 name: "Custom Build",
                 price: "700",
                 highlight: true,
-                desc: "Notre offre cœur de marché — un site pensé pour convertir avec un vrai accompagnement.",
+                desc: "Our core offering — a conversion-optimized site with real guidance throughout the process.",
                 features: [
-                  "Page web complète optimisée conversion",
-                  "Fonctionnel sur mobile",
-                  "SEO local adapté à votre business",
-                  "Optimisation Google Business",
-                  "1 mois d\u2019accompagnement inclus",
-                  "4 modifications raisonnables incluses",
-                  "Assistance prioritaire",
+                  "Conversion-focused full website",
+                  "Fully responsive on all devices",
+                  "Local SEO tailored to your business",
+                  "Google Business optimization",
+                  "1 month of dedicated support",
+                  "4 reasonable revisions included",
+                  "Priority assistance",
                 ],
-                maintenance: "30€/mois — hébergement & sécurité",
-                extra: "70€ par modification additionnelle",
+                maintenance: "€30/mo — hosting & security",
+                extra: "€70 per additional revision",
                 cta: "Get started",
               },
               {
                 name: "Brand + Build",
                 price: "1000",
-                desc: "Le package complet — design sur-mesure, UX avancée et 3 mois d\u2019accompagnement.",
+                desc: "The full package — bespoke design, advanced UX, and 3 months of hands-on partnership.",
                 features: [
-                  "Page web complète + landing page dédiée",
-                  "Design personnalisé avancé",
-                  "UX orientée conversion client",
-                  "SEO local avancé",
-                  "Optimisation vitesse premium",
-                  "Google Analytics & tracking intégrés",
-                  "Optimisation mobile poussée",
-                  "3 mois d\u2019accompagnement inclus",
-                  "Ajustements site & conseils visibilité",
-                  "Suivi performances & optimisation continue",
+                  "Full website + dedicated landing page",
+                  "Custom design from scratch",
+                  "UX engineered for conversions",
+                  "Advanced local SEO",
+                  "Premium speed optimization",
+                  "Google Analytics & tracking setup",
+                  "Advanced mobile optimization",
+                  "3 months of ongoing support",
+                  "Site adjustments & visibility consulting",
+                  "Performance tracking & continuous optimization",
                 ],
-                maintenance: "10€/mois — hébergement & sécurité",
-                extra: "40€ par modification — support prioritaire",
+                maintenance: "€10/mo — hosting & security",
+                extra: "€40 per revision — priority & fast turnaround",
                 cta: "Get started",
               },
             ].map((plan, i) => (
@@ -1095,7 +1096,7 @@ export default function Home() {
                 initial="hidden"
                 animate={pricingInView ? "visible" : "hidden"}
                 custom={0.15 + i * 0.1}
-                className="group/card relative flex flex-col rounded-2xl overflow-hidden transition-all duration-500"
+                className="group/card relative flex flex-col rounded-2xl overflow-hidden transition-all duration-500 opacity-60 hover:opacity-100 group-hover/pricing:opacity-50 hover:!opacity-100"
                 style={{
                   background: plan.highlight
                     ? "linear-gradient(165deg, rgba(232,148,58,0.12) 0%, rgba(232,148,58,0.04) 100%)"
