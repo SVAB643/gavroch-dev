@@ -61,32 +61,12 @@ const processSteps = [
 
 const projects = [
   {
-    title: "AI-Powered SaaS",
+    title: "AP Market Intelligence",
     category: "Full-Stack + AI",
     year: "2025",
-    desc: "SaaS platform with built-in AI agents to automate business workflows.",
-    image: "https://picsum.photos/seed/saas/800/500",
-  },
-  {
-    title: "Next-Gen E-commerce",
-    category: "Headless Commerce",
-    year: "2025",
-    desc: "Headless e-commerce with AI recommendations and AB-tested checkout.",
-    image: "https://picsum.photos/seed/ecom/800/500",
-  },
-  {
-    title: "Social App",
-    category: "React Native",
-    year: "2025",
-    desc: "Mobile app with algorithmic feed and real-time AI moderation.",
-    image: "https://picsum.photos/seed/social/800/500",
-  },
-  {
-    title: "Fintech Dashboard",
-    category: "Data + AI",
-    year: "2024",
-    desc: "Analytics dashboard with ML predictions and interactive visualizations.",
-    image: "https://picsum.photos/seed/fintech/800/500",
+    desc: "Fund research and market intelligence platform for financial professionals.",
+    image: "/img/projects/apmi.png",
+    url: "https://apmi-mu.vercel.app/",
   },
 ];
 
@@ -982,59 +962,58 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="overflow-hidden -mx-[2.5%] md:-mx-[3%] lg:-mx-[4%]">
-            <motion.div
-              animate={{ x: [0, "-50%"] }}
-              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-              className="flex"
-              style={{ gap: 32, width: "max-content" }}
-            >
-              {[0, 1].map((r) => (
-                <div key={r} className="flex" style={{ gap: 32 }}>
-                  {projects.map((p) => (
-                    <div
-                      key={`${r}-${p.title}`}
-                      className="group shrink-0"
-                      style={{ width: 400 }}
-                      data-hover
-                    >
-                      <div className="relative overflow-hidden rounded-2xl mb-4" style={{ aspectRatio: "16/10" }}>
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={p.image}
-                          alt={p.title}
-                          loading="lazy"
-                          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                        />
-                        <div
-                          className="absolute inset-0 transition-opacity duration-500 opacity-0 group-hover:opacity-100"
-                          style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)" }}
-                        />
-                      </div>
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <h3
-                            className="text-[1.1rem] font-medium mb-1"
-                            style={{ letterSpacing: "-0.02em" }}
-                          >
-                            {p.title}
-                          </h3>
-                          <p className="text-[12px] text-muted" style={{ lineHeight: 1.5 }}>
-                            {p.desc}
-                          </p>
-                        </div>
-                        <span
-                          className="shrink-0 text-[10px] font-mono tracking-wider mt-1 px-2.5 py-1 rounded-full"
-                          style={{ background: "rgba(232,148,58,0.1)", color: "#E8943A" }}
-                        >
-                          {p.category}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {projects.map((p, i) => (
+              <motion.a
+                key={p.title}
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                variants={fadeUp}
+                initial="hidden"
+                animate={projetsInView ? "visible" : "hidden"}
+                custom={0.15 + i * 0.1}
+                className="group block"
+                data-hover
+              >
+                <div
+                  className="relative overflow-hidden rounded-2xl mb-4"
+                  style={{ height: 300 }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    loading="lazy"
+                    className="w-full h-auto object-cover object-top transition-[object-position] duration-[3s] ease-in-out group-hover:object-bottom"
+                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
+                  />
+                  <div
+                    className="absolute inset-0 transition-opacity duration-500 opacity-0 group-hover:opacity-100"
+                    style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)" }}
+                  />
                 </div>
-              ))}
-            </motion.div>
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <h3
+                      className="text-[1.1rem] font-medium mb-1"
+                      style={{ letterSpacing: "-0.02em" }}
+                    >
+                      {p.title}
+                    </h3>
+                    <p className="text-[12px] text-muted" style={{ lineHeight: 1.5 }}>
+                      {p.desc}
+                    </p>
+                  </div>
+                  <span
+                    className="shrink-0 text-[10px] font-mono tracking-wider mt-1 px-2.5 py-1 rounded-full"
+                    style={{ background: "rgba(232,148,58,0.1)", color: "#E8943A" }}
+                  >
+                    {p.category}
+                  </span>
+                </div>
+              </motion.a>
+            ))}
           </div>
         </div>
       </section>
