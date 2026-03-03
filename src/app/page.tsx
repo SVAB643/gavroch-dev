@@ -839,10 +839,10 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
             {[
               {
-                name: "Présence Essentielle",
+                name: "Starter",
                 price: "400",
                 desc: "Un site web complet et professionnel pour établir votre présence en ligne rapidement.",
                 features: [
@@ -853,11 +853,12 @@ export default function Home() {
                   "Support ponctuel",
                   "Tag « Site réalisé par Gavroch.Dev » optionnel",
                 ],
-                maintenance: "Maintenance : 30€/mois (hébergement, sécurité, sauvegarde)",
-                extra: "Modification supplémentaire : 100€ (>3h)",
+                maintenance: "30€/mois — hébergement, sécurité, sauvegarde",
+                extra: "100€ par modification supplémentaire",
+                cta: "Get started",
               },
               {
-                name: "Site Professionnel",
+                name: "Custom Build",
                 price: "700",
                 highlight: true,
                 desc: "Notre offre cœur de marché — un site pensé pour convertir avec un vrai accompagnement.",
@@ -870,11 +871,12 @@ export default function Home() {
                   "4 modifications raisonnables incluses",
                   "Assistance prioritaire",
                 ],
-                maintenance: "Maintenance : 30€/mois (hébergement, sécurité)",
-                extra: "Modifications additionnelles : 70€",
+                maintenance: "30€/mois — hébergement & sécurité",
+                extra: "70€ par modification additionnelle",
+                cta: "Get started",
               },
               {
-                name: "Premium",
+                name: "Brand + Build",
                 price: "1000",
                 desc: "Le package complet — design sur-mesure, UX avancée et 3 mois d\u2019accompagnement.",
                 features: [
@@ -889,8 +891,9 @@ export default function Home() {
                   "Ajustements site & conseils visibilité",
                   "Suivi performances & optimisation continue",
                 ],
-                maintenance: "Maintenance : 10€/mois (hébergement, sécurité)",
-                extra: "Grosses modifications : 40€ — support prioritaire & délais rapides",
+                maintenance: "10€/mois — hébergement & sécurité",
+                extra: "40€ par modification — support prioritaire",
+                cta: "Get started",
               },
             ].map((plan, i) => (
               <motion.div
@@ -899,62 +902,111 @@ export default function Home() {
                 initial="hidden"
                 animate={pricingInView ? "visible" : "hidden"}
                 custom={0.15 + i * 0.1}
-                className="relative flex flex-col rounded-2xl p-8 md:p-10"
+                className="group/card relative flex flex-col rounded-2xl overflow-hidden transition-all duration-500"
                 style={{
-                  background: plan.highlight ? "rgba(255,140,0,0.08)" : "rgba(255,255,255,0.03)",
-                  border: plan.highlight ? "1px solid rgba(255,140,0,0.25)" : "1px solid rgba(255,255,255,0.08)",
+                  background: plan.highlight
+                    ? "linear-gradient(165deg, rgba(232,148,58,0.12) 0%, rgba(232,148,58,0.04) 100%)"
+                    : "rgba(255,255,255,0.03)",
+                  border: plan.highlight
+                    ? "1px solid rgba(232,148,58,0.3)"
+                    : "1px solid rgba(255,255,255,0.08)",
                 }}
               >
                 {plan.highlight && (
-                  <span
-                    className="absolute -top-3 left-8 text-[10px] uppercase tracking-[0.2em] font-mono px-3 py-1 rounded-full"
-                    style={{ background: "#E8943A", color: "#050505" }}
-                  >
-                    Popular
-                  </span>
+                  <div
+                    className="absolute top-0 left-0 right-0 h-[2px]"
+                    style={{ background: "linear-gradient(90deg, transparent, #E8943A, transparent)" }}
+                  />
                 )}
-                <p className="text-[12px] uppercase tracking-[0.2em] font-mono" style={{ color: "rgba(255,255,255,0.4)" }}>
-                  {plan.name}
-                </p>
-                <p className="mt-4 mb-6 flex items-baseline gap-1">
-                  <span className="text-[clamp(2.5rem,4vw,3.5rem)] font-medium" style={{ letterSpacing: "-0.03em", color: plan.highlight ? "#F5C46A" : "#fff" }}>
-                    €{plan.price}
-                  </span>
-                </p>
-                <p className="text-[13px] mb-8" style={{ lineHeight: 1.7, color: "rgba(255,255,255,0.5)" }}>
-                  {plan.desc}
-                </p>
-                <div className="flex-1 flex flex-col gap-3 mb-6">
-                  {plan.features.map((f) => (
-                    <div key={f} className="flex items-start gap-3">
-                      <span className="mt-1.5 block w-1 h-1 rounded-full shrink-0" style={{ background: plan.highlight ? "#E8943A" : "rgba(255,255,255,0.25)" }} />
-                      <span className="text-[13px]" style={{ color: "rgba(255,255,255,0.6)" }}>{f}</span>
+
+                <div className="p-7 md:p-9 flex-1 flex flex-col">
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-6">
+                    <p className="text-[12px] uppercase tracking-[0.2em] font-mono" style={{ color: plan.highlight ? "#E8943A" : "rgba(255,255,255,0.35)" }}>
+                      {plan.name}
+                    </p>
+                    {plan.highlight && (
+                      <span
+                        className="text-[9px] uppercase tracking-[0.15em] font-mono px-2.5 py-1 rounded-full"
+                        style={{ background: "rgba(232,148,58,0.15)", color: "#E8943A" }}
+                      >
+                        Popular
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Price */}
+                  <div className="mb-5">
+                    <span
+                      className="text-[clamp(2.8rem,4.5vw,3.8rem)] font-medium"
+                      style={{ letterSpacing: "-0.04em", color: plan.highlight ? "#fff" : "#fff" }}
+                    >
+                      €{plan.price}
+                    </span>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-[13px] mb-7" style={{ lineHeight: 1.7, color: "rgba(255,255,255,0.45)" }}>
+                    {plan.desc}
+                  </p>
+
+                  {/* Divider */}
+                  <div className="mb-6" style={{ height: 1, background: plan.highlight ? "rgba(232,148,58,0.15)" : "rgba(255,255,255,0.06)" }} />
+
+                  {/* Features */}
+                  <div className="flex-1 flex flex-col gap-3.5 mb-7">
+                    {plan.features.map((f) => (
+                      <div key={f} className="flex items-start gap-3">
+                        <svg className="mt-0.5 shrink-0" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                          <path
+                            d="M3.5 7L6 9.5L10.5 4.5"
+                            stroke={plan.highlight ? "#E8943A" : "rgba(255,255,255,0.25)"}
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        <span className="text-[13px]" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.5 }}>{f}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Maintenance & extras */}
+                  <div
+                    className="mb-7 p-3.5 rounded-lg"
+                    style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.04)" }}
+                  >
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="text-[10px] uppercase tracking-[0.15em] font-mono" style={{ color: "rgba(255,255,255,0.3)" }}>
+                        Maintenance
+                      </span>
                     </div>
-                  ))}
+                    <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.4)", lineHeight: 1.5 }}>
+                      {plan.maintenance}
+                    </p>
+                    <p className="text-[11px] mt-1" style={{ color: "rgba(255,255,255,0.3)", lineHeight: 1.5 }}>
+                      {plan.extra}
+                    </p>
+                  </div>
+
+                  {/* CTA */}
+                  <motion.a
+                    href="#contact"
+                    data-hover
+                    className="text-center text-[12px] uppercase tracking-[0.15em] font-medium py-4 rounded-xl transition-all duration-300"
+                    style={{
+                      background: plan.highlight
+                        ? "linear-gradient(135deg, #E8943A, #D4802A)"
+                        : "transparent",
+                      color: plan.highlight ? "#050505" : "rgba(255,255,255,0.6)",
+                      border: plan.highlight ? "none" : "1px solid rgba(255,255,255,0.12)",
+                    }}
+                    whileHover={{ scale: 1.02, y: -1 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {plan.cta}
+                  </motion.a>
                 </div>
-                {/* Maintenance & extras */}
-                <div className="mb-8 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-                  <p className="text-[11px] font-mono" style={{ color: "rgba(255,255,255,0.3)", lineHeight: 1.6 }}>
-                    {plan.maintenance}
-                  </p>
-                  <p className="text-[11px] font-mono mt-1" style={{ color: "rgba(255,255,255,0.3)", lineHeight: 1.6 }}>
-                    {plan.extra}
-                  </p>
-                </div>
-                <motion.a
-                  href="#contact"
-                  data-hover
-                  className="text-center text-[12px] uppercase tracking-[0.15em] font-medium py-3.5 rounded-full transition-colors duration-300"
-                  style={{
-                    background: plan.highlight ? "#E8943A" : "transparent",
-                    color: plan.highlight ? "#050505" : "rgba(255,255,255,0.6)",
-                    border: plan.highlight ? "none" : "1px solid rgba(255,255,255,0.15)",
-                  }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Get started
-                </motion.a>
               </motion.div>
             ))}
           </div>
