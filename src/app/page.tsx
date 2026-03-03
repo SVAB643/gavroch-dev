@@ -854,23 +854,59 @@ export default function Home() {
           <svg width="100%" height="100%"><filter id="grainBrand"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainBrand)" /></svg>
         </div>
         <div className="wrapper flex items-center justify-center">
-          <motion.h2
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="brand-ghost-text text-center font-medium select-none"
+            className="relative select-none"
             data-hover
-            style={{
-              fontSize: "clamp(2.5rem, 8vw, 8rem)",
-              lineHeight: 1.05,
-              letterSpacing: "-0.04em",
-              color: "transparent",
-              WebkitTextStroke: "1px rgba(255,255,255,0.07)",
+            onMouseMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              const x = e.clientX - rect.left;
+              const y = e.clientY - rect.top;
+              const glow = e.currentTarget.querySelector(".brand-glow") as HTMLElement;
+              if (glow) {
+                glow.style.maskImage = `radial-gradient(circle 120px at ${x}px ${y}px, black 0%, transparent 100%)`;
+                glow.style.WebkitMaskImage = `radial-gradient(circle 120px at ${x}px ${y}px, black 0%, transparent 100%)`;
+                glow.style.opacity = "1";
+              }
+            }}
+            onMouseLeave={(e) => {
+              const glow = e.currentTarget.querySelector(".brand-glow") as HTMLElement;
+              if (glow) glow.style.opacity = "0";
             }}
           >
-            Become a memorable brand.
-          </motion.h2>
+            {/* Base — faint outline */}
+            <h2
+              className="text-center font-medium"
+              style={{
+                fontSize: "clamp(2.5rem, 8vw, 8rem)",
+                lineHeight: 1.05,
+                letterSpacing: "-0.04em",
+                color: "transparent",
+                WebkitTextStroke: "1px rgba(255,255,255,0.07)",
+              }}
+            >
+              Become a memorable brand.
+            </h2>
+            {/* Glow layer — masked to mouse position */}
+            <h2
+              className="brand-glow absolute inset-0 text-center font-medium pointer-events-none transition-opacity duration-300"
+              aria-hidden="true"
+              style={{
+                fontSize: "clamp(2.5rem, 8vw, 8rem)",
+                lineHeight: 1.05,
+                letterSpacing: "-0.04em",
+                color: "transparent",
+                WebkitTextStroke: "1.5px rgba(255,140,0,0.5)",
+                filter: "drop-shadow(0 0 12px rgba(255,120,0,0.2))",
+                opacity: 0,
+              }}
+            >
+              Become a memorable brand.
+            </h2>
+          </motion.div>
         </div>
       </section>
 
