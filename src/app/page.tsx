@@ -911,6 +911,137 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ═══════════════════ PROJETS ═══════════════════ */}
+      <section id="projects" className="relative overflow-hidden py-[56px] md:py-[140px]" ref={projetsRef} style={{ background: "#fafafa" }}>
+        <div className="wrapper">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 md:mb-20">
+            <div>
+              <motion.p
+                variants={fadeUp}
+                initial="hidden"
+                animate={projetsInView ? "visible" : "hidden"}
+                custom={0}
+                className="text-[11px] uppercase tracking-[0.25em] font-mono mb-5 md:mb-8"
+                style={{ color: "rgba(0,0,0,0.3)" }}
+              >
+                Selected work
+              </motion.p>
+              <motion.h2
+                variants={slideUp}
+                initial="hidden"
+                animate={projetsInView ? "visible" : "hidden"}
+                custom={0.1}
+                className="text-[clamp(2rem,5vw,4.5rem)] font-medium"
+                style={{ lineHeight: 1.05, letterSpacing: "-0.03em", color: "#0a0a0a" }}
+              >
+                What we&apos;ve built{" "}
+                <span style={{ color: "rgba(0,0,0,0.2)" }}>recently.</span>
+              </motion.h2>
+            </div>
+            <motion.p
+              variants={fadeUp}
+              initial="hidden"
+              animate={projetsInView ? "visible" : "hidden"}
+              custom={0.2}
+              className="text-[13px] max-w-xs mt-4 md:mt-0 hidden md:block"
+              style={{ color: "rgba(0,0,0,0.4)", lineHeight: 1.7 }}
+            >
+              A selection of projects we&apos;ve designed, developed, and shipped for our clients.
+            </motion.p>
+          </div>
+
+          {/* Projects — 2-column staggered grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+            {projects.map((p, i) => (
+              <motion.a
+                key={p.title}
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                variants={fadeUp}
+                initial="hidden"
+                animate={projetsInView ? "visible" : "hidden"}
+                custom={0.15 + i * 0.1}
+                className="group block"
+                data-hover
+                style={{ marginTop: i % 2 !== 0 ? 48 : 0 }}
+              >
+                {/* Card */}
+                <div
+                  className="relative overflow-hidden rounded-2xl transition-all duration-500 group-hover:shadow-xl"
+                  style={{
+                    background: "#fff",
+                    border: "1px solid rgba(0,0,0,0.07)",
+                    boxShadow: "0 2px 16px rgba(0,0,0,0.04)",
+                  }}
+                >
+                  {/* Browser chrome */}
+                  <div className="flex items-center gap-2 px-4" style={{ height: 36, borderBottom: "1px solid rgba(0,0,0,0.05)" }}>
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-[9px] h-[9px] rounded-full" style={{ background: "#ff5f57" }} />
+                      <div className="w-[9px] h-[9px] rounded-full" style={{ background: "#febc2e" }} />
+                      <div className="w-[9px] h-[9px] rounded-full" style={{ background: "#28c840" }} />
+                    </div>
+                    <div
+                      className="ml-2 flex-1 max-w-[240px] flex items-center rounded-md px-3"
+                      style={{ height: 22, background: "rgba(0,0,0,0.03)" }}
+                    >
+                      <span className="text-[10px] font-mono truncate" style={{ color: "rgba(0,0,0,0.25)" }}>
+                        {p.url?.replace("https://", "").replace(/\/$/, "")}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Screenshot */}
+                  <div className="relative overflow-hidden" style={{ height: 340 }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      loading="lazy"
+                      className="w-full h-auto"
+                      style={{ position: "absolute", top: 0, left: 0 }}
+                    />
+                    {/* Hover overlay */}
+                    <div
+                      className="absolute inset-0 flex items-end p-5 transition-opacity duration-500 opacity-0 group-hover:opacity-100"
+                      style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%)" }}
+                    >
+                      <span className="text-[11px] uppercase tracking-[0.15em] font-medium text-white/90">
+                        View project &rarr;
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Info */}
+                <div className="flex items-start justify-between mt-4 px-1">
+                  <div>
+                    <div className="flex items-center gap-2.5 mb-1">
+                      <span className="text-[10px] font-mono" style={{ color: "rgba(0,0,0,0.2)" }}>
+                        0{i + 1}
+                      </span>
+                      <h3 className="text-[1.05rem] md:text-[1.15rem] font-medium" style={{ letterSpacing: "-0.02em", color: "#0a0a0a" }}>
+                        {p.title}
+                      </h3>
+                    </div>
+                    <p className="text-[12px]" style={{ color: "rgba(0,0,0,0.4)" }}>
+                      {p.desc}
+                    </p>
+                  </div>
+                  <span
+                    className="shrink-0 text-[9px] font-mono tracking-wider px-2.5 py-1 rounded-full mt-0.5"
+                    style={{ background: "rgba(0,0,0,0.04)", color: "rgba(0,0,0,0.4)" }}
+                  >
+                    {p.category}
+                  </span>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ═══════════════════ PRICING ═══════════════════ */}
       <section id="pricing" className="section-dark relative overflow-hidden py-[56px] md:py-[140px]" ref={pricingRef}>
         <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
@@ -949,7 +1080,7 @@ export default function Home() {
             {[
               {
                 name: "Starter",
-                price: "400",
+                price: "399",
                 desc: "A complete, professional website to establish your online presence — fast and reliable.",
                 features: [
                   "Full single-page website",
@@ -965,7 +1096,7 @@ export default function Home() {
               },
               {
                 name: "Custom Build",
-                price: "700",
+                price: "629",
                 highlight: true,
                 desc: "Our core offering — a conversion-optimized site with real guidance throughout the process.",
                 features: [
@@ -983,7 +1114,7 @@ export default function Home() {
               },
               {
                 name: "Brand + Build",
-                price: "1000",
+                price: "999",
                 desc: "The full package — bespoke design, advanced UX, and 3 months of hands-on partnership.",
                 features: [
                   "Full website + dedicated landing page",
@@ -1243,137 +1374,6 @@ export default function Home() {
                   LinkedIn &rarr;
                 </a>
               </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════ PROJETS ═══════════════════ */}
-      <section id="projects" className="relative overflow-hidden py-[56px] md:py-[140px]" ref={projetsRef} style={{ background: "#fafafa" }}>
-        <div className="wrapper">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 md:mb-20">
-            <div>
-              <motion.p
-                variants={fadeUp}
-                initial="hidden"
-                animate={projetsInView ? "visible" : "hidden"}
-                custom={0}
-                className="text-[11px] uppercase tracking-[0.25em] font-mono mb-5 md:mb-8"
-                style={{ color: "rgba(0,0,0,0.3)" }}
-              >
-                Selected work
-              </motion.p>
-              <motion.h2
-                variants={slideUp}
-                initial="hidden"
-                animate={projetsInView ? "visible" : "hidden"}
-                custom={0.1}
-                className="text-[clamp(2rem,5vw,4.5rem)] font-medium"
-                style={{ lineHeight: 1.05, letterSpacing: "-0.03em", color: "#0a0a0a" }}
-              >
-                What we&apos;ve built{" "}
-                <span style={{ color: "rgba(0,0,0,0.2)" }}>recently.</span>
-              </motion.h2>
-            </div>
-            <motion.p
-              variants={fadeUp}
-              initial="hidden"
-              animate={projetsInView ? "visible" : "hidden"}
-              custom={0.2}
-              className="text-[13px] max-w-xs mt-4 md:mt-0 hidden md:block"
-              style={{ color: "rgba(0,0,0,0.4)", lineHeight: 1.7 }}
-            >
-              A selection of projects we&apos;ve designed, developed, and shipped for our clients.
-            </motion.p>
-          </div>
-
-          {/* Projects — 2-column staggered grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-            {projects.map((p, i) => (
-              <motion.a
-                key={p.title}
-                href={p.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                variants={fadeUp}
-                initial="hidden"
-                animate={projetsInView ? "visible" : "hidden"}
-                custom={0.15 + i * 0.1}
-                className="group block"
-                data-hover
-                style={{ marginTop: i % 2 !== 0 ? 48 : 0 }}
-              >
-                {/* Card */}
-                <div
-                  className="relative overflow-hidden rounded-2xl transition-all duration-500 group-hover:shadow-xl"
-                  style={{
-                    background: "#fff",
-                    border: "1px solid rgba(0,0,0,0.07)",
-                    boxShadow: "0 2px 16px rgba(0,0,0,0.04)",
-                  }}
-                >
-                  {/* Browser chrome */}
-                  <div className="flex items-center gap-2 px-4" style={{ height: 36, borderBottom: "1px solid rgba(0,0,0,0.05)" }}>
-                    <div className="flex items-center gap-1.5">
-                      <div className="w-[9px] h-[9px] rounded-full" style={{ background: "#ff5f57" }} />
-                      <div className="w-[9px] h-[9px] rounded-full" style={{ background: "#febc2e" }} />
-                      <div className="w-[9px] h-[9px] rounded-full" style={{ background: "#28c840" }} />
-                    </div>
-                    <div
-                      className="ml-2 flex-1 max-w-[240px] flex items-center rounded-md px-3"
-                      style={{ height: 22, background: "rgba(0,0,0,0.03)" }}
-                    >
-                      <span className="text-[10px] font-mono truncate" style={{ color: "rgba(0,0,0,0.25)" }}>
-                        {p.url?.replace("https://", "").replace(/\/$/, "")}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Screenshot */}
-                  <div className="relative overflow-hidden" style={{ height: 340 }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={p.image}
-                      alt={p.title}
-                      loading="lazy"
-                      className="w-full h-auto"
-                      style={{ position: "absolute", top: 0, left: 0 }}
-                    />
-                    {/* Hover overlay */}
-                    <div
-                      className="absolute inset-0 flex items-end p-5 transition-opacity duration-500 opacity-0 group-hover:opacity-100"
-                      style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%)" }}
-                    >
-                      <span className="text-[11px] uppercase tracking-[0.15em] font-medium text-white/90">
-                        View project &rarr;
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Info */}
-                <div className="flex items-start justify-between mt-4 px-1">
-                  <div>
-                    <div className="flex items-center gap-2.5 mb-1">
-                      <span className="text-[10px] font-mono" style={{ color: "rgba(0,0,0,0.2)" }}>
-                        0{i + 1}
-                      </span>
-                      <h3 className="text-[1.05rem] md:text-[1.15rem] font-medium" style={{ letterSpacing: "-0.02em", color: "#0a0a0a" }}>
-                        {p.title}
-                      </h3>
-                    </div>
-                    <p className="text-[12px]" style={{ color: "rgba(0,0,0,0.4)" }}>
-                      {p.desc}
-                    </p>
-                  </div>
-                  <span
-                    className="shrink-0 text-[9px] font-mono tracking-wider px-2.5 py-1 rounded-full mt-0.5"
-                    style={{ background: "rgba(0,0,0,0.04)", color: "rgba(0,0,0,0.4)" }}
-                  >
-                    {p.category}
-                  </span>
-                </div>
-              </motion.a>
             ))}
           </div>
         </div>
