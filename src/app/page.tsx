@@ -166,7 +166,6 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [hovering, setHovering] = useState(false);
-  const [activeProject, setActiveProject] = useState(0);
 
   // Scroll progress
   const { scrollYProgress } = useScroll();
@@ -188,7 +187,6 @@ export default function Home() {
   const processRef = useRef(null);
   const pricingRef = useRef(null);
   const projetsRef = useRef(null);
-  const showcaseRef = useRef(null);
   const aboutRef = useRef(null);
   const teamRef = useRef(null);
   const contactRef = useRef(null);
@@ -198,7 +196,6 @@ export default function Home() {
   const processInView = useInView(processRef, { once: true, margin: "-100px" });
   const pricingInView = useInView(pricingRef, { once: true, margin: "-100px" });
   const projetsInView = useInView(projetsRef, { once: true, margin: "-100px" });
-  const showcaseInView = useInView(showcaseRef, { once: true, margin: "-100px" });
   const aboutInView = useInView(aboutRef, { once: true, margin: "-100px" });
   const teamInView = useInView(teamRef, { once: true, margin: "-100px" });
   const contactInView = useInView(contactRef, { once: true, margin: "-100px" });
@@ -209,13 +206,6 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Cycle through projects for showcase
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveProject((prev) => (prev + 1) % projects.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
 
   // Custom cursor
   useEffect(() => {
@@ -1127,164 +1117,6 @@ export default function Home() {
               </motion.div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════ SHOWCASE MACBOOK ═══════════════════ */}
-      <section className="section-dark relative overflow-hidden py-[80px] md:py-[160px]" ref={showcaseRef}>
-        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.2 }}>
-          <svg width="100%" height="100%"><filter id="grainShowcase"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainShowcase)" /></svg>
-        </div>
-        <div className="wrapper">
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            animate={showcaseInView ? "visible" : "hidden"}
-            custom={0}
-            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-6 md:mb-16 text-center"
-            style={{ color: "rgba(255,255,255,0.4)" }}
-          >
-            Nos réalisations
-          </motion.p>
-
-          <div className="mb-8 md:mb-16">
-            <div className="overflow-hidden">
-              <motion.h2
-                variants={slideUp}
-                initial="hidden"
-                animate={showcaseInView ? "visible" : "hidden"}
-                custom={0.1}
-                className="text-[clamp(2rem,5vw,4.5rem)] font-medium text-center mx-auto max-w-3xl"
-                style={{ lineHeight: 1.05, letterSpacing: "-0.03em" }}
-              >
-                Des sites qui{" "}
-                <span style={{ color: "rgba(255,255,255,0.3)" }}>parlent d&apos;eux-mêmes.</span>
-              </motion.h2>
-            </div>
-          </div>
-
-          {/* MacBook Frame */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate={showcaseInView ? "visible" : "hidden"}
-            custom={0.2}
-            className="relative mx-auto"
-            style={{ maxWidth: 900 }}
-          >
-            {/* Glow effect behind MacBook */}
-            <div
-              className="absolute -inset-[20%] opacity-40 blur-[100px] pointer-events-none"
-              style={{
-                background: "radial-gradient(ellipse at center, rgba(232,148,58,0.3) 0%, rgba(232,148,58,0.05) 40%, transparent 70%)",
-              }}
-            />
-
-            {/* MacBook body */}
-            <div className="relative z-10">
-              {/* Screen bezel */}
-              <div
-                className="rounded-t-[12px] md:rounded-t-[16px] overflow-hidden"
-                style={{
-                  background: "#1a1a1a",
-                  padding: "8px 8px 0 8px",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  borderBottom: "none",
-                }}
-              >
-                {/* Top bar with dots + URL */}
-                <div
-                  className="flex items-center gap-1.5 px-3 rounded-t-[6px]"
-                  style={{ height: 32, background: "#111" }}
-                >
-                  <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#ff5f57" }} />
-                  <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#febc2e" }} />
-                  <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#28c840" }} />
-                  <div
-                    className="ml-3 flex-1 flex items-center justify-center rounded-md px-3"
-                    style={{ height: 22, background: "rgba(255,255,255,0.06)" }}
-                  >
-                    <AnimatePresence mode="wait">
-                      <motion.span
-                        key={activeProject}
-                        initial={{ opacity: 0, y: 6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -6 }}
-                        transition={{ duration: 0.3 }}
-                        className="text-[10px] text-white/30 font-mono"
-                      >
-                        {projects[activeProject]?.url?.replace("https://", "")}
-                      </motion.span>
-                    </AnimatePresence>
-                  </div>
-                </div>
-
-                {/* Screen content */}
-                <div className="relative overflow-hidden" style={{ aspectRatio: "16/10", background: "#000" }}>
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeProject}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.8 }}
-                      className="absolute inset-0"
-                    >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={projects[activeProject]?.image}
-                        alt={projects[activeProject]?.title}
-                        className="project-screenshot"
-                      />
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              </div>
-
-              {/* MacBook bottom / hinge */}
-              <div
-                className="relative h-[14px] md:h-[18px] rounded-b-[6px] mx-auto"
-                style={{
-                  width: "104%",
-                  marginLeft: "-2%",
-                  background: "linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%)",
-                  borderRadius: "0 0 12px 12px",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  borderTop: "1px solid rgba(255,255,255,0.15)",
-                }}
-              >
-                {/* Notch */}
-                <div
-                  className="absolute top-0 left-1/2 -translate-x-1/2 h-[4px] rounded-b-[4px]"
-                  style={{ width: 60, background: "rgba(255,255,255,0.08)" }}
-                />
-              </div>
-            </div>
-
-            {/* Project indicators */}
-            <div className="flex justify-center items-center gap-6 mt-10">
-              {projects.map((p, i) => (
-                <button
-                  key={p.title}
-                  data-hover
-                  onClick={() => setActiveProject(i)}
-                  className="flex items-center gap-3 transition-all duration-500"
-                  style={{ opacity: activeProject === i ? 1 : 0.35 }}
-                >
-                  <span
-                    className="block w-1.5 h-1.5 rounded-full transition-all duration-500"
-                    style={{
-                      background: activeProject === i ? "#E8943A" : "rgba(255,255,255,0.3)",
-                      transform: activeProject === i ? "scale(1.3)" : "scale(1)",
-                    }}
-                  />
-                  <span className="text-[12px] font-mono tracking-wider" style={{ color: activeProject === i ? "#fff" : "rgba(255,255,255,0.4)" }}>
-                    {p.title}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </motion.div>
         </div>
       </section>
 
