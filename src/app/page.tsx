@@ -848,6 +848,28 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ═══════════════════ BRAND STATEMENT ═══════════════════ */}
+      <section className="relative overflow-hidden" style={{ background: "#050505", paddingTop: "clamp(48px, 10vw, 120px)", paddingBottom: "clamp(48px, 10vw, 120px)" }}>
+        <div className="wrapper flex items-center justify-center">
+          <motion.h2
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            className="text-center font-medium select-none"
+            style={{
+              fontSize: "clamp(2.5rem, 8vw, 8rem)",
+              lineHeight: 1.05,
+              letterSpacing: "-0.04em",
+              color: "transparent",
+              WebkitTextStroke: "1px rgba(255,255,255,0.08)",
+            }}
+          >
+            Become a memorable brand.
+          </motion.h2>
+        </div>
+      </section>
+
       {/* ═══════════════════ PROCESS ═══════════════════ */}
       <section className="relative overflow-hidden py-[56px] md:py-[140px]" ref={processRef}>
         <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
