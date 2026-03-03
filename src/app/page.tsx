@@ -970,76 +970,79 @@ export default function Home() {
             </div>
           </div>
 
-          {/* 3D Carousel */}
-          <div
-            className="flex justify-center items-center py-8 md:py-16"
-            style={{ perspective: 1200 }}
-          >
-            <motion.div
-              animate={{ rotateY: [0, -360] }}
-              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-              className="relative w-[280px] h-[200px] md:w-[500px] md:h-[340px]"
-              style={{ transformStyle: "preserve-3d" }}
-            >
-              {[...projects, ...projects, ...projects].map((p, i) => {
-                const total = projects.length * 3;
-                const angle = (360 / total) * i;
-                const radius = 450;
-                return (
-                  <a
-                    key={`${p.title}-${i}`}
-                    href={p.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-hover
-                    className="absolute inset-0 flex flex-col overflow-hidden rounded-xl"
-                    style={{
-                      transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
-                      backfaceVisibility: "hidden",
-                      border: "1px solid rgba(255,255,255,0.1)",
-                      background: "#111",
-                    }}
-                  >
-                    {/* Browser chrome */}
-                    <div
-                      className="flex items-center gap-1.5 px-3 shrink-0"
-                      style={{ height: 32, background: "#1a1a1a" }}
+          {/* Orbital Carousel */}
+          <div className="flex justify-center items-center py-12 md:py-24">
+            <div className="relative w-[340px] h-[340px] md:w-[700px] md:h-[700px]">
+              {/* Center text */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
+                <span className="text-[11px] md:text-[13px] uppercase tracking-[0.25em] font-mono" style={{ color: "rgba(255,255,255,0.25)" }}>
+                  Our projects
+                </span>
+              </div>
+              {/* Orbit ring */}
+              <div
+                className="absolute inset-[10%] rounded-full"
+                style={{ border: "1px solid rgba(255,255,255,0.06)" }}
+              />
+              {/* Rotating wrapper */}
+              <motion.div
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-0"
+              >
+                {[...projects, ...projects, ...projects].map((p, i) => {
+                  const total = projects.length * 3;
+                  const angle = (360 / total) * i;
+                  const radiusPct = 40;
+                  return (
+                    <motion.a
+                      key={`${p.title}-${i}`}
+                      href={p.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-hover
+                      animate={{ rotate: [0, -360] }}
+                      transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                      className="absolute flex flex-col overflow-hidden rounded-xl"
+                      style={{
+                        width: "42%",
+                        aspectRatio: "16/11",
+                        top: "50%",
+                        left: "50%",
+                        transform: `rotate(${angle}deg) translateY(-${radiusPct}%) rotate(-${angle}deg) translate(-50%, -50%)`,
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        background: "#111",
+                        boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
+                      }}
                     >
-                      <div className="w-2 h-2 rounded-full" style={{ background: "#ff5f57" }} />
-                      <div className="w-2 h-2 rounded-full" style={{ background: "#febc2e" }} />
-                      <div className="w-2 h-2 rounded-full" style={{ background: "#28c840" }} />
-                      <span className="ml-2 text-[9px] text-white/25 font-mono truncate">
-                        {p.url?.replace("https://", "")}
-                      </span>
-                    </div>
-                    {/* Screenshot */}
-                    <div className="relative flex-1 overflow-hidden">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={p.image}
-                        alt={p.title}
-                        loading="lazy"
-                        className="w-full h-auto"
-                        style={{ position: "absolute", top: 0, left: 0 }}
-                      />
-                    </div>
-                    {/* Label bar */}
-                    <div
-                      className="flex items-center justify-between px-3 shrink-0"
-                      style={{ height: 36, background: "#1a1a1a", borderTop: "1px solid rgba(255,255,255,0.06)" }}
-                    >
-                      <span className="text-[11px] font-medium text-white/80 truncate">{p.title}</span>
-                      <span
-                        className="text-[9px] font-mono tracking-wider px-2 py-0.5 rounded-full shrink-0"
-                        style={{ background: "rgba(232,148,58,0.15)", color: "#E8943A" }}
+                      {/* Browser chrome */}
+                      <div
+                        className="flex items-center gap-1 px-2 md:px-3 shrink-0"
+                        style={{ height: 28, background: "#1a1a1a" }}
                       >
-                        {p.category}
-                      </span>
-                    </div>
-                  </a>
-                );
-              })}
-            </motion.div>
+                        <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full" style={{ background: "#ff5f57" }} />
+                        <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full" style={{ background: "#febc2e" }} />
+                        <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full" style={{ background: "#28c840" }} />
+                        <span className="ml-1 md:ml-2 text-[8px] md:text-[9px] text-white/25 font-mono truncate">
+                          {p.url?.replace("https://", "")}
+                        </span>
+                      </div>
+                      {/* Screenshot */}
+                      <div className="relative flex-1 overflow-hidden">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={p.image}
+                          alt={p.title}
+                          loading="lazy"
+                          className="w-full h-auto"
+                          style={{ position: "absolute", top: 0, left: 0 }}
+                        />
+                      </div>
+                    </motion.a>
+                  );
+                })}
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
