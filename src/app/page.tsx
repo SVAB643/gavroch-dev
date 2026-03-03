@@ -1173,12 +1173,12 @@ export default function Home() {
                 experience: ["EY", "Cambon Partners"],
               },
               {
-                name: "Alexandre Cohen",
+                name: "Alexandre Cohen-Skalli",
                 initials: "AC",
                 photo: "/img/alexandre.jpeg",
                 role: "Co-founder & Designer",
                 desc: "UI/UX designer with a sharp eye for detail. Turns complex ideas into interfaces people actually enjoy using.",
-                linkedin: "#",
+                linkedin: "https://www.linkedin.com/in/alexandre-cohen-skalli-a718bb206/",
                 education: "MSc 203 — Dauphine PSL",
                 experience: ["Goldman Sachs", "HSBC", "Société Générale"],
               },
@@ -1198,7 +1198,7 @@ export default function Home() {
                   alt={member.name}
                   loading="lazy"
                   className="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover"
-                  style={{ border: "2px solid rgba(255,140,0,0.2)", marginBottom: 24, filter: member.name === "Alexandre Cohen" ? "grayscale(100%)" : undefined }}
+                  style={{ border: "2px solid rgba(255,140,0,0.2)", marginBottom: 24, filter: member.name === "Alexandre Cohen-Skalli" ? "grayscale(100%)" : undefined }}
                   onError={(e) => { e.currentTarget.style.display = "none"; e.currentTarget.nextElementSibling?.classList.remove("hidden"); }}
                 />
                 <div
