@@ -1015,107 +1015,132 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ PROJETS ═══════════════════ */}
-      <section id="projects" className="relative overflow-hidden py-[56px] md:py-[140px]" ref={projetsRef}>
+      <section id="projects" className="section-dark relative overflow-hidden py-[56px] md:py-[140px]" ref={projetsRef}>
+        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
+          <svg width="100%" height="100%"><filter id="grainProjects"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainProjects)" /></svg>
+        </div>
         <div className="wrapper">
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            animate={projetsInView ? "visible" : "hidden"}
-            custom={0}
-            className="text-[11px] uppercase tracking-[0.25em] text-muted font-mono mb-6 md:mb-16"
-          >
-            Our Work
-          </motion.p>
-
-          <div className="mb-8 md:mb-20">
-            <div className="overflow-hidden">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 md:mb-20">
+            <div>
+              <motion.p
+                variants={fadeUp}
+                initial="hidden"
+                animate={projetsInView ? "visible" : "hidden"}
+                custom={0}
+                className="text-[11px] uppercase tracking-[0.25em] font-mono mb-5 md:mb-8"
+                style={{ color: "rgba(255,255,255,0.35)" }}
+              >
+                Selected work
+              </motion.p>
               <motion.h2
                 variants={slideUp}
                 initial="hidden"
                 animate={projetsInView ? "visible" : "hidden"}
                 custom={0.1}
-                className="text-[clamp(2rem,5vw,4.5rem)] font-medium max-w-4xl"
+                className="text-[clamp(2rem,5vw,4.5rem)] font-medium"
                 style={{ lineHeight: 1.05, letterSpacing: "-0.03em" }}
               >
                 What we&apos;ve built{" "}
-                <span className="text-muted">recently.</span>
+                <span style={{ color: "rgba(255,255,255,0.3)" }}>recently.</span>
               </motion.h2>
             </div>
+            <motion.a
+              href="#contact"
+              data-hover
+              variants={fadeUp}
+              initial="hidden"
+              animate={projetsInView ? "visible" : "hidden"}
+              custom={0.2}
+              className="hidden md:inline-flex items-center gap-3 text-[12px] uppercase tracking-[0.2em] font-medium group mt-6 md:mt-0"
+              style={{ color: "rgba(255,255,255,0.5)" }}
+              whileHover={{ x: 4 }}
+            >
+              Start a project
+              <span className="inline-block h-[1px] bg-white/30 group-hover:w-16 transition-all duration-500" style={{ width: 40 }} />
+            </motion.a>
           </div>
 
-          {/* Orbital Carousel */}
-          <div className="flex justify-center items-center py-12 md:py-24">
-            <div className="relative w-[340px] h-[340px] md:w-[700px] md:h-[700px]">
-              {/* Center text */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
-                <span className="text-[11px] md:text-[13px] uppercase tracking-[0.25em] font-mono" style={{ color: "rgba(255,255,255,0.25)" }}>
-                  Our projects
-                </span>
-              </div>
-              {/* Orbit ring */}
-              <div
-                className="absolute inset-[10%] rounded-full"
-                style={{ border: "1px solid rgba(255,255,255,0.06)" }}
-              />
-              {/* Rotating wrapper */}
-              <motion.div
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0"
+          {/* Projects grid */}
+          <div className="flex flex-col gap-6 md:gap-8">
+            {projects.map((p, i) => (
+              <motion.a
+                key={p.title}
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                variants={fadeUp}
+                initial="hidden"
+                animate={projetsInView ? "visible" : "hidden"}
+                custom={0.15 + i * 0.12}
+                className="group block"
+                data-hover
               >
-                {[...projects, ...projects, ...projects].map((p, i) => {
-                  const total = projects.length * 3;
-                  const angle = (360 / total) * i;
-                  const radiusPct = 40;
-                  return (
-                    <motion.a
-                      key={`${p.title}-${i}`}
-                      href={p.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      data-hover
-                      animate={{ rotate: [0, -360] }}
-                      transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                      className="absolute flex flex-col overflow-hidden rounded-xl"
-                      style={{
-                        width: "42%",
-                        aspectRatio: "16/11",
-                        top: "50%",
-                        left: "50%",
-                        transform: `rotate(${angle}deg) translateY(-${radiusPct}%) rotate(-${angle}deg) translate(-50%, -50%)`,
-                        border: "1px solid rgba(255,255,255,0.1)",
-                        background: "#111",
-                        boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
-                      }}
+                <div
+                  className="relative overflow-hidden rounded-2xl"
+                  style={{
+                    background: "#111",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                  }}
+                >
+                  {/* Browser top bar */}
+                  <div className="flex items-center gap-2 px-4 md:px-5" style={{ height: 40, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-[10px] h-[10px] rounded-full" style={{ background: "#ff5f57" }} />
+                      <div className="w-[10px] h-[10px] rounded-full" style={{ background: "#febc2e" }} />
+                      <div className="w-[10px] h-[10px] rounded-full" style={{ background: "#28c840" }} />
+                    </div>
+                    <div
+                      className="ml-2 flex-1 max-w-[280px] flex items-center rounded-md px-3"
+                      style={{ height: 24, background: "rgba(255,255,255,0.05)" }}
                     >
-                      {/* Browser chrome */}
-                      <div
-                        className="flex items-center gap-1 px-2 md:px-3 shrink-0"
-                        style={{ height: 28, background: "#1a1a1a" }}
-                      >
-                        <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full" style={{ background: "#ff5f57" }} />
-                        <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full" style={{ background: "#febc2e" }} />
-                        <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full" style={{ background: "#28c840" }} />
-                        <span className="ml-1 md:ml-2 text-[8px] md:text-[9px] text-white/25 font-mono truncate">
-                          {p.url?.replace("https://", "")}
-                        </span>
-                      </div>
-                      {/* Screenshot */}
-                      <div className="relative flex-1 overflow-hidden">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={p.image}
-                          alt={p.title}
-                          loading="lazy"
-                          className="w-full h-auto"
-                          style={{ position: "absolute", top: 0, left: 0 }}
-                        />
-                      </div>
-                    </motion.a>
-                  );
-                })}
-              </motion.div>
-            </div>
+                      <span className="text-[10px] text-white/25 font-mono truncate">
+                        {p.url?.replace("https://", "")}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Screenshot area */}
+                  <div className="relative overflow-hidden" style={{ height: 380 }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      loading="lazy"
+                      className="project-screenshot"
+                    />
+                    {/* Hover gradient overlay */}
+                    <div
+                      className="absolute inset-0 transition-opacity duration-700 opacity-0 group-hover:opacity-100"
+                      style={{ background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 40%)" }}
+                    />
+                    {/* Hover label */}
+                    <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                      <span className="text-[12px] uppercase tracking-[0.15em] font-medium" style={{ color: "#E8943A" }}>
+                        View project &rarr;
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Project info below card */}
+                <div className="flex items-center justify-between mt-5 px-1">
+                  <div>
+                    <h3 className="text-[1.15rem] md:text-[1.3rem] font-medium mb-1" style={{ letterSpacing: "-0.02em" }}>
+                      {p.title}
+                    </h3>
+                    <p className="text-[13px]" style={{ color: "rgba(255,255,255,0.4)" }}>
+                      {p.desc}
+                    </p>
+                  </div>
+                  <span
+                    className="shrink-0 text-[10px] font-mono tracking-wider px-3 py-1.5 rounded-full hidden md:block"
+                    style={{ border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.4)" }}
+                  >
+                    {p.category}
+                  </span>
+                </div>
+              </motion.a>
+            ))}
           </div>
         </div>
       </section>
