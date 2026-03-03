@@ -842,44 +842,55 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             {[
               {
-                name: "Starter",
-                price: "299",
-                desc: "A polished, customized template site — perfect to get online fast with a professional look.",
+                name: "Présence Essentielle",
+                price: "400",
+                desc: "Un site web complet et professionnel pour établir votre présence en ligne rapidement.",
                 features: [
-                  "Premium template selection",
-                  "Custom colors, fonts & content",
-                  "Responsive design",
-                  "SEO basics included",
-                  "Delivered in 5 days",
+                  "Page web complète",
+                  "Design professionnel avec template adapté",
+                  "Fonctionnel sur mobile",
+                  "1 modification post-livraison incluse",
+                  "Support ponctuel",
+                  "Tag « Site réalisé par Gavroch.Dev » optionnel",
                 ],
+                maintenance: "Maintenance : 30€/mois (hébergement, sécurité, sauvegarde)",
+                extra: "Modification supplémentaire : 100€ (>3h)",
               },
               {
-                name: "Custom Build",
-                price: "499",
+                name: "Site Professionnel",
+                price: "700",
                 highlight: true,
-                desc: "A fully tailored 2-week build. We design and code your site from scratch, with regular check-ins.",
+                desc: "Notre offre cœur de marché — un site pensé pour convertir avec un vrai accompagnement.",
                 features: [
-                  "100% custom design & dev",
-                  "2-week delivery",
-                  "Call every 3 days for follow-up",
-                  "CMS integration",
-                  "Performance optimization",
-                  "1 month of support included",
+                  "Page web complète optimisée conversion",
+                  "Fonctionnel sur mobile",
+                  "SEO local adapté à votre business",
+                  "Optimisation Google Business",
+                  "1 mois d\u2019accompagnement inclus",
+                  "4 modifications raisonnables incluses",
+                  "Assistance prioritaire",
                 ],
+                maintenance: "Maintenance : 30€/mois (hébergement, sécurité)",
+                extra: "Modifications additionnelles : 70€",
               },
               {
-                name: "Brand + Build",
-                price: "999",
-                desc: "The full package — 2 to 4 weeks to build your site and craft your entire brand identity.",
+                name: "Premium",
+                price: "1000",
+                desc: "Le package complet — design sur-mesure, UX avancée et 3 mois d\u2019accompagnement.",
                 features: [
-                  "Everything in Custom Build",
-                  "Logo & visual identity design",
-                  "Custom typography selection",
-                  "Brand guidelines document",
-                  "Social media assets",
-                  "2 to 4 week timeline",
-                  "2 months of support included",
+                  "Page web complète + landing page dédiée",
+                  "Design personnalisé avancé",
+                  "UX orientée conversion client",
+                  "SEO local avancé",
+                  "Optimisation vitesse premium",
+                  "Google Analytics & tracking intégrés",
+                  "Optimisation mobile poussée",
+                  "3 mois d\u2019accompagnement inclus",
+                  "Ajustements site & conseils visibilité",
+                  "Suivi performances & optimisation continue",
                 ],
+                maintenance: "Maintenance : 10€/mois (hébergement, sécurité)",
+                extra: "Grosses modifications : 40€ — support prioritaire & délais rapides",
               },
             ].map((plan, i) => (
               <motion.div
@@ -913,13 +924,22 @@ export default function Home() {
                 <p className="text-[13px] mb-8" style={{ lineHeight: 1.7, color: "rgba(255,255,255,0.5)" }}>
                   {plan.desc}
                 </p>
-                <div className="flex-1 flex flex-col gap-3 mb-8">
+                <div className="flex-1 flex flex-col gap-3 mb-6">
                   {plan.features.map((f) => (
                     <div key={f} className="flex items-start gap-3">
                       <span className="mt-1.5 block w-1 h-1 rounded-full shrink-0" style={{ background: plan.highlight ? "#E8943A" : "rgba(255,255,255,0.25)" }} />
                       <span className="text-[13px]" style={{ color: "rgba(255,255,255,0.6)" }}>{f}</span>
                     </div>
                   ))}
+                </div>
+                {/* Maintenance & extras */}
+                <div className="mb-8 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                  <p className="text-[11px] font-mono" style={{ color: "rgba(255,255,255,0.3)", lineHeight: 1.6 }}>
+                    {plan.maintenance}
+                  </p>
+                  <p className="text-[11px] font-mono mt-1" style={{ color: "rgba(255,255,255,0.3)", lineHeight: 1.6 }}>
+                    {plan.extra}
+                  </p>
                 </div>
                 <motion.a
                   href="#contact"
