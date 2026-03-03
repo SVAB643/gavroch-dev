@@ -68,6 +68,14 @@ const projects = [
     image: "/img/projects/apmi.png",
     url: "https://apmi-mu.vercel.app/",
   },
+  {
+    title: "Ambroise Partners",
+    category: "Corporate Site",
+    year: "2025",
+    desc: "Strategic and financial advisory dedicated to healthcare innovation.",
+    image: "/img/projects/ambroise.png",
+    url: "https://ambroise-partners.vercel.app/",
+  },
 ];
 
 const values = [
