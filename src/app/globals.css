@@ -148,14 +148,24 @@ html {
   }
 }
 
-/* Brand ghost text — hover only */
-.brand-ghost-text {
-  transition: -webkit-text-stroke 0.5s ease, filter 0.5s ease;
+/* Brand glow orbit animations — each layer wobbles differently */
+@keyframes brandOrbit1 {
+  0%, 100% { transform: translate(0px, 0px); }
+  25% { transform: translate(18px, -10px); }
+  50% { transform: translate(-8px, 14px); }
+  75% { transform: translate(-16px, -6px); }
 }
-
-.brand-ghost-text:hover {
-  -webkit-text-stroke: 1px rgba(255, 140, 0, 0.4);
-  filter: drop-shadow(0 0 30px rgba(255,120,0,0.12)) drop-shadow(0 0 60px rgba(255,160,0,0.06));
+@keyframes brandOrbit2 {
+  0%, 100% { transform: translate(0px, 0px); }
+  25% { transform: translate(-14px, 12px); }
+  50% { transform: translate(20px, -8px); }
+  75% { transform: translate(6px, 16px); }
+}
+@keyframes brandOrbit3 {
+  0%, 100% { transform: translate(0px, 0px); }
+  25% { transform: translate(10px, 16px); }
+  50% { transform: translate(-18px, -12px); }
+  75% { transform: translate(14px, -4px); }
 }
 
 /* Hide heavy GPU effects on mobile */

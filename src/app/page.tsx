@@ -865,16 +865,16 @@ export default function Home() {
               const rect = e.currentTarget.getBoundingClientRect();
               const x = e.clientX - rect.left;
               const y = e.clientY - rect.top;
-              const glow = e.currentTarget.querySelector(".brand-glow") as HTMLElement;
-              if (glow) {
-                glow.style.maskImage = `radial-gradient(circle 120px at ${x}px ${y}px, black 0%, transparent 100%)`;
-                glow.style.WebkitMaskImage = `radial-gradient(circle 120px at ${x}px ${y}px, black 0%, transparent 100%)`;
-                glow.style.opacity = "1";
-              }
+              const glows = e.currentTarget.querySelectorAll<HTMLElement>(".brand-glow");
+              glows.forEach((g) => {
+                g.style.setProperty("--mx", `${x}px`);
+                g.style.setProperty("--my", `${y}px`);
+                g.style.opacity = "1";
+              });
             }}
             onMouseLeave={(e) => {
-              const glow = e.currentTarget.querySelector(".brand-glow") as HTMLElement;
-              if (glow) glow.style.opacity = "0";
+              const glows = e.currentTarget.querySelectorAll<HTMLElement>(".brand-glow");
+              glows.forEach((g) => { g.style.opacity = "0"; });
             }}
           >
             {/* Base — faint outline */}
@@ -890,22 +890,32 @@ export default function Home() {
             >
               Become a memorable brand.
             </h2>
-            {/* Glow layer — masked to mouse position */}
-            <h2
-              className="brand-glow absolute inset-0 text-center font-medium pointer-events-none transition-opacity duration-300"
-              aria-hidden="true"
-              style={{
-                fontSize: "clamp(2.5rem, 8vw, 8rem)",
-                lineHeight: 1.05,
-                letterSpacing: "-0.04em",
-                color: "transparent",
-                WebkitTextStroke: "1.5px rgba(255,140,0,0.5)",
-                filter: "drop-shadow(0 0 12px rgba(255,120,0,0.2))",
-                opacity: 0,
-              }}
-            >
-              Become a memorable brand.
-            </h2>
+            {/* Glow layers — each color from our gradient, offset orbits */}
+            {[
+              { color: "rgba(255,208,0,0.55)", blur: 8, anim: "brandOrbit1" },
+              { color: "rgba(255,140,0,0.5)", blur: 10, anim: "brandOrbit2" },
+              { color: "rgba(204,34,0,0.4)", blur: 6, anim: "brandOrbit3" },
+            ].map((layer, li) => (
+              <h2
+                key={li}
+                className="brand-glow absolute inset-0 text-center font-medium pointer-events-none transition-opacity duration-500"
+                aria-hidden="true"
+                style={{
+                  fontSize: "clamp(2.5rem, 8vw, 8rem)",
+                  lineHeight: 1.05,
+                  letterSpacing: "-0.04em",
+                  color: "transparent",
+                  WebkitTextStroke: `1.5px ${layer.color}`,
+                  filter: `drop-shadow(0 0 ${layer.blur}px ${layer.color})`,
+                  opacity: 0,
+                  maskImage: `radial-gradient(ellipse 150px 100px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 100%)`,
+                  WebkitMaskImage: `radial-gradient(ellipse 150px 100px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 100%)`,
+                  animation: `${layer.anim} 3s ease-in-out infinite`,
+                }}
+              >
+                Become a memorable brand.
+              </h2>
+            ))}
           </motion.div>
         </div>
       </section>
