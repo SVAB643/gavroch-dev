@@ -1014,6 +1014,22 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ═══════════════════ GAVROCHE CINEMATIC ═══════════════════ */}
+      <section className="relative overflow-hidden" style={{ background: "#fafafa" }}>
+        <div className="w-full flex items-center justify-center" style={{ minHeight: "40vh" }}>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-auto"
+            style={{ mixBlendMode: "screen", maxHeight: "70vh", objectFit: "contain" }}
+          >
+            <source src="/img/Stylish_Gavroche_on_Horseback.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </section>
+
       {/* ═══════════════════ PROJETS ═══════════════════ */}
       <section id="projects" className="relative overflow-hidden py-[56px] md:py-[140px]" ref={projetsRef} style={{ background: "#fafafa" }}>
         <div className="wrapper">
