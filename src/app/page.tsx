@@ -1489,44 +1489,42 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ MAIL CTA ═══════════════════ */}
-      <section className="relative overflow-hidden py-[56px] md:py-[100px]" ref={mailRef} style={{ background: "#fafafa" }}>
-        <div className="wrapper flex flex-col items-center text-center">
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            animate={mailInView ? "visible" : "hidden"}
-            custom={0}
-            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-6"
-            style={{ color: "rgba(0,0,0,0.3)" }}
-          >
-            Get in touch
-          </motion.p>
-          <motion.a
-            href="mailto:svabekadrien@gmail.com"
-            data-hover
-            variants={fadeUp}
-            initial="hidden"
-            animate={mailInView ? "visible" : "hidden"}
-            custom={0.1}
-            className="group relative text-[clamp(1.2rem,3.5vw,3rem)] font-medium transition-colors duration-300"
-            style={{ letterSpacing: "-0.03em", color: "#0a0a0a" }}
-          >
-            <span className="relative z-10">svabekadrien@gmail.com</span>
-            <span
-              className="absolute bottom-0 left-0 w-full h-[2px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
-              style={{ background: "linear-gradient(90deg, #FFD000, #FF8C00, #CC2200)" }}
-            />
-          </motion.a>
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            animate={mailInView ? "visible" : "hidden"}
-            custom={0.2}
-            className="text-[13px] mt-5 max-w-sm"
-            style={{ color: "rgba(0,0,0,0.35)", lineHeight: 1.7 }}
-          >
-            Have a project in mind? Drop us a line — we reply fast.
-          </motion.p>
+      <section className="section-dark relative overflow-hidden py-[48px] md:py-[80px]" ref={mailRef}>
+        <div className="wrapper">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate={mailInView ? "visible" : "hidden"}
+              custom={0}
+            >
+              <p className="text-[11px] uppercase tracking-[0.25em] font-mono mb-3" style={{ color: "rgba(255,255,255,0.25)" }}>
+                Have a project in mind?
+              </p>
+              <a
+                href="mailto:svabekadrien@gmail.com"
+                data-hover
+                className="group inline-flex items-center gap-4 text-[clamp(1rem,2vw,1.4rem)] font-medium transition-colors duration-300 hover:text-white"
+                style={{ color: "rgba(255,255,255,0.6)", letterSpacing: "-0.02em" }}
+              >
+                svabekadrien@gmail.com
+                <span
+                  className="inline-block w-8 h-[1px] group-hover:w-14 transition-all duration-500"
+                  style={{ background: "linear-gradient(90deg, #FFD000, #FF8C00)" }}
+                />
+              </a>
+            </motion.div>
+            <motion.p
+              variants={fadeUp}
+              initial="hidden"
+              animate={mailInView ? "visible" : "hidden"}
+              custom={0.15}
+              className="text-[12px] max-w-[240px] hidden md:block"
+              style={{ color: "rgba(255,255,255,0.2)", lineHeight: 1.7, textAlign: "right" }}
+            >
+              Drop us a line — we reply fast.
+            </motion.p>
+          </div>
         </div>
       </section>
 
@@ -1583,7 +1581,7 @@ export default function Home() {
                 className="mt-10 md:mt-16"
               >
                 <motion.a
-                  href="mailto:hello@gavroch.dev"
+                  href="mailto:svabekadrien@gmail.com"
                   data-hover
                   className="inline-flex items-center text-[12px] uppercase tracking-[0.2em] font-medium group"
                   style={{ gap: 16 }}
@@ -1608,13 +1606,13 @@ export default function Home() {
                 style={{ display: "flex", flexDirection: "column", gap: 24 }}
               >
                 <a
-                  href="mailto:hello@gavroch.dev"
+                  href="mailto:svabekadrien@gmail.com"
                   data-hover
                   className="flex items-center text-[13px] hover:text-fg-light transition-colors duration-300 group"
                   style={{ gap: 16, color: "rgba(255,255,255,0.45)" }}
                 >
                   <Mail size={14} style={{ color: "rgba(255,255,255,0.2)" }} />
-                  hello@gavroch.dev
+                  svabekadrien@gmail.com
                 </a>
                 <div
                   className="flex items-center text-[13px]"
