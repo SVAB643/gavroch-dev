@@ -1187,7 +1187,7 @@ export default function Home() {
                 price: "399",
                 desc: "A complete, professional website to establish your online presence — fast and reliable.",
                 features: [
-                  "Full single-page website",
+                  "Full website",
                   "Professional template-based design",
                   "Fully responsive on all devices",
                   "1 post-launch revision included",
