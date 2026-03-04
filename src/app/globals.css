@@ -204,7 +204,7 @@ html {
     display: none !important;
   }
   .grain-overlay {
-    display: none !important;
+    opacity: 0.15 !important;
   }
 }
 
