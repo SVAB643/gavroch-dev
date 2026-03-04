@@ -207,3 +207,15 @@ html {
     display: none !important;
   }
 }
+
+/* Brand glow: always visible on touch devices (no mouse) */
+@media (pointer: coarse) {
+  .brand-fill {
+    opacity: 1 !important;
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+  }
+  .brand-glow:not(.brand-fill) {
+    display: none !important;
+  }
+}

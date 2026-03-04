@@ -857,8 +857,7 @@ export default function Home() {
                 initial="hidden"
                 animate={servicesInView ? "visible" : "hidden"}
                 custom={0.15 + i * 0.1}
-                className="group border-t border-border py-8 md:py-10"
-                style={{ paddingRight: i % 2 === 0 ? 40 : 0 }}
+                className={`group border-t border-border py-8 md:py-10 ${i % 2 === 0 ? "md:pr-10" : ""}`}
               >
                 <span
                   className="text-[11px] font-mono text-muted/40 tracking-wider block"
@@ -1099,9 +1098,8 @@ export default function Home() {
                 initial="hidden"
                 animate={projetsInView ? "visible" : "hidden"}
                 custom={0.15 + i * 0.1}
-                className="group block"
+                className={`group block ${i % 2 !== 0 ? "md:mt-12" : ""}`}
                 data-hover
-                style={{ marginTop: i % 2 !== 0 ? 48 : 0 }}
               >
                 {/* Card */}
                 <div
@@ -1373,7 +1371,7 @@ export default function Home() {
                 initial="hidden"
                 animate={pricingInView ? "visible" : "hidden"}
                 custom={0.15 + i * 0.1}
-                className="group/card relative flex flex-col rounded-2xl overflow-hidden transition-all duration-500 opacity-60 hover:opacity-100 group-hover/pricing:opacity-50 hover:!opacity-100"
+                className="group/card relative flex flex-col rounded-2xl overflow-hidden transition-all duration-500 opacity-100 md:opacity-60 md:hover:opacity-100 md:group-hover/pricing:opacity-50 md:hover:!opacity-100"
                 style={{
                   background: plan.highlight
                     ? "linear-gradient(165deg, rgba(232,148,58,0.12) 0%, rgba(232,148,58,0.04) 100%)"
