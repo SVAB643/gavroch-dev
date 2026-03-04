@@ -1351,6 +1351,9 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+          <p className="text-center text-[12px] mt-10 md:mt-14 max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.3)", lineHeight: 1.7 }}>
+            All our websites are built with the same technical quality. The difference lies in the level of support and guidance you choose to receive.
+          </p>
         </div>
       </section>
 
