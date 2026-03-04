@@ -69,12 +69,12 @@ const projects = [
     url: "https://ambroise-partners.vercel.app/",
   },
   {
-    title: "Gavroch.dev",
+    title: "Gavroch.com",
     category: "Studio Site",
     year: "2025",
     desc: "Our own AI-native full-stack web development studio.",
     image: "/img/projects/gavroch.png",
-    url: "https://gavroch-dev.vercel.app/",
+    url: "https://www.gavroch.com/",
   },
 ];
 
@@ -1056,7 +1056,7 @@ export default function Home() {
 
 
       {/* ═══════════════════ PROJETS ═══════════════════ */}
-      <section id="projects" className="relative overflow-hidden py-[56px] md:py-[140px]" ref={projetsRef} style={{ background: "#fafafa" }}>
+      <section id="projects" className="relative overflow-hidden pt-[56px] pb-[32px] md:pt-[140px] md:pb-[40px]" ref={projetsRef} style={{ background: "#fafafa" }}>
         <div className="wrapper">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 md:mb-20">
             <div>
@@ -1187,7 +1187,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ SHOWCASE ═══════════════════ */}
-      <section className="relative overflow-hidden py-[56px] md:py-[120px]" ref={showcaseRef} style={{ background: "#fafafa" }}>
+      <section className="relative overflow-hidden pt-[32px] pb-[56px] md:pt-[40px] md:pb-[120px]" ref={showcaseRef} style={{ background: "#fafafa" }}>
         <div className="wrapper">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 md:mb-20">
             <div>
