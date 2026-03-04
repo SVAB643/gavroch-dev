@@ -206,6 +206,7 @@ export default function Home() {
   const aboutRef = useRef(null);
   const teamRef = useRef(null);
   const contactRef = useRef(null);
+  const mailRef = useRef(null);
 
   const servicesInView = useInView(servicesRef, { once: true, margin: "-100px" });
   const statsInView = useInView(statsRef, { once: true, margin: "-100px" });
@@ -215,6 +216,7 @@ export default function Home() {
   const aboutInView = useInView(aboutRef, { once: true, margin: "-100px" });
   const teamInView = useInView(teamRef, { once: true, margin: "-100px" });
   const contactInView = useInView(contactRef, { once: true, margin: "-100px" });
+  const mailInView = useInView(mailRef, { once: true, margin: "-100px" });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -1483,6 +1485,48 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════ MAIL CTA ═══════════════════ */}
+      <section className="relative overflow-hidden py-[56px] md:py-[100px]" ref={mailRef} style={{ background: "#fafafa" }}>
+        <div className="wrapper flex flex-col items-center text-center">
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate={mailInView ? "visible" : "hidden"}
+            custom={0}
+            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-6"
+            style={{ color: "rgba(0,0,0,0.3)" }}
+          >
+            Get in touch
+          </motion.p>
+          <motion.a
+            href="mailto:svabekadrien@gmail.com"
+            data-hover
+            variants={fadeUp}
+            initial="hidden"
+            animate={mailInView ? "visible" : "hidden"}
+            custom={0.1}
+            className="group relative text-[clamp(1.2rem,3.5vw,3rem)] font-medium transition-colors duration-300"
+            style={{ letterSpacing: "-0.03em", color: "#0a0a0a" }}
+          >
+            <span className="relative z-10">svabekadrien@gmail.com</span>
+            <span
+              className="absolute bottom-0 left-0 w-full h-[2px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
+              style={{ background: "linear-gradient(90deg, #FFD000, #FF8C00, #CC2200)" }}
+            />
+          </motion.a>
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate={mailInView ? "visible" : "hidden"}
+            custom={0.2}
+            className="text-[13px] mt-5 max-w-sm"
+            style={{ color: "rgba(0,0,0,0.35)", lineHeight: 1.7 }}
+          >
+            Have a project in mind? Drop us a line — we reply fast.
+          </motion.p>
         </div>
       </section>
 
