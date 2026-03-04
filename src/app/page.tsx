@@ -115,13 +115,6 @@ const showcase = [
     url: "https://voltaskai.endover.ee/en/",
   },
   {
-    title: "Adam Bricker",
-    category: "Portfolio",
-    desc: "Emmy-nominated cinematographer — television and documentaries.",
-    image: "/img/projects/adambricker.png",
-    url: "https://www.adambricker.com/",
-  },
-  {
     title: "Aupale Vodka",
     category: "Premium Brand",
     desc: "Premium Canadian vodka crafted from glacier-sourced water.",
