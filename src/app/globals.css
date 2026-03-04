@@ -203,9 +203,6 @@ html {
   .hero-blob {
     display: none !important;
   }
-  .grain-overlay {
-    opacity: 0.15 !important;
-  }
 }
 
 /* Brand glow: always visible on touch devices (no mouse) */

@@ -9,7 +9,7 @@ import {
   useInView,
   AnimatePresence,
 } from "framer-motion";
-import { ArrowUpRight, Mail, MapPin } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Zap, Brain, Database, Bot, Globe, BarChart3, Plug, Smartphone } from "lucide-react";
 
 /* ─── DATA ─── */
 
@@ -40,17 +40,17 @@ const processSteps = [
   {
     step: "01",
     title: "Discover",
-    desc: "We capture your vision, analyze your market, and identify the quick wins and game changers.",
+    desc: "A first meeting to understand your brand, your vision, and what you love. We curate the best sites in your industry so we design with intention.",
   },
   {
     step: "02",
-    title: "Prototype",
-    desc: "In days, not months. Interactive prototypes, user testing, ultra-fast iterations.",
+    title: "Design",
+    desc: "We craft your site live on a shared platform. You see every change in real time, comment, and markup — nothing ships without your sign-off.",
   },
   {
     step: "03",
     title: "Build",
-    desc: "Short sprints, weekly demos, continuous feedback. We code with AI to move 10x faster.",
+    desc: "Clean code, fast iterations, AI-powered development. Your site comes to life exactly as designed.",
   },
   {
     step: "04",
@@ -66,7 +66,7 @@ const projects = [
     year: "2025",
     desc: "Strategic and financial advisory dedicated to healthcare innovation.",
     image: "/img/projects/ambroise.png",
-    url: "https://ambroise-partners.vercel.app/",
+    url: "https://ambroisepartners.com/",
   },
   {
     title: "Gavroch.com",
@@ -208,6 +208,7 @@ const slideUp = {
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
+  const [headerDark, setHeaderDark] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [hovering, setHovering] = useState(false);
@@ -237,6 +238,7 @@ export default function Home() {
   const contactRef = useRef(null);
   const mailRef = useRef(null);
   const showcaseRef = useRef(null);
+  const specialRef = useRef(null);
 
   const servicesInView = useInView(servicesRef, { once: true, margin: "-100px" });
   const statsInView = useInView(statsRef, { once: true, margin: "-100px" });
@@ -248,10 +250,23 @@ export default function Home() {
   const contactInView = useInView(contactRef, { once: true, margin: "-100px" });
   const mailInView = useInView(mailRef, { once: true, margin: "-100px" });
   const showcaseInView = useInView(showcaseRef, { once: true, margin: "-100px" });
+  const specialInView = useInView(specialRef, { once: true, margin: "-100px" });
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 50);
+      const headerY = window.scrollY + 40;
+      const darkSections = document.querySelectorAll<HTMLElement>(".section-dark, [style*='background: #050505']");
+      let dark = false;
+      darkSections.forEach((sec) => {
+        const top = sec.offsetTop;
+        const bottom = top + sec.offsetHeight;
+        if (headerY >= top && headerY <= bottom) dark = true;
+      });
+      setHeaderDark(dark);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -300,15 +315,15 @@ export default function Home() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.3 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? "bg-bg/80 backdrop-blur-xl" : ""
+          scrolled ? "backdrop-blur-2xl" : ""
         }`}
         style={{ color: scrolled ? undefined : "#1a1a1a" }}
       >
         <div className="wrapper flex items-center justify-between h-[60px] md:h-[80px]">
-          <a href="#" className="relative z-50" data-hover>
+          <a href="#" className="relative z-50 transition-colors duration-500" data-hover style={{ color: headerDark ? "#fafafa" : undefined }}>
             <span className="text-[16px] md:text-[18px] font-semibold tracking-[0.08em]">
               GAVROCH
-              <span className="font-mono font-normal tracking-[0.06em]" style={{ color: scrolled ? undefined : "rgba(0,0,0,0.45)" }}>
+              <span className="font-mono font-normal tracking-[0.06em] transition-colors duration-500" style={{ color: headerDark ? "rgba(255,255,255,0.45)" : scrolled ? undefined : "rgba(0,0,0,0.45)" }}>
                 .DEV
               </span>
             </span>
@@ -509,8 +524,7 @@ export default function Home() {
 
       {/* ═══════════════════ STUDIO SECTION ═══════════════════ */}
       <section
-        className="relative overflow-hidden py-[56px] md:py-[160px]"
-        style={{ background: "#050505", color: "#fafafa" }}
+        className="section-dark relative overflow-hidden py-[56px] md:py-[160px]"
       >
         <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.3 }}>
           <svg width="100%" height="100%"><filter id="grainStudio"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainStudio)" /></svg>
@@ -787,9 +801,9 @@ export default function Home() {
             </h2>
             <div className="flex flex-wrap gap-8 md:gap-16">
               {[
-                { num: "50+", label: "Projects shipped" },
-                { num: "10x", label: "Faster with AI" },
-                { num: "100%", label: "Client retention" },
+                { num: "10+", label: "Projects shipped" },
+                { num: "AI-Native", label: "From day one" },
+                { num: "Every client", label: "comes back" },
               ].map((stat, i) => (
                 <motion.div
                   key={stat.label}
@@ -877,109 +891,6 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════ BRAND STATEMENT ═══════════════════ */}
-      <section
-        className="section-dark relative overflow-hidden"
-        style={{ paddingTop: "clamp(48px, 10vw, 120px)", paddingBottom: "clamp(48px, 10vw, 120px)" }}
-        onMouseMove={(e) => {
-          const textEl = e.currentTarget.querySelector<HTMLElement>(".brand-text-wrap");
-          if (!textEl) return;
-          const rect = textEl.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          textEl.querySelectorAll<HTMLElement>(".brand-glow").forEach((g) => {
-            g.style.setProperty("--mx", `${x}px`);
-            g.style.setProperty("--my", `${y}px`);
-            g.style.opacity = "1";
-          });
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.querySelectorAll<HTMLElement>(".brand-glow").forEach((g) => {
-            g.style.opacity = "0";
-          });
-        }}
-      >
-        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
-          <svg width="100%" height="100%"><filter id="grainBrand"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainBrand)" /></svg>
-        </div>
-        <div className="wrapper flex items-center justify-center">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className="brand-text-wrap relative select-none"
-            data-hover
-          >
-            {/* Base — faint outline */}
-            <h2
-              className="text-center font-medium"
-              style={{
-                fontSize: "clamp(2.5rem, 8vw, 8rem)",
-                lineHeight: 1.05,
-                letterSpacing: "-0.04em",
-                color: "transparent",
-                WebkitTextStroke: "1px rgba(255,255,255,0.06)",
-              }}
-            >
-              Become a memorable brand.
-            </h2>
-            {/* Fill layer — animated gradient inside letters, masked to mouse */}
-            <h2
-              className="brand-glow brand-fill absolute inset-0 text-center font-medium pointer-events-none"
-              aria-hidden="true"
-              style={{
-                fontSize: "clamp(2.5rem, 8vw, 8rem)",
-                lineHeight: 1.05,
-                letterSpacing: "-0.04em",
-                background: "linear-gradient(135deg, #F5F0E8, #FFD000, #FF8C00, #CC2200, #FF8C00, #FFD000, #F5F0E8)",
-                backgroundSize: "300% 300%",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                WebkitTextStroke: "0px transparent",
-                animation: "brandGradientMove 6s ease-in-out infinite",
-                opacity: 0,
-                transition: "opacity 0.6s ease",
-                maskImage: "radial-gradient(ellipse 900px 600px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 75%)",
-                WebkitMaskImage: "radial-gradient(ellipse 900px 600px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 75%)",
-              }}
-            >
-              Become a memorable brand.
-            </h2>
-            {/* Glow layers — 5 layers, each with unique color/size/speed/orbit */}
-            {[
-              { color: "rgba(245,240,232,0.35)", stroke: 1, blur: 4, w: 900, h: 650, dur: "4.2s", anim: "bOrb1", delay: "0s" },
-              { color: "rgba(255,208,0,0.5)", stroke: 1.2, blur: 10, w: 700, h: 450, dur: "3.1s", anim: "bOrb2", delay: "-0.8s" },
-              { color: "rgba(255,140,0,0.55)", stroke: 1.5, blur: 14, w: 1000, h: 550, dur: "5.3s", anim: "bOrb3", delay: "-1.6s" },
-              { color: "rgba(255,80,0,0.4)", stroke: 1, blur: 18, w: 800, h: 800, dur: "3.8s", anim: "bOrb4", delay: "-2.4s" },
-              { color: "rgba(204,34,0,0.3)", stroke: 1.3, blur: 22, w: 600, h: 900, dur: "6.1s", anim: "bOrb5", delay: "-0.5s" },
-            ].map((l, i) => (
-              <h2
-                key={i}
-                className="brand-glow absolute inset-0 text-center font-medium pointer-events-none"
-                aria-hidden="true"
-                style={{
-                  fontSize: "clamp(2.5rem, 8vw, 8rem)",
-                  lineHeight: 1.05,
-                  letterSpacing: "-0.04em",
-                  color: "transparent",
-                  WebkitTextStroke: `${l.stroke}px ${l.color}`,
-                  filter: `drop-shadow(0 0 ${l.blur}px ${l.color})`,
-                  opacity: 0,
-                  transition: "opacity 0.6s ease",
-                  maskImage: `radial-gradient(ellipse ${l.w}px ${l.h}px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 80%)`,
-                  WebkitMaskImage: `radial-gradient(ellipse ${l.w}px ${l.h}px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 80%)`,
-                  animation: `${l.anim} ${l.dur} ease-in-out ${l.delay} infinite`,
-                }}
-              >
-                Become a memorable brand.
-              </h2>
-            ))}
-          </motion.div>
         </div>
       </section>
 
@@ -1275,7 +1186,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ PRICING ═══════════════════ */}
-      <section id="pricing" className="section-dark relative overflow-hidden py-[56px] md:py-[140px]" ref={pricingRef}>
+      <section id="pricing" className="section-dark relative overflow-hidden pt-[56px] pb-[32px] md:pt-[140px] md:pb-[48px]" ref={pricingRef}>
         <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
           <svg width="100%" height="100%"><filter id="grainPricing"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainPricing)" /></svg>
         </div>
@@ -1485,6 +1396,189 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Divider */}
+      <div className="section-dark"><div className="wrapper"><div style={{ height: 1, background: "rgba(255,255,255,0.04)" }} /></div></div>
+
+      {/* ═══════════════════ SPECIAL DEMANDS ═══════════════════ */}
+      <section className="section-dark relative overflow-hidden pt-[20px] pb-[32px] md:pt-[40px] md:pb-[56px]" ref={specialRef}>
+        <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
+          <svg width="100%" height="100%"><filter id="grainSpecial"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainSpecial)" /></svg>
+        </div>
+        <div className="wrapper">
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate={specialInView ? "visible" : "hidden"}
+            custom={0}
+            className="text-[11px] uppercase tracking-[0.25em] font-mono mb-4 md:mb-6"
+            style={{ color: "rgba(255,255,255,0.4)" }}
+          >
+            Special demands
+          </motion.p>
+
+          <div className="mb-4 md:mb-8">
+            <div className="overflow-hidden">
+              <motion.h2
+                variants={slideUp}
+                initial="hidden"
+                animate={specialInView ? "visible" : "hidden"}
+                custom={0.1}
+                className="text-[clamp(1.6rem,3.5vw,3rem)] font-medium max-w-3xl"
+                style={{ lineHeight: 1.1, letterSpacing: "-0.03em" }}
+              >
+                Need something bigger?
+                <br />
+                <span style={{ color: "rgba(255,255,255,0.3)" }}>We build that too.</span>
+              </motion.h2>
+            </div>
+          </div>
+
+          {/* n8n-style branching workflow */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            animate={specialInView ? "visible" : "hidden"}
+            custom={0.2}
+            className="relative mb-6 md:mb-8"
+          >
+            {/* Ambient glow behind workflow */}
+            <div
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] md:w-[800px] md:h-[400px] pointer-events-none"
+              style={{
+                background: "radial-gradient(ellipse, rgba(232,148,58,0.04) 0%, transparent 70%)",
+              }}
+            />
+            <div className="relative overflow-x-auto hide-scrollbar">
+              <div className="relative" style={{ minWidth: 850, height: 340, margin: "0 auto", maxWidth: 1200 }}>
+                {/* SVG connection paths — aligned to node centers (node pos + 32) */}
+                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 340" fill="none" preserveAspectRatio="xMidYMid meet">
+                  {/* Trigger → AI Model */}
+                  <path d="M 129 170 C 230 170, 230 62, 310 62" stroke="rgba(255,255,255,0.07)" strokeWidth="1.5" />
+                  {/* Trigger → Mail */}
+                  <path d="M 129 170 C 250 170, 250 170, 355 170" stroke="rgba(255,255,255,0.07)" strokeWidth="1.5" />
+                  {/* Trigger → Database */}
+                  <path d="M 129 170 C 230 170, 230 278, 310 278" stroke="rgba(255,255,255,0.07)" strokeWidth="1.5" />
+                  {/* AI Model → Agent */}
+                  <path d="M 374 62 C 490 62, 490 62, 590 62" stroke="rgba(255,255,255,0.07)" strokeWidth="1.5" />
+                  {/* Mail → Mobile */}
+                  <path d="M 419 170 C 510 170, 510 170, 590 170" stroke="rgba(255,255,255,0.07)" strokeWidth="1.5" />
+                  {/* Database → API */}
+                  <path d="M 374 278 C 490 278, 490 278, 590 278" stroke="rgba(255,255,255,0.07)" strokeWidth="1.5" />
+                  {/* Agent → Analytics */}
+                  <path d="M 654 62 C 770 62, 770 116, 870 116" stroke="rgba(255,255,255,0.07)" strokeWidth="1.5" />
+                  {/* Mobile → Analytics */}
+                  <path d="M 654 170 C 770 170, 770 116, 870 116" stroke="rgba(255,255,255,0.07)" strokeWidth="1.5" />
+                  {/* API → Deploy */}
+                  <path d="M 654 278 C 770 278, 770 224, 870 224" stroke="rgba(255,255,255,0.07)" strokeWidth="1.5" />
+                  {/* Analytics → output */}
+                  <path d="M 934 116 C 1010 116, 1010 170, 1080 170" stroke="rgba(255,255,255,0.05)" strokeWidth="1.5" strokeDasharray="5 5" />
+                  {/* Deploy → output */}
+                  <path d="M 934 224 C 1010 224, 1010 170, 1080 170" stroke="rgba(255,255,255,0.05)" strokeWidth="1.5" strokeDasharray="5 5" />
+                  {/* Output dot */}
+                  <circle cx="1090" cy="170" r="7" fill="none" stroke="rgba(232,148,58,0.3)" strokeWidth="1.5" />
+                  <circle cx="1090" cy="170" r="3" fill="rgba(232,148,58,0.5)" />
+                </svg>
+
+                {/* Nodes — center = (x+32, y+32) */}
+                {[
+                  { Icon: Zap, label: "Trigger", x: 65, y: 138 },
+                  { Icon: Brain, label: "AI Model", x: 310, y: 30 },
+                  { Icon: Mail, label: "Email", x: 355, y: 138 },
+                  { Icon: Database, label: "Database", x: 310, y: 246 },
+                  { Icon: Bot, label: "AI Agent", x: 590, y: 30 },
+                  { Icon: Smartphone, label: "App", x: 590, y: 138 },
+                  { Icon: Plug, label: "API", x: 590, y: 246 },
+                  { Icon: BarChart3, label: "Analytics", x: 870, y: 84 },
+                  { Icon: Globe, label: "Deploy", x: 870, y: 192 },
+                ].map((node, i) => (
+                  <motion.div
+                    key={node.label}
+                    variants={fadeUp}
+                    initial="hidden"
+                    animate={specialInView ? "visible" : "hidden"}
+                    custom={0.2 + i * 0.06}
+                    className="absolute flex flex-col items-center"
+                    style={{ left: node.x, top: node.y }}
+                  >
+                    <div
+                      className="relative w-[64px] h-[64px] rounded-2xl flex items-center justify-center transition-all duration-400"
+                      style={{
+                        background: "rgba(255,255,255,0.03)",
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        backdropFilter: "blur(8px)",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = "rgba(232,148,58,0.5)";
+                        e.currentTarget.style.background = "rgba(232,148,58,0.08)";
+                        e.currentTarget.style.boxShadow = "0 0 32px rgba(232,148,58,0.15), inset 0 0 20px rgba(232,148,58,0.05)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
+                        e.currentTarget.style.background = "rgba(255,255,255,0.03)";
+                        e.currentTarget.style.boxShadow = "none";
+                      }}
+                    >
+                      {/* Status dot */}
+                      <div
+                        className="absolute -top-1.5 -right-1.5 w-2.5 h-2.5 rounded-full"
+                        style={{
+                          background: "#E8943A",
+                          boxShadow: "0 0 8px rgba(232,148,58,0.6)",
+                          border: "2px solid #050505",
+                        }}
+                      />
+                      {/* Input port */}
+                      <div
+                        className="absolute top-1/2 -left-[5px] w-2.5 h-2.5 rounded-full -translate-y-1/2"
+                        style={{ background: "#0a0a0a", border: "1.5px solid rgba(255,255,255,0.15)" }}
+                      />
+                      {/* Output port */}
+                      <div
+                        className="absolute top-1/2 -right-[5px] w-2.5 h-2.5 rounded-full -translate-y-1/2"
+                        style={{ background: "#0a0a0a", border: "1.5px solid rgba(255,255,255,0.15)" }}
+                      />
+                      <node.Icon size={24} strokeWidth={1.5} color="rgba(255,255,255,0.75)" />
+                    </div>
+                    <span className="text-[11px] mt-2 font-medium whitespace-nowrap tracking-wide" style={{ color: "rgba(255,255,255,0.4)" }}>{node.label}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* CTA */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            animate={specialInView ? "visible" : "hidden"}
+            custom={0.6}
+            className="text-center"
+          >
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-medium transition-all duration-400"
+              style={{
+                border: "1px solid rgba(232,148,58,0.5)",
+                color: "#fff",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(232,148,58,0.15)";
+                e.currentTarget.style.borderColor = "#E8943A";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.borderColor = "rgba(232,148,58,0.5)";
+              }}
+            >
+              Reach out <ArrowUpRight size={16} />
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Divider */}
+      <div className="section-dark"><div className="wrapper"><div style={{ height: 1, background: "rgba(255,255,255,0.04)" }} /></div></div>
+
       {/* ═══════════════════ TEAM ═══════════════════ */}
       <section className="section-dark relative overflow-hidden py-[56px] md:py-[140px]" ref={teamRef}>
         <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
@@ -1525,9 +1619,9 @@ export default function Home() {
                 initials: "AS",
                 photo: "/img/adrien.jpeg",
                 role: "Co-founder, Developer & UX/UI Designer",
-                desc: "Full-stack engineer obsessed with clean code and AI integration. Builds products that scale from day one.",
+                desc: "Dauphine PSL, MSc 224 Finance, Impact & Technology. ML & Algorithm coursework. Ex tech startups & tech investment banking. Builds brands, ships sites, apps, and CRMs with the sharpest tools on the market.",
                 linkedin: "https://www.linkedin.com/in/adrien-svabek-1451101aa/",
-                education: "MSc 224 — Dauphine PSL",
+                education: "MSc 224, Dauphine PSL",
                 experience: ["EY", "Cambon Partners"],
               },
               {
@@ -1535,9 +1629,9 @@ export default function Home() {
                 initials: "AC",
                 photo: "/img/alexandre.jpeg",
                 role: "Co-founder, Developer & UX/UI Designer",
-                desc: "UI/UX designer with a sharp eye for detail. Turns complex ideas into interfaces people actually enjoy using.",
+                desc: "Dauphine PSL, MSc 203 Financial Markets. Algorithmic trading background, quant models on live trading floors. Rigorous data thinking, clean architecture, and relentless performance optimization.",
                 linkedin: "https://www.linkedin.com/in/alexandre-cohen-skalli-a718bb206/",
-                education: "MSc 203 — Dauphine PSL",
+                education: "MSc 203, Dauphine PSL",
                 experience: ["Goldman Sachs", "HSBC", "Société Générale"],
               },
             ].map((member, i) => (
@@ -1551,14 +1645,19 @@ export default function Home() {
                 style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={member.photo}
-                  alt={member.name}
-                  loading="lazy"
-                  className="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover"
-                  style={{ border: member.name === "Alexandre Cohen-Skalli" ? "3px solid rgba(255,140,0,0.45)" : "2px solid rgba(255,140,0,0.2)", marginBottom: 24, filter: member.name === "Alexandre Cohen-Skalli" ? "grayscale(100%)" : undefined }}
-                  onError={(e) => { e.currentTarget.style.display = "none"; e.currentTarget.nextElementSibling?.classList.remove("hidden"); }}
-                />
+                <div
+                  className="w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden shrink-0"
+                  style={{ border: "2px solid rgba(255,140,0,0.2)", marginBottom: 24 }}
+                >
+                  <img
+                    src={member.photo}
+                    alt={member.name}
+                    loading="lazy"
+                    className="w-full h-full rounded-full object-cover"
+                    style={{ filter: member.name === "Alexandre Cohen-Skalli" ? "grayscale(100%)" : undefined }}
+                    onError={(e) => { e.currentTarget.style.display = "none"; e.currentTarget.parentElement?.nextElementSibling?.classList.remove("hidden"); }}
+                  />
+                </div>
                 <div
                   className="hidden w-28 h-28 md:w-36 md:h-36 rounded-full items-center justify-center text-[28px] md:text-[32px] font-medium shrink-0"
                   style={{ background: "rgba(255,140,0,0.12)", color: "#E8943A", border: "2px solid rgba(255,140,0,0.2)", marginBottom: 24 }}
