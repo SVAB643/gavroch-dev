@@ -61,14 +61,6 @@ const processSteps = [
 
 const projects = [
   {
-    title: "Panacea",
-    category: "Healthcare Innovation",
-    year: "2025",
-    desc: "Venture building and capital platform transforming science into scalable healthcare solutions.",
-    image: "/img/projects/panacea.png",
-    url: "https://www.panacea-hq.com/",
-  },
-  {
     title: "Ambroise Partners",
     category: "Corporate Site",
     year: "2025",
@@ -77,20 +69,64 @@ const projects = [
     url: "https://ambroise-partners.vercel.app/",
   },
   {
-    title: "Yelo",
-    category: "Mobile App",
+    title: "Gavroch.dev",
+    category: "Studio Site",
     year: "2025",
-    desc: "Premium ride-hailing experience with curated music and nightlife vibes.",
+    desc: "Our own AI-native full-stack web development studio.",
+    image: "/img/projects/gavroch.png",
+    url: "https://gavroch-dev.vercel.app/",
+  },
+];
+
+const showcase = [
+  {
+    title: "Lucis",
+    category: "Health & Wellness",
+    desc: "Complete health checkup platform — preventive care, reimagined.",
+    image: "/img/projects/lucis.png",
+    url: "https://www.lucis.life/",
+  },
+  {
+    title: "Panacea",
+    category: "Healthcare Innovation",
+    desc: "Venture building and capital platform transforming science into healthcare.",
+    image: "/img/projects/panacea.png",
+    url: "https://www.panacea-hq.com/",
+  },
+  {
+    title: "Yelo",
+    category: "Ride-Hailing",
+    desc: "Premium ride-hailing with curated music and nightlife vibes.",
     image: "/img/projects/yelo.png",
     url: "https://www.rideyelo.com/",
   },
   {
-    title: "Lucis",
-    category: "Health & Wellness",
-    year: "2025",
-    desc: "Complete health checkup platform — preventive care, reimagined.",
-    image: "/img/projects/lucis.png",
-    url: "https://www.lucis.life/",
+    title: "NEON",
+    category: "Film & Entertainment",
+    desc: "Independent film distributor specializing in distinctive cinema.",
+    image: "/img/projects/neonrated.png",
+    url: "https://www.neonrated.com/",
+  },
+  {
+    title: "Volta SKAI",
+    category: "Luxury Real Estate",
+    desc: "Luxury residential development with panoramic sea views.",
+    image: "/img/projects/voltaskai.png",
+    url: "https://voltaskai.endover.ee/en/",
+  },
+  {
+    title: "Adam Bricker",
+    category: "Portfolio",
+    desc: "Emmy-nominated cinematographer — television and documentaries.",
+    image: "/img/projects/adambricker.png",
+    url: "https://www.adambricker.com/",
+  },
+  {
+    title: "Aupale Vodka",
+    category: "Premium Brand",
+    desc: "Premium Canadian vodka crafted from glacier-sourced water.",
+    image: "/img/projects/aupalevodka.png",
+    url: "https://www.aupalevodka.com/en/",
   },
 ];
 
@@ -207,6 +243,7 @@ export default function Home() {
   const teamRef = useRef(null);
   const contactRef = useRef(null);
   const mailRef = useRef(null);
+  const showcaseRef = useRef(null);
 
   const servicesInView = useInView(servicesRef, { once: true, margin: "-100px" });
   const statsInView = useInView(statsRef, { once: true, margin: "-100px" });
@@ -217,6 +254,7 @@ export default function Home() {
   const teamInView = useInView(teamRef, { once: true, margin: "-100px" });
   const contactInView = useInView(contactRef, { once: true, margin: "-100px" });
   const mailInView = useInView(mailRef, { once: true, margin: "-100px" });
+  const showcaseInView = useInView(showcaseRef, { once: true, margin: "-100px" });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -1137,6 +1175,103 @@ export default function Home() {
                   </div>
                   <span
                     className="shrink-0 text-[9px] font-mono tracking-wider px-2.5 py-1 rounded-full mt-0.5"
+                    style={{ background: "rgba(0,0,0,0.04)", color: "rgba(0,0,0,0.4)" }}
+                  >
+                    {p.category}
+                  </span>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════ SHOWCASE ═══════════════════ */}
+      <section className="relative overflow-hidden py-[56px] md:py-[120px]" ref={showcaseRef} style={{ background: "#fafafa" }}>
+        <div className="wrapper">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 md:mb-20">
+            <div>
+              <motion.p
+                variants={fadeUp}
+                initial="hidden"
+                animate={showcaseInView ? "visible" : "hidden"}
+                custom={0}
+                className="text-[11px] uppercase tracking-[0.25em] font-mono mb-5 md:mb-8"
+                style={{ color: "rgba(0,0,0,0.3)" }}
+              >
+                Showcase
+              </motion.p>
+              <motion.h2
+                variants={slideUp}
+                initial="hidden"
+                animate={showcaseInView ? "visible" : "hidden"}
+                custom={0.1}
+                className="text-[clamp(2rem,5vw,4.5rem)] font-medium"
+                style={{ lineHeight: 1.05, letterSpacing: "-0.03em", color: "#0a0a0a" }}
+              >
+                We can build{" "}
+                <span style={{ color: "rgba(0,0,0,0.2)" }}>anything.</span>
+              </motion.h2>
+            </div>
+            <motion.p
+              variants={fadeUp}
+              initial="hidden"
+              animate={showcaseInView ? "visible" : "hidden"}
+              custom={0.2}
+              className="text-[13px] max-w-xs mt-4 md:mt-0 hidden md:block"
+              style={{ color: "rgba(0,0,0,0.4)", lineHeight: 1.7 }}
+            >
+              From luxury brands to health platforms — the kind of sites we craft every day.
+            </motion.p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+            {showcase.map((p, i) => (
+              <motion.a
+                key={p.title}
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                variants={fadeUp}
+                initial="hidden"
+                animate={showcaseInView ? "visible" : "hidden"}
+                custom={0.1 + i * 0.07}
+                className="group block"
+                data-hover
+              >
+                <div
+                  className="relative overflow-hidden rounded-xl transition-all duration-500 group-hover:shadow-lg"
+                  style={{
+                    background: "#fff",
+                    border: "1px solid rgba(0,0,0,0.06)",
+                    boxShadow: "0 1px 8px rgba(0,0,0,0.03)",
+                  }}
+                >
+                  <div className="relative overflow-hidden" style={{ height: 220 }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      loading="lazy"
+                      className="w-full h-auto"
+                      style={{ position: "absolute", top: 0, left: 0 }}
+                    />
+                    <div
+                      className="absolute inset-0 flex items-end p-4 transition-opacity duration-500 opacity-0 group-hover:opacity-100"
+                      style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)" }}
+                    >
+                      <span className="text-[10px] uppercase tracking-[0.15em] font-medium text-white/90">
+                        Visit &rarr;
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between mt-3 px-0.5">
+                  <h3 className="text-[0.9rem] font-medium" style={{ letterSpacing: "-0.02em", color: "#0a0a0a" }}>
+                    {p.title}
+                  </h3>
+                  <span
+                    className="text-[8px] font-mono tracking-wider px-2 py-0.5 rounded-full"
                     style={{ background: "rgba(0,0,0,0.04)", color: "rgba(0,0,0,0.4)" }}
                   >
                     {p.category}
