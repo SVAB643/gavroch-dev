@@ -1489,7 +1489,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ MAIL CTA ═══════════════════ */}
-      <section className="section-dark relative overflow-hidden py-[48px] md:py-[80px]" ref={mailRef}>
+      <section className="relative overflow-hidden py-[48px] md:py-[80px]" ref={mailRef} style={{ background: "#fafafa" }}>
         <div className="wrapper">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <motion.div
@@ -1498,14 +1498,14 @@ export default function Home() {
               animate={mailInView ? "visible" : "hidden"}
               custom={0}
             >
-              <p className="text-[11px] uppercase tracking-[0.25em] font-mono mb-3" style={{ color: "rgba(255,255,255,0.25)" }}>
+              <p className="text-[11px] uppercase tracking-[0.25em] font-mono mb-3" style={{ color: "rgba(0,0,0,0.25)" }}>
                 Have a project in mind?
               </p>
               <a
                 href="mailto:svabekadrien@gmail.com"
                 data-hover
-                className="group inline-flex items-center gap-4 text-[clamp(1rem,2vw,1.4rem)] font-medium transition-colors duration-300 hover:text-white"
-                style={{ color: "rgba(255,255,255,0.6)", letterSpacing: "-0.02em" }}
+                className="group inline-flex items-center gap-4 text-[clamp(1rem,2vw,1.4rem)] font-medium transition-colors duration-300"
+                style={{ color: "rgba(0,0,0,0.5)", letterSpacing: "-0.02em" }}
               >
                 svabekadrien@gmail.com
                 <span
@@ -1520,7 +1520,7 @@ export default function Home() {
               animate={mailInView ? "visible" : "hidden"}
               custom={0.15}
               className="text-[12px] max-w-[240px] hidden md:block"
-              style={{ color: "rgba(255,255,255,0.2)", lineHeight: 1.7, textAlign: "right" }}
+              style={{ color: "rgba(0,0,0,0.2)", lineHeight: 1.7, textAlign: "right" }}
             >
               Drop us a line — we reply fast.
             </motion.p>
