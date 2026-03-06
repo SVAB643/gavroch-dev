@@ -9,7 +9,7 @@ import {
   useInView,
   AnimatePresence,
 } from "framer-motion";
-import { ArrowUpRight, Mail, MapPin, Zap, Brain, Database, Bot, Globe, BarChart3, Plug, Smartphone } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, MessageCircle, Zap, Brain, Database, Bot, Globe, BarChart3, Plug, Smartphone } from "lucide-react";
 
 /* ─── DATA ─── */
 
@@ -1838,6 +1838,17 @@ export default function Home() {
                 >
                   <Mail size={14} style={{ color: "rgba(255,255,255,0.2)" }} />
                   svabekadrien@gmail.com
+                </a>
+                <a
+                  href="https://wa.me/33648763888"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-hover
+                  className="flex items-center text-[13px] hover:text-fg-light transition-colors duration-300 group"
+                  style={{ gap: 16, color: "rgba(255,255,255,0.45)" }}
+                >
+                  <MessageCircle size={14} style={{ color: "rgba(255,255,255,0.2)" }} />
+                  WhatsApp
                 </a>
                 <div
                   className="flex items-center text-[13px]"
