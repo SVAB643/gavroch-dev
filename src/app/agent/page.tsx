@@ -162,14 +162,18 @@ function OrbitIcon({
   total,
   radius,
   containerSize,
+  activeIdx,
+  setActiveIdx,
 }: {
   agent: (typeof agents)[number];
   index: number;
   total: number;
   radius: number;
   containerSize: number;
+  activeIdx: number | null;
+  setActiveIdx: (idx: number | null) => void;
 }) {
-  const [hovered, setHovered] = useState(false);
+  const hovered = activeIdx === index;
   const { x, y, isTop } = getOrbitPos(index, total, radius);
   const Icon = agent.icon;
 
@@ -189,9 +193,9 @@ function OrbitIcon({
       transition={{ duration: 0.6, delay: 1 + index * 0.12, ease }}
       className="absolute"
       style={{ left, top, width: iconHalf * 2, height: iconHalf * 2 }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onTouchEnd={(e) => { e.preventDefault(); setHovered((h) => !h); }}
+      onMouseEnter={() => setActiveIdx(index)}
+      onMouseLeave={() => setActiveIdx(null)}
+      onTouchEnd={(e) => { e.preventDefault(); setActiveIdx(hovered ? null : index); }}
     >
       <motion.div
         whileHover={{ scale: 1.15 }}
@@ -247,6 +251,7 @@ function OrbitIcon({
 /* ── Sphere + orbits section ── */
 function SphereSection({ sphereSize, orbitRadius, containerSize }: { sphereSize: number; orbitRadius: number; containerSize: number }) {
   const sphereOffset = (containerSize - sphereSize) / 2;
+  const [activeIdx, setActiveIdx] = useState<number | null>(null);
 
   return (
     <div className="relative" style={{ width: containerSize, height: containerSize }}>
@@ -257,7 +262,7 @@ function SphereSection({ sphereSize, orbitRadius, containerSize }: { sphereSize:
 
       {/* Orbit icons */}
       {agents.map((agent, i) => (
-        <OrbitIcon key={agent.label} agent={agent} index={i} total={agents.length} radius={orbitRadius} containerSize={containerSize} />
+        <OrbitIcon key={agent.label} agent={agent} index={i} total={agents.length} radius={orbitRadius} containerSize={containerSize} activeIdx={activeIdx} setActiveIdx={setActiveIdx} />
       ))}
 
       {/* Center title */}
@@ -411,8 +416,10 @@ export default function AgentPage() {
             transition={{ duration: 0.8, delay: 1.4, ease }}
             className="mt-6 md:mt-8"
           >
-            <Link
-              href="/#contact"
+            <a
+              href="https://wa.me/33648763888"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-7 py-3 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium transition-all duration-400"
               style={{ border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.5)" }}
               onMouseEnter={(e) => {
@@ -427,7 +434,7 @@ export default function AgentPage() {
               }}
             >
               Get in touch
-            </Link>
+            </a>
           </motion.div>
 
           {/* Bottom hint */}
