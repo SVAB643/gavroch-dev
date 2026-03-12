@@ -9,12 +9,12 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 /* ── Agent orbit items ── */
 const agents = [
-  { icon: Mail, label: "Agent Mail", desc: "Rédige et envoie vos emails automatiquement, relances incluses." },
-  { icon: Share2, label: "Agent Réseaux", desc: "Publie, planifie et engage sur vos réseaux sociaux." },
-  { icon: Calendar, label: "Agent Planning", desc: "Gère votre agenda, prend vos rendez-vous, optimise votre temps." },
-  { icon: FileText, label: "Agent Contenu", desc: "Génère articles, fiches produit et contenus SEO à la volée." },
-  { icon: Headphones, label: "Agent Support", desc: "Répond à vos clients 24/7 avec intelligence et empathie." },
-  { icon: BarChart3, label: "Agent Data", desc: "Analyse vos données et génère des rapports actionnables." },
+  { icon: Mail, label: "Mail Agent", desc: "Drafts and sends emails automatically, follow-ups included." },
+  { icon: Share2, label: "Social Agent", desc: "Posts, schedules and engages across your social channels." },
+  { icon: Calendar, label: "Planning Agent", desc: "Manages your calendar, books meetings, optimizes your time." },
+  { icon: FileText, label: "Content Agent", desc: "Generates articles, product sheets and SEO content on the fly." },
+  { icon: Headphones, label: "Support Agent", desc: "Answers your customers 24/7 with intelligence and empathy." },
+  { icon: BarChart3, label: "Data Agent", desc: "Analyzes your data and generates actionable reports." },
 ];
 
 /* ── Interactive 3D dot sphere on <canvas> ── */
@@ -185,11 +185,13 @@ function OrbitIcon({
   index,
   total,
   radius,
+  center = 270,
 }: {
   agent: (typeof agents)[number];
   index: number;
   total: number;
   radius: number;
+  center?: number;
 }) {
   const [hovered, setHovered] = useState(false);
   // Spread icons over a 240° arc centered on top, leaving bottom clear for text
@@ -210,8 +212,8 @@ function OrbitIcon({
       transition={{ duration: 0.6, delay: 1 + index * 0.12, ease }}
       className="absolute"
       style={{
-        left: `${270 + x}px`,
-        top: `${270 + y}px`,
+        left: `${center + x}px`,
+        top: `${center + y}px`,
         transform: "translate(-50%, -50%)",
       }}
       onMouseEnter={() => setHovered(true)}
@@ -339,12 +341,64 @@ export default function AgentPage() {
       {/* Main content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 pb-20">
 
-        {/* Sphere + orbit icons + centered text */}
+        {/* Sphere + orbit icons — MOBILE */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.5, delay: 0.2, ease }}
-          className="relative"
+          className="relative block md:hidden"
+          style={{ width: 340, height: 340 }}
+        >
+          <div
+            className="absolute"
+            style={{ left: 170, top: 170, transform: "translate(-50%, -50%)" }}
+          >
+            <DotSphere size={220} />
+          </div>
+          {agents.map((agent, i) => (
+            <OrbitIcon key={agent.label} agent={agent} index={i} total={agents.length} radius={145} center={170} />
+          ))}
+          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6, ease }}
+            >
+              <span
+                className="inline-flex items-center gap-2 text-[8px] font-mono uppercase tracking-[0.2em] px-2.5 py-1 rounded-full mb-4"
+                style={{
+                  border: "1px solid rgba(255,255,255,0.12)",
+                  color: "rgba(255,255,255,0.4)",
+                  background: "rgba(255,255,255,0.03)",
+                  backdropFilter: "blur(8px)",
+                }}
+              >
+                <Sparkles size={9} />
+                Coming soon
+              </span>
+            </motion.div>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.8, ease }}
+              className="text-center leading-none"
+            >
+              <span className="text-[1.6rem] font-semibold tracking-[-0.03em] text-white/90">
+                Gavroch
+              </span>
+              <span className="text-[1.6rem] font-light tracking-[-0.01em] text-white/50">
+                .Agent
+              </span>
+            </motion.h1>
+          </div>
+        </motion.div>
+
+        {/* Sphere + orbit icons — DESKTOP */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, delay: 0.2, ease }}
+          className="relative hidden md:block"
           style={{ width: 540, height: 540 }}
         >
           {/* 3D Dot Sphere — absolutely centered */}
@@ -352,12 +406,7 @@ export default function AgentPage() {
             className="absolute"
             style={{ left: 270, top: 270, transform: "translate(-50%, -50%)" }}
           >
-            <div className="hidden md:block">
-              <DotSphere size={360} />
-            </div>
-            <div className="block md:hidden">
-              <DotSphere size={240} />
-            </div>
+            <DotSphere size={360} />
           </div>
 
           {/* Orbiting glassmorphism icons */}
@@ -411,9 +460,9 @@ export default function AgentPage() {
           transition={{ duration: 0.8, delay: 1, ease }}
           className="-mt-2 text-center text-[clamp(0.85rem,1.8vw,1.05rem)] leading-relaxed text-white/25 max-w-[480px]"
         >
-          Des agents IA autonomes, pensés pour votre business.
+          Autonomous AI agents, built for your business.
           <br />
-          Automatisez. Déléguez. Scalez.
+          Automate. Delegate. Scale.
         </motion.p>
 
         {/* Separator line */}
@@ -453,7 +502,7 @@ export default function AgentPage() {
               e.currentTarget.style.color = "rgba(255,255,255,0.5)";
             }}
           >
-            Nous contacter
+            Get in touch
           </Link>
         </motion.div>
 
@@ -465,7 +514,7 @@ export default function AgentPage() {
           transition={{ duration: 1, delay: 1.8 }}
           className="absolute bottom-8 text-[10px] font-mono uppercase tracking-[0.2em] text-white/10"
         >
-          Intelligence artificielle sur mesure
+          Bespoke artificial intelligence
         </motion.p>
       </div>
     </div>
