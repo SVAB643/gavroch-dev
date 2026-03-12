@@ -191,7 +191,7 @@ function OrbitIcon({
       style={{ left, top, width: iconHalf * 2, height: iconHalf * 2 }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onClick={() => setHovered((h) => !h)}
+      onTouchEnd={(e) => { e.preventDefault(); setHovered((h) => !h); }}
     >
       <motion.div
         whileHover={{ scale: 1.15 }}
