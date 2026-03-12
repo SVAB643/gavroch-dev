@@ -343,6 +343,30 @@ export default function Home() {
                 {link.label}
               </a>
             ))}
+            <a
+              href="/agent"
+              data-hover
+              className="relative text-[11px] uppercase tracking-[0.15em] font-medium px-4 py-1.5 rounded-full transition-all duration-300 overflow-hidden"
+              style={{
+                background: headerDark
+                  ? "linear-gradient(135deg, #E8943A, #D4802A)"
+                  : scrolled
+                    ? "linear-gradient(135deg, #E8943A, #D4802A)"
+                    : "linear-gradient(135deg, #1a1a1a, #333)",
+                color: headerDark ? "#050505" : scrolled ? "#050505" : "#fafafa",
+                boxShadow: "0 0 20px rgba(232,148,58,0.15)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = "0 0 30px rgba(232,148,58,0.35)";
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = "0 0 20px rgba(232,148,58,0.15)";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              .Agent
+            </a>
           </nav>
 
           <button
@@ -391,6 +415,20 @@ export default function Home() {
                 {link.label}
               </motion.a>
             ))}
+            <motion.a
+              href="/agent"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 + navLinks.length * 0.08 }}
+              onClick={() => setMenuOpen(false)}
+              className="mt-4 inline-flex items-center gap-3 px-6 py-2.5 rounded-full text-[14px] uppercase tracking-[0.12em] font-medium transition-all duration-300"
+              style={{
+                background: "linear-gradient(135deg, #E8943A, #D4802A)",
+                color: "#050505",
+              }}
+            >
+              .Agent
+            </motion.a>
           </motion.div>
         )}
       </AnimatePresence>
