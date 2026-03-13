@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft, Sparkles, Mail, Share2, Calendar, FileText, Headphones, BarChart3 } from "lucide-react";
+import { ArrowLeft, Mail, Share2, Calendar, FileText, Headphones, BarChart3 } from "lucide-react";
 import { useEffect, useRef, useCallback, useState } from "react";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -267,24 +267,6 @@ function SphereSection({ sphereSize, orbitRadius, containerSize }: { sphereSize:
 
       {/* Center title */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease }}
-        >
-          <span
-            className="inline-flex items-center gap-2 text-[8px] md:text-[9px] font-mono uppercase tracking-[0.2em] px-2.5 py-1 md:px-3 md:py-1.5 rounded-full mb-4 md:mb-5"
-            style={{
-              border: "1px solid rgba(255,255,255,0.12)",
-              color: "rgba(255,255,255,0.4)",
-              background: "rgba(255,255,255,0.03)",
-              backdropFilter: "blur(8px)",
-            }}
-          >
-            <Sparkles size={9} />
-            Coming soon
-          </span>
-        </motion.div>
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -416,25 +398,44 @@ export default function AgentPage() {
             transition={{ duration: 0.8, delay: 1.4, ease }}
             className="mt-6 md:mt-8"
           >
-            <a
-              href="https://wa.me/33648763888"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-7 py-3 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium transition-all duration-400"
-              style={{ border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.5)" }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(255,255,255,0.05)";
-                e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)";
-                e.currentTarget.style.color = "rgba(255,255,255,0.8)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
-                e.currentTarget.style.color = "rgba(255,255,255,0.5)";
-              }}
-            >
-              Get in touch
-            </a>
+            <div className="flex flex-col sm:flex-row items-center gap-3">
+              <a
+                href="mailto:adrien@gavroch.com"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium transition-all duration-400"
+                style={{ border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.5)" }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(255,255,255,0.05)";
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)";
+                  e.currentTarget.style.color = "rgba(255,255,255,0.8)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
+                  e.currentTarget.style.color = "rgba(255,255,255,0.5)";
+                }}
+              >
+                <Mail size={13} />
+                adrien@gavroch.com
+              </a>
+              <a
+                href="mailto:alexandre@gavroch.com"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium transition-all duration-400"
+                style={{ border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.5)" }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(255,255,255,0.05)";
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)";
+                  e.currentTarget.style.color = "rgba(255,255,255,0.8)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
+                  e.currentTarget.style.color = "rgba(255,255,255,0.5)";
+                }}
+              >
+                <Mail size={13} />
+                alexandre@gavroch.com
+              </a>
+            </div>
           </motion.div>
 
           {/* Bottom hint */}
