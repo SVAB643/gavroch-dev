@@ -415,7 +415,7 @@ export default function AgentPage() {
                 }}
               >
                 <Mail size={13} />
-                alexandre.cohen.skalli@gmail.com
+                Mail
               </a>
               <a
                 href="https://wa.me/33648763888"
