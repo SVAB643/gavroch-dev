@@ -400,7 +400,7 @@ export default function AgentPage() {
           >
             <div className="flex flex-col sm:flex-row items-center gap-3">
               <a
-                href="mailto:adrien@gavroch.com"
+                href="mailto:alexandre.cohen.skalli@gmail.com"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium transition-all duration-400"
                 style={{ border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.5)" }}
                 onMouseEnter={(e) => {
@@ -415,10 +415,12 @@ export default function AgentPage() {
                 }}
               >
                 <Mail size={13} />
-                adrien@gavroch.com
+                alexandre.cohen.skalli@gmail.com
               </a>
               <a
-                href="mailto:alexandre@gavroch.com"
+                href="https://wa.me/33648763888"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium transition-all duration-400"
                 style={{ border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.5)" }}
                 onMouseEnter={(e) => {
@@ -432,8 +434,7 @@ export default function AgentPage() {
                   e.currentTarget.style.color = "rgba(255,255,255,0.5)";
                 }}
               >
-                <Mail size={13} />
-                alexandre@gavroch.com
+                WhatsApp
               </a>
             </div>
           </motion.div>
