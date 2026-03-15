@@ -1593,7 +1593,7 @@ export default function Home() {
             className="text-center"
           >
             <a
-              href="#contact"
+              href="/agent"
               className="inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-medium transition-all duration-400"
               style={{
                 border: "1px solid rgba(232,148,58,0.5)",
@@ -1608,7 +1608,7 @@ export default function Home() {
                 e.currentTarget.style.borderColor = "rgba(232,148,58,0.5)";
               }}
             >
-              Reach out <ArrowUpRight size={16} />
+              Discover .Agent <ArrowUpRight size={16} />
             </a>
           </motion.div>
         </div>
