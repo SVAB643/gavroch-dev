@@ -996,8 +996,8 @@ export default function Home() {
       </section>
 
 
-      {/* ═══════════════════ PROJETS ═══════════════════ */}
-      <section id="projects" className="relative overflow-hidden pt-[56px] pb-[32px] md:pt-[140px] md:pb-[40px]" ref={projetsRef} style={{ background: "#fafafa" }}>
+      {/* ═══════════════════ PROJETS + SHOWCASE (hidden for now) ═══════════════════ */}
+      {false && <><section id="projects" className="relative overflow-hidden pt-[56px] pb-[32px] md:pt-[140px] md:pb-[40px]" ref={projetsRef} style={{ background: "#fafafa" }}>
         <div className="wrapper">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 md:mb-20">
             <div>
@@ -1221,7 +1221,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </section></>}
 
       {/* ═══════════════════ PRICING ═══════════════════ */}
       <section id="pricing" className="section-dark relative overflow-hidden pt-[56px] pb-[32px] md:pt-[140px] md:pb-[48px]" ref={pricingRef}>
