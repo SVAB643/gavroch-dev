@@ -1617,8 +1617,8 @@ export default function Home() {
       {/* Divider */}
       <div className="section-dark"><div className="wrapper"><div style={{ height: 1, background: "rgba(255,255,255,0.04)" }} /></div></div>
 
-      {/* ═══════════════════ TEAM ═══════════════════ */}
-      <section className="section-dark relative overflow-hidden py-[56px] md:py-[140px]" ref={teamRef}>
+      {/* ═══════════════════ TEAM (hidden temporarily) ═══════════════════ */}
+      <section className="section-dark relative overflow-hidden py-[56px] md:py-[140px] hidden" ref={teamRef}>
         <div className="grain-overlay absolute inset-0 pointer-events-none" style={{ opacity: 0.25 }}>
           <svg width="100%" height="100%"><filter id="grainTeam"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#grainTeam)" /></svg>
         </div>
