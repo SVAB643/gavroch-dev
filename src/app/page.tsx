@@ -1765,12 +1765,12 @@ export default function Home() {
                 Have a project in mind?
               </p>
               <a
-                href="mailto:svabekadrien@gmail.com"
+                href="mailto:alexandrecohenskalli@gmail.com"
                 data-hover
                 className="group inline-flex items-center gap-4 text-[clamp(1rem,2vw,1.4rem)] font-medium transition-colors duration-300"
                 style={{ color: "rgba(0,0,0,0.5)", letterSpacing: "-0.02em" }}
               >
-                svabekadrien@gmail.com
+                alexandrecohenskalli@gmail.com
                 <span
                   className="inline-block w-8 h-[1px] group-hover:w-14 transition-all duration-500"
                   style={{ background: "linear-gradient(90deg, #FFD000, #FF8C00)" }}
@@ -1844,7 +1844,7 @@ export default function Home() {
                 className="mt-10 md:mt-16"
               >
                 <motion.a
-                  href="mailto:svabekadrien@gmail.com"
+                  href="mailto:alexandrecohenskalli@gmail.com"
                   data-hover
                   className="inline-flex items-center text-[12px] uppercase tracking-[0.2em] font-medium group"
                   style={{ gap: 16 }}
@@ -1869,13 +1869,13 @@ export default function Home() {
                 style={{ display: "flex", flexDirection: "column", gap: 24 }}
               >
                 <a
-                  href="mailto:svabekadrien@gmail.com"
+                  href="mailto:alexandrecohenskalli@gmail.com"
                   data-hover
                   className="flex items-center text-[13px] hover:text-fg-light transition-colors duration-300 group"
                   style={{ gap: 16, color: "rgba(255,255,255,0.45)" }}
                 >
                   <Mail size={14} style={{ color: "rgba(255,255,255,0.2)" }} />
-                  svabekadrien@gmail.com
+                  alexandrecohenskalli@gmail.com
                 </a>
                 <a
                   href="https://wa.me/33648763888"
