@@ -400,7 +400,7 @@ export default function AgentPage() {
           >
             <div className="flex flex-col sm:flex-row items-center gap-3">
               <a
-                href="mailto:alexandrecohenskalli@gmail.com"
+                href="mailto:alexandre.cohen.skalli@gmail.com"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium transition-all duration-400"
                 style={{ border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.5)" }}
                 onMouseEnter={(e) => {
