@@ -1261,7 +1261,7 @@ export default function Home() {
             {[
               {
                 name: "Starter",
-                price: "399",
+                price: "699",
                 desc: "A complete, professional website to establish your online presence — fast and reliable.",
                 features: [
                   "Full website",
@@ -1277,7 +1277,7 @@ export default function Home() {
               },
               {
                 name: "Custom Build",
-                price: "629",
+                price: "849",
                 highlight: true,
                 desc: "Our core offering — a conversion-optimized site with real guidance throughout the process.",
                 features: [
@@ -1295,7 +1295,7 @@ export default function Home() {
               },
               {
                 name: "Brand + Build",
-                price: "999",
+                price: "1219",
                 desc: "The full package — bespoke design, advanced UX, and 3 months of hands-on partnership.",
                 features: [
                   "Full website + dedicated landing page",
